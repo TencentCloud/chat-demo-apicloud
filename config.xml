@@ -1,0 +1,17 @@
+<widget id="A0000000000000" version="0.0.1">
+
+	<name>tencentCloudChatSDK / H5 demo</name>
+
+	<description>apicloud tencentCloudChatSDK/tencentCloudChatH5 的 api demo</description>
+
+	<author href="https://cloud.tencent.com/document/product/269/86557">腾讯云 </author>
+
+	<content src="index.html"/>
+
+	<preference name="debug" value="true"/>
+
+	<permission name="camera"/>
+
+	<permission name="fileSystem"/>
+
+</widget>

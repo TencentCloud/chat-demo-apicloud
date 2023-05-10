@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Module Develop</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <style type="text/css">
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            background-color: #fff;
+            margin: 0;
+        }
+
+        #wrap {
+            height: 100%;
+            position: relative;
+        }
+
+        #header {
+            background-color: #5082c2;
+            height: 44px;
+            position: relative;
+        }
+
+        #header h1 {
+            font-size: 20px;
+            height: 44px;
+            line-height: 44px;
+            margin: 0em;
+            color: #fff;
+            margin-left: 100px;
+            margin-right: 100px;
+            text-align: center;
+        }
+
+        #main {
+            display: block;
+        }
+
+        a.button {
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            height: 36px;
+            margin: 8px;
+            background-color: rgba(240, 240, 240, 1.0);
+            border-color: rgba(220, 220, 220, 1.0);
+            border-width: 2px;
+            border-style: solid;
+        }
+
+        a.active {
+            background-color: rgba(240, 240, 240, 0.6);
+        }
+    </style>
+     <script type="text/javascript" src="./tencentCloudChat.js"></script>
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+            <h1 id="title">模块开发</h1>
+        </header>
+        <div id="main">
+            <div id="console"></div>
+            <div class='itemtitle'>V2TIMManager</div>
+            <a class="button" tapmode="active" onclick="test()">ceshi</a>
+            <a class="button" tapmode="active" onclick="initSDK()">初始化</a>
+            <a class="button" tapmode="active" onclick="unInitSDK()">反初始化</a>
+            <a class="button" tapmode="active" onclick="getVersion()">获取版本号</a>
+            <a class="button" tapmode="active" onclick="getServerTime()">获取服务器当前时间</a>
+            <a class="button" tapmode="active" onclick="login()">登录</a>
+            <a class="button" tapmode="active" onclick="logout()">登出</a>
+            <a class="button" tapmode="active" onclick="getLoginUser()">获取登录信息</a>
+            <a class="button" tapmode="active" onclick="addGroupListener()">添加群组监听器</a>
+            <a class="button" tapmode="active" onclick="removeGroupListener()"> 移除群组监听器</a>
+            <a class="button" tapmode="active" onclick="createGroup()">创建群组</a>
+            <a class="button" tapmode="active" onclick="joinGroup()"> 加入群组</a>
+            <a class="button" tapmode="active" onclick="quitGroup()">退出群组</a>
+            <a class="button" tapmode="active" onclick="dismissGroup()"> 解散群组</a>
+            <a class="button" tapmode="active" onclick="getUsersInfo()"> 获取用户资料</a>
+            <a class="button" tapmode="active" onclick="setSelfInfo()"> 修改个人资料</a>
+            <a class="button" tapmode="active" onclick="setSelfStatus()">设置自己的状态</a>
+            <a class="button" tapmode="active" onclick="subscribeUserStatus()"> 订阅用户状态</a>
+            <a class="button" tapmode="active" onclick="unsubscribeUserStatus()"> 取消订阅用户状态</a>
+            <div class='itemtitle'>V2TIMMessageManager</div>
+            <a class="button" tapmode="active" onclick="addAdvancedMsgListener()"> 添加高级消息的事件监听器</a>
+            <a class="button" tapmode="active" onclick="openWin()"> index2</a>
+            <a class="button" tapmode="active" onclick="removeAdvancedMsgListener()"> 移除高级消息监听器</a>
+            <a class="button" tapmode="active" onclick="createTextMessage()"> 创建文本消息</a>
+            <a class="button" tapmode="active" onclick="createTextAtMessage()"> 创建文本消息，并且可以附带 @ 提醒功能</a>
+            <a class="button" tapmode="active" onclick="createCustomMessage()"> 创建自定义消息</a>
+            <a class="button" tapmode="active" onclick="createImageMessage()"> 创建图片消息</a>
+            <a class="button" tapmode="active" onclick="createSoundMessage()"> 创建语音消息</a>
+            <a class="button" tapmode="active" onclick="createVideoMessage()">创建视频消息</a>
+            <a class="button" tapmode="active" onclick="createFileMessage()"> 创建文件消息</a>
+            <a class="button" tapmode="active" onclick="createLocationMessage()"> 创建地理位置消息</a>
+            <a class="button" tapmode="active" onclick="createFaceMessage()">创建表情消息</a>
+            <a class="button" tapmode="active" onclick="createMergerMessage()">  创建合并消息</a>
+            <a class="button" tapmode="active" onclick="createForwardMessage()"> 创建转发消息</a>
+            <a class="button" tapmode="active" onclick="sendMessage()">  发送高级消息</a>
+            <a class="button" tapmode="active" onclick="setC2CReceiveMessageOpt()"> 设置针对某个用户的 C2C 消息接收选项</a>
+            <a class="button" tapmode="active" onclick="getC2CReceiveMessageOpt()"> 查询针对某个用户的 C2C 消息接收选项</a>
+            <a class="button" tapmode="active" onclick="setGroupReceiveMessageOpt()">  设置群消息的接收选项</a>
+            <a class="button" tapmode="active" onclick="getC2CHistoryMessageList()"> 获取单聊历史消息</a>
+            <a class="button" tapmode="active" onclick="getGroupHistoryMessageList()"> 获取群组历史消息</a>
+            <a class="button" tapmode="active" onclick="getHistoryMessageList()">  获取历史消息高级接口</a>
+            <a class="button" tapmode="active" onclick="revokeMessage()"> 撤回消息</a>
+            <a class="button" tapmode="active" onclick="modifyMessage()"> 消息变更</a>
+            <a class="button" tapmode="active" onclick="markC2CMessageAsRead()">  标记单聊会话已读</a>
+            <a class="button" tapmode="active" onclick="markGroupMessageAsRead()"> 标记群组会话已读</a>
+            <a class="button" tapmode="active" onclick="modifyMessage()"> 消息变更</a>
+            <a class="button" tapmode="active" onclick="markC2CMessageAsRead()">  标记单聊会话已读</a>
+            <a class="button" tapmode="active" onclick="markGroupMessageAsRead()"> 标记群组会话已读</a>
+            <a class="button" tapmode="active" onclick="markAllMessageAsRead()"> 标记所有会话为已读</a>
+            <a class="button" tapmode="active" onclick="deleteMessageFromLocalStorage()">  删除本地消息</a>
+            <a class="button" tapmode="active" onclick="deleteMessages()"> 删除本地及云端的消息</a>
+            <a class="button" tapmode="active" onclick="clearC2CHistoryMessage()"> 清空单聊本地及云端的消息</a>
+            <a class="button" tapmode="active" onclick="clearGroupHistoryMessage()">  清空群聊本地及云端的消息</a>
+            <a class="button" tapmode="active" onclick="insertGroupMessageToLocalStorage()"> 向群组消息列表中添加一条消息</a>
+            <a class="button" tapmode="active" onclick="insertC2CMessageToLocalStorage()"> 向C2C消息列表中添加一条消息</a>
+            <a class="button" tapmode="active" onclick="findMessages()">  根据 messageID 查询指定会话中的本地消息</a>
+            <a class="button" tapmode="active" onclick="searchLocalMessages()"> 搜索本地消息</a>
+            <a class="button" tapmode="active" onclick="sendMessageReadReceipts()"> 发送消息已读回执</a>
+            <a class="button" tapmode="active" onclick="getMessageReadReceipts()">  获取消息已读回执</a>
+            <a class="button" tapmode="active" onclick="getGroupMessageReadMemberList()"> 获取群消息已读群成员列表</a>
+            <a class="button" tapmode="active" onclick="setMessageExtensions()"> 设置消息扩展</a>
+            <a class="button" tapmode="active" onclick="getMessageExtensions()">  获取消息扩展</a>
+            <a class="button" tapmode="active" onclick="deleteMessageExtensions()"> 删除消息扩展</a>
+            <div class='itemtitle'>V2TIMGroupManager</div>
+            <a class="button" tapmode="active" onclick="getJoinedGroupList()"> 获取当前用户已经加入的群列表</a>
+            <a class="button" tapmode="active" onclick="getGroupsInfo()">  拉取群资料</a>
+            <a class="button" tapmode="active" onclick="searchGroups()"> 搜索群资料</a>
+            <a class="button" tapmode="active" onclick="setGroupInfo()"> 修改群资料</a>
+            <a class="button" tapmode="active" onclick="initGroupAttributes()">  初始化群属性，会清空原有的群属性列表</a>
+            <a class="button" tapmode="active" onclick="setGroupAttributes()"> 设置群属性</a>
+            <a class="button" tapmode="active" onclick="deleteGroupAttributes()"> 删除指定群属性</a>
+            <a class="button" tapmode="active" onclick="getGroupAttributes()">  获取指定群属性</a>
+            <a class="button" tapmode="active" onclick="getGroupOnlineMemberCount()"> 获取指定群在线人数</a>
+            <a class="button" tapmode="active" onclick="getGroupMemberList()"> 获取群成员列表</a>
+            <a class="button" tapmode="active" onclick="getGroupMembersInfo()">  获取指定的群成员资料</a>
+            <a class="button" tapmode="active" onclick="searchGroupMembers()"> 搜索群成员</a>
+            <a class="button" tapmode="active" onclick="getGroupMemberList()"> 获取群成员列表</a>
+            <a class="button" tapmode="active" onclick="getGroupMembersInfo()">  获取指定的群成员资料</a>
+            <a class="button" tapmode="active" onclick="searchGroupMembers()"> 搜索群成员</a>
+            <a class="button" tapmode="active" onclick="setGroupMemberInfo()"> 修改指定的群成员资料</a>
+            <a class="button" tapmode="active" onclick="muteGroupMember()">  禁言</a>
+            <a class="button" tapmode="active" onclick="inviteUserToGroup()"> 邀请他人入群</a>
+            <a class="button" tapmode="active" onclick="kickGroupMember()">  踢人</a>
+            <a class="button" tapmode="active" onclick="setGroupMemberRole()">  切换群成员的角色。</a>
+            <a class="button" tapmode="active" onclick="markGroupMemberList()"> 标记群成员</a>
+            <a class="button" tapmode="active" onclick="transferGroupOwner()">  转让群主</a>
+            <a class="button" tapmode="active" onclick="getGroupApplicationList()">  获取加群申请列表</a>
+            <a class="button" tapmode="active" onclick="acceptGroupApplication()"> 同意某一条加群申请</a>
+            <a class="button" tapmode="active" onclick="refuseGroupApplication()">  拒绝某一条加群申请</a>
+            <a class="button" tapmode="active" onclick="setGroupApplicationRead()">  标记申请列表为已读</a>
+            <a class="button" tapmode="active" onclick="getJoinedCommunityList()"> 获取当前用户已经加入的支持话题的社群列表</a>
+            <a class="button" tapmode="active" onclick="createTopicInCommunity()">  创建话题</a>
+            <a class="button" tapmode="active" onclick="deleteTopicFromCommunity()">  删除话题</a>
+            <a class="button" tapmode="active" onclick="setTopicInfo()"> 修改话题信息</a>
+            <a class="button" tapmode="active" onclick="getTopicInfoList()"> 获取话题列表</a>
+            <div class='itemtitle'>V2TIMSignalingManager</div>
+            <a class="button" tapmode="active" onclick="addSignalingListener()">添加信令监听</a>
+            <a class="button" tapmode="active" onclick="removeSignalingListener()">移除信令监听</a>
+            <a class="button" tapmode="active" onclick="invite()">邀请</a>
+            <a class="button" tapmode="active" onclick="inviteInGroup()">群组内邀请</a>
+            <a class="button" tapmode="active" onclick="cancel()">取消邀请</a>            
+            <a class="button" tapmode="active" onclick="accept()">接收方接收邀请</a>      
+            <a class="button" tapmode="active" onclick="reject()">接收方拒绝邀请</a>
+            <a class="button" tapmode="active" onclick="getSignalingInfo()">获取信令信息</a>      
+            <a class="button" tapmode="active" onclick="addInvitedSignaling()">添加邀请信令</a>      
+            <div class='itemtitle'>V2TIMConversationManager</div>
+            <a class="button" tapmode="active" onclick="addConversationListener()">添加会话监听器</a>      
+            <a class="button" tapmode="active" onclick="removeConversationListener()">移除会话监听器</a>
+            <a class="button" tapmode="active" onclick="getConversationList()">获取会话列表</a>      
+            <a class="button" tapmode="active" onclick="getConversation()">获取单个会话</a>
+            <a class="button" tapmode="active" onclick="getConversationListByConversaionIds()">获取指定会话列表(id)</a>      
+            <a class="button" tapmode="active" onclick="getConversationListByFilter()">获取会话列表高级接口</a> 
+            <a class="button" tapmode="active" onclick="deleteConversation()">删除会话</a>
+            <a class="button" tapmode="active" onclick="setConversationDraft()">设置会话草稿</a>      
+            <a class="button" tapmode="active" onclick="setConversationCustomData()">设置会话自定义数据</a> 
+            <a class="button" tapmode="active" onclick="pinConversation()">设置会话置顶</a>
+            <a class="button" tapmode="active" onclick="markConversation()">标记会话</a>      
+            <a class="button" tapmode="active" onclick="getTotalUnreadMessageCount()">获取全部会话的未读总数</a>
+            <a class="button" tapmode="active" onclick="createConversationGroup()">创建会话分组</a>
+            <a class="button" tapmode="active" onclick="getConversationGroupList()">获取会话分组列表</a>      
+            <a class="button" tapmode="active" onclick="deleteConversationGroup()">删除会话分组</a>
+            <a class="button" tapmode="active" onclick="renameConversationGroup()">重命名会话分组</a>
+            <a class="button" tapmode="active" onclick="addConversationsToGroup()">添加会话到一个会话分组</a>      
+            <a class="button" tapmode="active" onclick="deleteConversationsFromGroup()">从一个会话分组中删除会话</a> 
+            <div class='itemtitle'>V2TIMFriendshipManager</div>
+            <a class="button" tapmode="active" onclick="addFriendListener()">添加关系链监听器</a>
+            <a class="button" tapmode="active" onclick="removeFriendListener()">移除关系链监听器</a>      
+            <a class="button" tapmode="active" onclick="getFriendList()">获取好友列表</a>
+            <a class="button" tapmode="active" onclick="getFriendsInfo()">获取指定好友资料</a>
+            <a class="button" tapmode="active" onclick="setFriendInfo()">设置指定好友资料</a>    
+            <a class="button" tapmode="active" onclick="searchFriends()">搜索好友</a>
+            <a class="button" tapmode="active" onclick="addFriend()">添加好友</a>      
+            <a class="button" tapmode="active" onclick="deleteFromFriendList()">删除好友</a>
+            <a class="button" tapmode="active" onclick="checkFriend()">检查指定用户的好友关系</a>
+            <a class="button" tapmode="active" onclick="getFriendApplicationList()">获取好友申请列表</a>      
+            <a class="button" tapmode="active" onclick="acceptFriendApplication()">同意好友申请</a>
+            <a class="button" tapmode="active" onclick="refuseFriendApplication()">拒绝好友申请</a>
+            <a class="button" tapmode="active" onclick="deleteFriendApplication()">删除好友申请            </a>      
+            <a class="button" tapmode="active" onclick="setFriendApplicationRead()">设置好友申请已读</a> 
+            <a class="button" tapmode="active" onclick="addToBlackList()">添加用户到黑名单</a>
+            <a class="button" tapmode="active" onclick="deleteFromBlackList()">把用户从黑名单中删除            </a>      
+            <a class="button" tapmode="active" onclick="getBlackList()">获取黑名单列表</a> 
+            <a class="button" tapmode="active" onclick="createFriendGroup()">新建好友分组</a>
+            <a class="button" tapmode="active" onclick="getFriendGroups()">获取分组信息            </a>      
+            <a class="button" tapmode="active" onclick="deleteFriendGroup()">删除好友分组</a> 
+            <a class="button" tapmode="active" onclick="renameFriendGroup()">修改好友分组的名称</a>
+            <a class="button" tapmode="active" onclick="addFriendsToFriendGroup()">添加好友到一个好友分组            </a>      
+            <a class="button" tapmode="active" onclick="deleteFriendsFromFriendGroup()">从好友分组中删除好友</a>      
+            <div class='itemtitle'>V2TIMOfflinePushManager</div>  
+            <a class="button" tapmode="active" onclick="setOfflinePushConfig()">设置离线推送配置信息 note</a> 
+            <a class="button" tapmode="active" onclick="doBackground()">APP 检测到应用退后台</a>
+            <a class="button" tapmode="active" onclick="doForeground()">APP 检测到应用进前台            </a>      
+            <a class="button" tapmode="active" onclick="setAPNSListener()">setAPNSListener</a>     
+        </div>
+    </div>
+   
+</body>
+
+<script>
+
+    alert("hello")
+    window.apiready = function(){
+        console.log("apiready");
+        tencentCloudChat.initTencentCloudChat(api.require("tencentCloudChatSDK"));
+        console.log(JSON.stringify(tencentCloudChat.advancedMsgListenerMap))
+    }
+    var inviteID = "";
+
+    async function test(){
+        console.log("in test");
+        let data = await tencentCloudChat.test({sdkAppID:0});
+        console.log(JSON.stringify(data))
+    }
+    function apiName_exp(){
+        var tencentCloudChatSDK = api.require("tencentCloudChatSDK")
+        tencentCloudChatSDK.initSDK({
+            sdkAppID: 0,
+            logLevel: 3,
+            uuid: "1",
+        },function(ret,err){
+            debug({ret,err},"initSDK")
+            console.log(ret)
+        })
+    }
+
+    async function initSDK(){
+        alert('start initsdk')
+        let data = await tencentCloudChat.initSDK({sdkAppID:0});
+            console.log(JSON.stringify(data))
+    }
+    async function unInitSDK(){
+        try{
+            let data = await tencentCloudChat.unInitSDK({});
+            console.log(JSON.stringify(data))
+        }catch(error){
+            console.log(JSON.stringify(error))
+        }
+    }
+    async function getVersion(){
+        try{
+            let data = await tencentCloudChat.getVersion({});
+            console.log(JSON.stringify(data))
+        }catch(error){
+            console.log(JSON.stringify(error))
+        }
+    }
+    async function getServerTime(){
+        try{
+            let data = await tencentCloudChat.getServerTime({});
+            console.log(JSON.stringify(data))
+        }catch(error){
+            console.log(JSON.stringify(error))
+        }
+    }
+    async function login(){
+            let data = await tencentCloudChat.login({
+                userID: "",
+                userSig: "",
+            });
+            console.log(JSON.stringify(data))
+    
+    }
+    async function logout(){
+        try{
+            let data = await tencentCloudChat.logout({});
+            console.log("logout")
+            console.log(JSON.stringify(data))
+        }catch(error){
+            console.log(JSON.stringify(error))
+        }
+    }
+    async function getUserStatus(){
+        try{
+            let data = await tencentCloudChat.getUserStatus({userIDList:[""]});
+            console.log(JSON.stringify(data))
+        }catch(error){
+            console.log(JSON.stringify(error))
+        }
+    }
+    async function getLoginUser(){
+        try{
+            let data = await tencentCloudChat.getLoginUser({});
+            console.log(JSON.stringify(data))
+        }catch(error){
+            console.log(JSON.stringify(error))
+        }
+    }
+    let grouplistener = new groupListener({
+        onMemberEnter:function(data){console.log(data)},
+    onGrantAdministrator:function(data){console.log(JSON.stringify(data))}
+})
+    async function addGroupListener(){
+        try{
+            let data = await tencentCloudChat.addGroupListener(grouplistener);
+            console.log(JSON.stringify(data))
+        }catch(error){
+            console.log(JSON.stringify(error))
+        }
+    }
+    async function removeGroupListener(){
+        try{
+            let data = await tencentCloudChat.removeGroupListener(grouplistener);
+            console.log(JSON.stringify(data))
+        }catch(error){
+            console.log(JSON.stringify(error))
+        }
+    }
+    async function createGroup(){
+        var memberlist = []
+        try{
+            let data = await tencentCloudChat.createGroup({
+                groupType:"Public",
+                groupName:"helloaf",
+                groupID:"secondgroup",
+                memberListMap:memberlist
+            });
+            console.log(JSON.stringify(data))
+        }catch(error){
+            console.log(JSON.stringify(error))
+        }
+    }
+    async function joinGroup(){
+        try{
+            let data = await tencentCloudChat.joinGroup({
+                groupID:"secondgroup"
+            });
+            console.log(JSON.stringify(data))
+        }catch(error){
+            console.log(JSON.stringify(error))
+        }
+    }
+    async function quitGroup(){
+        try{
+            let data = await tencentCloudChat.quitGroup({
+                groupID:""
+            });
+            console.log(JSON.stringify(data))
+        }catch(error){
+            console.log(JSON.stringify(error))
+        }
+    }
+    async function dismissGroup(){
+        try{
+            let data = await tencentCloudChat.dismissGroup({
+                groupID:"secondgroup"
+            });
+            console.log(JSON.stringify(data))
+        }catch(error){
+            console.log(JSON.stringify(error))
+        }
+    }
+    async function getUsersInfo(){
+        let data = await tencentCloudChat.getUsersInfo({"userIDList":[""]})
+        console.log(JSON.stringify(data))
+    }
+    async function setSelfInfo(){
+        let data = await tencentCloudChat.setSelfInfo({"nickName":"a","selfSignature":"hello","gender":1,"allowType":1,"birthday":197000101,"customInfo":{}})
+        console.log(JSON.stringify(data))
+    }
+    async function setSelfStatus(){
+        let data = await tencentCloudChat.setSelfStatus({"status":"status"})
+        console.log(JSON.stringify(data))
+    }
+    async function subscribeUserStatus(){
+        let data = await tencentCloudChat.subscribeUserStatus({"userIDList":[""]})
+        console.log(JSON.stringify(data))
+    }
+    async function unsubscribeUserStatus(){
+        let data = await tencentCloudChat.unsubscribeUserStatus({"userIDList":[""]})
+        console.log(JSON.stringify(data))
+    }
+    // V2TIMManager Ends
+    // V2TIMMessageManager Starts
+    let msglistener = new advancedMsgListener({onRecvNewMessage:function(data){console.log("listener1");console.log(JSON.stringify(data))}})
+    let msglistener2 = new advancedMsgListener({onRecvNewMessage:function(data){console.log(2222)}})
+    async function addAdvancedMsgListener(){
+        let data = await tencentCloudChat.addAdvancedMsgListener(msglistener);
+        console.log(JSON.stringify(data))
+
+    }
+    function openWin(){
+        api.openWin({
+            name: 'index2',
+            url:'./index2.html'
+        })
+    }
+    async function removeAdvancedMsgListener(){
+        let data = await tencentCloudChat.removeAdvancedMsgListener(msglistener2);
+        console.log(JSON.stringify(data))
+    }
+    let id = "";
+    async function createTextMessage(){
+        let data = await tencentCloudChat.createTextMessage({
+            text:"add"
+        });
+        console.log(JSON.stringify(data.data))
+        id = JSON.parse(JSON.stringify(data)).data.data.id
+        console.log(id)
+
+    }
+    async function createTextAtMessage(){
+        let data = await tencentCloudChat.createTextAtMessage({"text":"1","atUserList":[""]});
+        console.log(JSON.stringify(data))
+    }
+    async function createCustomMessage(){
+        let data = await tencentCloudChat.createTextAtMessage({"data":"1","desc":"","extension":""});
+        console.log(JSON.stringify(data))
+    }
+    async function createSoundMessage(){
+        let data = await tencentCloudChat.createSoundMessage({"soundPath":"","duration":0});
+        console.log(JSON.stringify(data))
+    }
+    async function createImageMessage(){
+        let data = await tencentCloudChat.createImageMessage({"imagePath":""});
+        console.log(JSON.stringify(data.data))
+        id = JSON.parse(JSON.stringify(data)).data.data.id
+        console.log(id)
+    }
+    async function createVideoMessage(){
+        let data = await tencentCloudChat.createVideoMessage({"videoFilePath":"","type":"mp4","duration":0,"snapshotPath":""});
+        console.log(JSON.stringify(data))
+    }
+    async function createFileMessage(){
+        let data = await tencentCloudChat.createFileMessage({"filePath":"","fileName":"pic"});
+        console.log(JSON.stringify(data))
+    }
+    async function createLocationMessage(){
+        // let tencentCloudChatSDK = api.require("tencentCloudChatSDK");
+        // tencentCloudChatSDK.createLocationMessage({"desc":"上海","longitude":37,"latitude":42},function(ret,err){
+        //     console.log(JSON.stringify(ret))
+        //     console.log(JSON.stringify(err))
+        // })
+        let data = await tencentCloudChat.createLocationMessage({"desc":"上海","longitude":37,"latitude":42});
+        console.log(JSON.stringify(data))
+    }
+    async function createFaceMessage(){
+        let data = await tencentCloudChat.createFaceMessage({"index":0,"desc":"data"});
+        console.log(JSON.stringify(data))
+    }
+    async function createMergerMessage(){
+        let data = await tencentCloudChat.createMergerMessage({"msgIDList":[""],"abstractList":[""],"compatibleText":"","title":""});
+        console.log(JSON.stringify(data))
+    }
+    async function createForwardMessage(){
+        let data = await tencentCloudChat.createForwardMessage({"msgID":""});
+        console.log(JSON.stringify(data))
+    }
+    async function createTargetedGroupMessage(){
+        let data = await tencentCloudChat.createTargetedGroupMessage({"index":0,"data":""});
+        console.log(JSON.stringify(data))
+    }
+    async function sendMessage(){
+        console.log(id.toString())
+        let data = await tencentCloudChat.sendMessage({
+                id:id.toString(),
+                receiver:"",
+                groupID:""
+            });
+        console.log(JSON.stringify(data.data))
+    }
+    async function setC2CReceiveMessageOpt(){
+        let data = await tencentCloudChat.setC2CReceiveMessageOpt({"userIDList":[""],"opt":1})
+        console.log(JSON.stringify(data))
+    }
+    async function getC2CReceiveMessageOpt(){
+        let data = await tencentCloudChat.getC2CReceiveMessageOpt({userIDList:[""]})
+        console.log(JSON.stringify(data))
+    }
+    async function setGroupReceiveMessageOpt(){
+        let data = await tencentCloudChat.setGroupReceiveMessageOpt({"groupID":"","opt":1})
+        console.log(JSON.stringify(data))
+ 
+    }
+    async function getHistoryMessageList(){
+        let data = await tencentCloudChat.getHistoryMessageList({count:20,getType:4})
+        console.log(JSON.stringify(data))
+    }
+    async function revokeMessage(){
+        let data = await tencentCloudChat.revokeMessage({"lastMsgID":""})
+        console.log(JSON.stringify(data))
+    }
+    async function modifyMessage(){
+        let data = await tencentCloudChat.modifyMessage({"message":{"msgID":""}})
+        console.log(JSON.stringify(data))
+    }
+    async function markC2CMessageAsRead(){
+        let data = await tencentCloudChat.markC2CMessageAsRead({"userID":""})
+        console.log(JSON.stringify(data))
+    }
+    async function markGroupMessageAsRead(){
+        let data = await tencentCloudChat.markGroupMessageAsRead({"groupID":""})
+        console.log(JSON.stringify(data))
+    }
+    async function markAllMessageAsRead(){
+        let data = await tencentCloudChat.markAllMessageAsRead({})
+        console.log(JSON.stringify(data))
+    }
+    async function deleteMessageFromLocalStorage(){
+        let data = await tencentCloudChat.deleteMessageFromLocalStorage({"msgID":""})
+        console.log(JSON.stringify(data))
+    }
+    async function deleteMessages(){
+        let data = await tencentCloudChat.deleteMessages({"msgIDs":[""]})
+        console.log(JSON.stringify(data))
+    }
+    async function clearC2CHistoryMessage(){
+        let data = await tencentCloudChat.clearC2CHistoryMessage({"userID":""})
+        console.log(JSON.stringify(data))
+    }
+    async function clearGroupHistoryMessage(){
+        let data = await tencentCloudChat.clearGroupHistoryMessage({"groupID":""})
+        console.log(JSON.stringify(data))
+    }
+    async function insertGroupMessageToLocalStorage(){
+        let data = await tencentCloudChat.insertGroupMessageToLocalStorage({"groupID":"","sender":"","data":""})
+        console.log(JSON.stringify(data))
+    }
+    async function insertC2CMessageToLocalStorage(){
+        let data = await tencentCloudChat.insertC2CMessageToLocalStorage({"userID":"","sender":"","data":""})
+        console.log(JSON.stringify(data))
+    }
+    async function findMessages(){
+        let data = await tencentCloudChat.findMessages({"messageIDList":[""]})
+        console.log(JSON.stringify(data))
+    }
+    async function searchLocalMessages(){
+        let data = await tencentCloudChat.searchLocalMessages({"searchParam":{"keywordList":["a"]}})
+        console.log(JSON.stringify(data))
+    }
+    async function sendMessageReadReceipts(){
+        let data = await tencentCloudChat.sendMessageReadReceipts({"messageIDList":[""]})
+        console.log(JSON.stringify(data))
+    }
+    async function getMessageReadReceipts(){
+        let data = await tencentCloudChat.getMessageReadReceipts({"messageIDList":[""]})
+        console.log(JSON.stringify(data))
+    }
+    async function getGroupMessageReadMemberList(){
+        let data = await tencentCloudChat.getGroupMessageReadMemberList({"messageID":"","filter":0,"nextSeq":0,"count":1})
+        console.log(JSON.stringify(data))
+
+    }
+    async function setMessageExtensions(){
+        let data = await tencentCloudChat.setMessageExtensions({"msgID":"","extensions":[{"extensionKey":"key","extensionValue":"value"}]})
+        console.log(JSON.stringify(data))
+    }
+    async function getMessageExtensions(){
+        let data = await tencentCloudChat.getMessageExtensions({"msgID":""})
+        console.log(JSON.stringify(data))
+    }
+    async function deleteMessageExtensions(){
+        let data = await tencentCloudChat.deleteMessageExtensions({"msgID":"","keys":["key"]})
+        console.log(JSON.stringify(data))
+
+    }
+    
+    // V2TIMMessageManager Ends
+    // V2TIMGroupManager Starts
+    async function getJoinedGroupList(){
+        let data = await tencentCloudChat.getJoinedGroupList({})
+        console.log(JSON.stringify(data))
+    }
+    async function getGroupsInfo(){
+        let data = await tencentCloudChat.getGroupsInfo({"groupIDList":[""]})
+        console.log(JSON.stringify(data))
+    }
+    async function searchGroups(){
+        let data = await tencentCloudChat.searchGroups({"searchParam":{"keywordList":[""],"isSearchGroupID":true,"isSearchGroupName":true}})
+        console.log(JSON.stringify(data))
+    }
+    async function setGroupInfo(){
+        let data = await tencentCloudChat.setGroupInfo({info:{"groupID":"","groupName":"work"}})
+        console.log(JSON.stringify(data))
+    }
+    async function initGroupAttributes(){
+        let data = await tencentCloudChat.initGroupAttributes({"groupID":"","attributes":{"key":"key","valule":"value"}})
+        console.log(JSON.stringify(data))
+    }
+    async function setGroupAttributes(){
+        let data = await tencentCloudChat.setGroupAttributes({"groupID":"","attributes":{"key":"key","valule":"value"}})
+        console.log(JSON.stringify(data))
+    }
+    async function deleteGroupAttributes(){
+        let data = await tencentCloudChat.deleteGroupAttributes({"groupID":"","keys":["keys"]})
+        console.log(JSON.stringify(data))
+    }
+    async function getGroupAttributes(){
+        let data = await tencentCloudChat.getGroupAttributes({"groupID":"","keys":["keys"]})
+        console.log(JSON.stringify(data))
+    }
+    async function getGroupOnlineMemberCount(){
+        let data = await tencentCloudChat.getGroupOnlineMemberCount({"groupID":""})
+        console.log(JSON.stringify(data))
+    }
+    async function getGroupMemberList(){
+        let data = await tencentCloudChat.getGroupMemberList({"groupID":"","filter":null,"nextSeq":null})
+        console.log(JSON.stringify(data))
+    }
+    async function getGroupMembersInfo(){
+        let data = await tencentCloudChat.getGroupMembersInfo({"groupID":"","memberList":[""]})
+        console.log(JSON.stringify(data))
+    }
+    async function searchGroupMembers(){
+        let data = await tencentCloudChat.searchGroupMembers({"param":{"keywordList":["a"],"groupIDList":[""],"isSearchMemberUserID":false,"isSearchMemberNickName":true,"isSearchMemberRemark":false,"isSearchMemberNameCard":false,"isSearchMemberNameCard":false}})
+        console.log(JSON.stringify(data))
+    }
+    async function setGroupMemberInfo(){
+        let data = await tencentCloudChat.setGroupMemberInfo({"groupID":"","userID":"","nameCard":"namecard","customInfo":null})
+        console.log(JSON.stringify(data))
+    }
+    async function muteGroupMember(){
+        let data = await tencentCloudChat.muteGroupMember({"groupID":"","userID":"","seconds":1000})
+        console.log(JSON.stringify(data))
+    }
+    async function inviteUserToGroup(){
+        let data = await tencentCloudChat.inviteUserToGroup({"groupID":"","userList":[""]})
+        console.log(JSON.stringify(data))
+    }
+    async function kickGroupMember(){
+        let data = await tencentCloudChat.kickGroupMember({"groupID":"","memberList":["userid"],"reason":"reason"})
+        console.log(JSON.stringify(data))
+    }
+    async function setGroupMemberRole(){
+        let data = await tencentCloudChat.setGroupMemberRole({"groupID":"","userID":"daisycoi","role":0})
+        console.log(JSON.stringify(data))
+    }
+    async function markGroupMemberList(){
+        let data = await tencentCloudChat.markGroupMemberList({"groupID":"","memberIDList":[""],"markType":1,"enableMark":true})
+        console.log(JSON.stringify(data))
+    }
+    async function transferGroupOwner(){
+        let data = await tencentCloudChat.transferGroupOwner({"groupID":"","userID":""})
+        console.log(JSON.stringify(data))
+    }
+    async function getGroupApplicationList(){
+        let data = await tencentCloudChat.getGroupApplicationList({})
+        console.log(JSON.stringify(data))
+    }
+    async function acceptGroupApplication(){
+        let data = await tencentCloudChat.acceptGroupApplication({"groupID":"","fromUser":"user1","toUser":"","reason":"reason"})
+        console.log(JSON.stringify(data))
+    }
+    async function refuseGroupApplication(){
+        let data = await tencentCloudChat.refuseGroupApplication({"groupID":"groupid","fromUser":"user1","toUser":"","reason":"reason"})
+        console.log(JSON.stringify(data))
+    }
+    async function setGroupApplicationRead(){
+        let data = await tencentCloudChat.setGroupApplicationRead({})
+        console.log(JSON.stringify(data))
+    }
+    async function getJoinedCommunityList(){
+        let data = await tencentCloudChat.getJoinedCommunityList({})
+        console.log(JSON.stringify(data))
+    }
+    async function createTopicInCommunity(){
+        let data = await tencentCloudChat.createTopicInCommunity({"groupID":"","topicInfo":{"topicID":"topicid","topicName":"topicName","topicFaceURL":"","notification":"notification","introduction":"introduction","isAllMuted":false,"customString":"","draftText":""}})
+        console.log(JSON.stringify(data))
+    }
+    async function deleteTopicFromCommunity(){
+        let data = await tencentCloudChat.deleteTopicFromCommunity({"groupID":"","topicIDList":["topicid"]})
+        console.log(JSON.stringify(data))
+    }
+    async function setTopicInfo(){
+        let data = await tencentCloudChat.setTopicInfo({"groupID":"","topicInfo":{"topicID":"topicid","topicName":"topicName","topicFaceURL":null,"notification":null,"introduction":null,"isAllMuted":null,"customString":null,"draftText":null}})
+        console.log(JSON.stringify(data))
+    }
+    async function getTopicInfoList(){
+        let data = await tencentCloudChat.getTopicInfoList({"groupID":"","topicIDList":["topicid"]})
+        console.log(JSON.stringify(data))
+    }
+    // V2TIMGroupManager Ends
+    // V2TIMSignalingManager Starts
+    let signaling = new signalingListener({onReceiveNewInvitation:function(data){console.log(data)}})
+    async function addSignalingListener(){
+        let data = await tencentCloudChat.addSignalingListener(signaling)
+        console.log(JSON.stringify(data))
+    }
+    async function removeSignalingListener(){
+        let data = await tencentCloudChat.removeSignalingListener(signaling)
+        console.log(JSON.stringify(data))
+    }
+    async function invite() {
+        let data = await tencentCloudChat.invite({
+            invitee: "",
+            data: "",
+            timeout: 30,
+            onlineUserOnly: false,
+        })
+        console.log(JSON.stringify(data))
+    }
+    async function cancel(){
+        let data = await tencentCloudChat.cancel({
+            inviteID: inviteID,
+            data: "123",
+        })
+        console.log(JSON.stringify(data))
+    }
+    async function inviteInGroup(){
+        let data = await tencentCloudChat.inviteInGroup({
+            groupID: "",
+            inviteeList: [""],
+            data: "hhh",
+            timeout:30,
+            onlineUserOnly: false,
+        })
+        console.log(JSON.stringify(data))
+    }
+    async function accept(){
+        let data = await tencentCloudChat.accept({
+            inviteID: inviteID,
+            data: "123",
+        })
+        console.log(JSON.stringify(data))
+    }
+    async function reject(){
+        let data = await tencentCloudChat.reject({
+            inviteID: inviteID,
+            data: "123",
+        })
+        console.log(JSON.stringify(data))
+    }
+    async function getSignalingInfo(){
+        let data = await tencentCloudChat.getSignalingInfo({
+            msgID:"msgid"
+        })
+        console.log(JSON.stringify(data))
+    }
+    async function addInvitedSignaling(){
+        let data = await tencentCloudChat.addInvitedSignaling({
+            info:{
+                inviteID:"inviteID",
+                groupID:null,
+                inviteeList:null,
+                data:null,
+                timeout:null,
+                actionType:null,
+            }
+        })
+        console.log(JSON.stringify(data))
+    }
+    // V2TIMSignalingManager Ends
+    // V2TIMConversationManager Starts
+    let convListener = new conversationListener({onSyncServerStart:function(data){console.log(data)}})
+    async function addConversationListener(){
+        let data = await tencentCloudChat.addConversationListener(convListener)
+        console.log(JSON.stringify(data))
+    }
+    async function removeConversationListener(){
+        let data = await tencentCloudChat.removeConversationListener(convListener)
+        console.log(JSON.stringify(data))
+    } 
+    async function getConversationList(){
+        let data = await tencentCloudChat.getConversationList({nextSeq:1,count:1})
+        console.log(JSON.stringify(data))
+    }
+    async function getConversation(){
+        let data = await tencentCloudChat.getConversation({conversationID:""})
+        console.log(JSON.stringify(data))
+    } 
+    async function getConversationListByConversaionIds(){
+        let data = await tencentCloudChat.getConversationListByConversaionIds({conversationIDList:[""]})
+        console.log(JSON.stringify(data))
+    }
+    async function getConversationListByFilter(){
+        let data = await tencentCloudChat.getConversationListByFilter({filter:{groupName:"xx",count:20,conversationType:0,markType:0,nextSeq:0}})
+        console.log(JSON.stringify(data))
+    } 
+    async function deleteConversation(){
+        let data = await tencentCloudChat.deleteConversation({conversationID:""})
+        console.log(JSON.stringify(data))
+    } 
+    async function setConversationDraft(){
+        let data = await tencentCloudChat.setConversationDraft({conversationID:"",draftText:"draftText"})
+        console.log(JSON.stringify(data))
+    }
+    async function setConversationCustomData(){
+        let data = await tencentCloudChat.setConversationCustomData({conversationIDList:[""],customData:"customdata"})
+        console.log(JSON.stringify(data))
+    } 
+    async function pinConversation(){
+        let data = await tencentCloudChat.pinConversation({conversationID:"",isPinned:true})
+        console.log(JSON.stringify(data))
+    } 
+    async function markConversation(){
+        let data = await tencentCloudChat.markConversation({conversationIDList:[""],enableMark:true,markType:1})
+        console.log(JSON.stringify(data))
+    }
+    async function getTotalUnreadMessageCount(){
+        let data = await tencentCloudChat.getTotalUnreadMessageCount({})
+        console.log(JSON.stringify(data))
+    } 
+    async function createConversationGroup(){
+        let data = await tencentCloudChat.createConversationGroup({conversationIDList:["conversationid"],groupName:"groupname"})
+        console.log(JSON.stringify(data))
+    } 
+    async function getConversationGroupList(){
+        let data = await tencentCloudChat.getConversationGroupList({})
+        console.log(JSON.stringify(data))
+    }
+    async function deleteConversationGroup(){
+        let data = await tencentCloudChat.deleteConversationGroup({groupName:"groupname"})
+        console.log(JSON.stringify(data))
+    } 
+    async function renameConversationGroup(){
+        let data = await tencentCloudChat.renameConversationGroup({oldName:"oldName",newName:"newName"})
+        console.log(JSON.stringify(data))
+    } 
+    async function addConversationsToGroup(){
+        let data = await tencentCloudChat.addConversationsToGroup({groupName:"groupName",conversationIDList:["conversationid"]})
+        console.log(JSON.stringify(data))
+    }
+    async function deleteConversationsFromGroup(){
+        let data = await tencentCloudChat.deleteConversationsFromGroup({groupName:"groupname",conversationIDList:["conversationid"]})
+        console.log(JSON.stringify(data))
+    } 
+    // V2TIMConversationManager Ends
+    // V2TIMFriendshipManager Starts
+    let friendlistener = new friendshipListener({onFriendApplicationListAdded:function(data){console.log(data)},onFriendListAdded:function(data){console.log(data)}})
+    async function addFriendListener(){
+        let data = await tencentCloudChat.addFriendListener(friendlistener)
+        console.log(JSON.stringify(data))
+    }
+    async function removeFriendListener(){
+        let data = await tencentCloudChat.removeFriendListener(friendlistener)
+        console.log(JSON.stringify(data))
+    }
+    async function getFriendList(){
+        let data = await tencentCloudChat.getFriendList({})
+        console.log(JSON.stringify(data))
+    } 
+    async function getFriendsInfo(){
+        var ids = [""];
+        let data = await tencentCloudChat.getFriendsInfo({userIDList:ids})
+        console.log(JSON.stringify(data))
+    }
+    async function setFriendInfo(){
+        let data = await tencentCloudChat.setFriendInfo({userID:"",friendRemark:"friendRemark",friendCustomInfo:{}})
+        console.log(JSON.stringify(data))
+    } 
+    async function searchFriends(){
+        let data = await tencentCloudChat.searchFriends({searchParam:{keywordList:[""],isSearchNickName:true,isSearchUserID:true,isSearchRemark:true}})
+        console.log(JSON.stringify(data))
+    } 
+    async function addFriend(){
+        let data = await tencentCloudChat.addFriend({userID:"",addType:0,remark:"remark",addWording:"addWording",addSource:"addSource"})
+        console.log(JSON.stringify(data))
+    }
+    async function deleteFromFriendList(){
+        let data = await tencentCloudChat.deleteFromFriendList({userIDList:[""],deleteType:1})
+        console.log(JSON.stringify(data))
+    }
+    async function checkFriend(){
+        let data = await tencentCloudChat.checkFriend({userIDList:[""],checkType:1})
+        console.log(JSON.stringify(data))
+    } 
+    async function getFriendApplicationList(){
+        let data = await tencentCloudChat.getFriendApplicationList({})
+        console.log(JSON.stringify(data))
+    }
+    async function acceptFriendApplication(){
+        let data = await tencentCloudChat.acceptFriendApplication({userID:"userid",responseType:0})
+        console.log(JSON.stringify(data))
+    }
+    async function refuseFriendApplication(){
+        let data = await tencentCloudChat.refuseFriendApplication({userID:"userid"})
+        console.log(JSON.stringify(data))
+    } 
+    async function deleteFriendApplication(){
+        let data = await tencentCloudChat.deleteFriendApplication({userID:"userid"})
+        console.log(JSON.stringify(data))
+    }
+    async function setFriendApplicationRead(){
+        let data = await tencentCloudChat.setFriendApplicationRead({})
+        console.log(JSON.stringify(data))
+    }
+    async function addToBlackList(){
+        var ids = []
+        ids.push("userid")
+        let data = await tencentCloudChat.addToBlackList({userIDList:ids})
+        console.log(JSON.stringify(data))
+    } 
+    async function deleteFromBlackList(){
+        let data = await tencentCloudChat.deleteFromBlackList({userIDList:["userid"]})
+        console.log(JSON.stringify(data))
+    }
+    async function getBlackList(){
+        let data = await tencentCloudChat.getBlackList({})
+        console.log(JSON.stringify(data))
+    }
+    async function createFriendGroup(){
+        let data = await tencentCloudChat.createFriendGroup({userIDList:["userid"],groupName:"groupName"})
+        console.log(JSON.stringify(data))
+    } 
+    async function getFriendGroups(){
+        let data = await tencentCloudChat.getFriendGroups({groupNameList:["groupName"]})
+        console.log(JSON.stringify(data))
+    }
+    async function deleteFriendGroup(){
+        let data = await tencentCloudChat.deleteFriendGroup({groupNameList:["groupName"]})
+        console.log(JSON.stringify(data))
+    }
+    async function renameFriendGroup(){
+        let data = await tencentCloudChat.renameFriendGroup({oldName:"oldName",newName:"newName"})
+        console.log(JSON.stringify(data))
+    } 
+    async function addFriendsToFriendGroup(){
+        let data = await tencentCloudChat.addFriendsToFriendGroup({groupName:"groupName",userIDList:["userid"]})
+        console.log(JSON.stringify(data))
+    }
+    async function deleteFriendsFromFriendGroup(){
+        let data = await tencentCloudChat.deleteFriendsFromFriendGroup({groupName:"groupName",userIDList:["userid"]})
+        console.log(JSON.stringify(data))
+    }
+    // V2TIMFriendshipManager Ends
+    // V2TIMOfflinePushManager Starts
+    async function setOfflinePushConfig(){
+        let data = await tencentCloudChat.setOfflinePushConfig({businessID:0,token:"token"})
+        console.log(JSON.stringify(data))
+    } 
+    async function doBackground(){
+        let data = await tencentCloudChat.doBackground({unreadCount:0})
+        console.log(JSON.stringify(data))
+    }
+    async function doForeground(){
+        let data = await tencentCloudChat.doForeground({})
+        console.log(JSON.stringify(data))
+    }
+    async function setAPNSListener(){
+        let data = await tencentCloudChat.setAPNSListener({})
+        console.log(JSON.stringify(data))
+    }
+    // V2TIMOfflinePushManager Ends
+    
+    function apiready() {
+        var header = document.getElementById('header');
+        header.style.paddingTop = api.safeArea.top + 'px';
+
+        api.removeLaunchView();
+        initSDK();
+    }
+    function debug(data,apiName){
+        var tencentCloudChatSDK = api.require("tencentCloudChatSDK")
+        tencentCloudChatSDK.debug({
+            data: data,
+            apiName: apiName,
+        });
+    }
+</script>
+
+</html>
