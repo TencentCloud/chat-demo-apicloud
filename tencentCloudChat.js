@@ -1,12 +1,5 @@
-// import {compareParam} from "./utils"
-
-
-
-
-
-
-//interfaces
- const V2TIMCreateGroupMemberInfo = {
+// interfaces
+const V2TIMCreateGroupMemberInfo = {
     userID:{
         type:"string"
     },
@@ -18,7 +11,7 @@
             400:"owner"
         }
     }
-}
+};
 
  const V2TIMUserFullInfo = {
     userID:{
@@ -79,8 +72,7 @@
         type:"string",
         desc:"用户自定义状态"
     },
-}
-
+};
 const nextElem = {
     elemType:{
         type:"number",
@@ -101,7 +93,7 @@ const nextElem = {
     nextElem:{
         type:"nextElem"
     }
-}
+};
 
 const V2TIMTextElem = {
     text:{
@@ -110,7 +102,7 @@ const V2TIMTextElem = {
     nextElem:{
         type:nextElem
     }
-}
+};
 
 const V2TIMCustomElem = {
     data:{
@@ -125,7 +117,7 @@ const V2TIMCustomElem = {
     nextElem:{
         type:nextElem
     }
-}
+};
 
 const V2TIMImage = {
     size:{
@@ -154,7 +146,7 @@ const V2TIMImage = {
     localUrl:{
         type:"string"
     },
-}
+};
 
 const V2TIMImageElem = {
     path:{
@@ -168,7 +160,7 @@ const V2TIMImageElem = {
     nextElem:{
         type:nextElem
     }
-}
+};
 
 const V2TIMSoundElem = {
     path:{
@@ -186,7 +178,7 @@ const V2TIMSoundElem = {
     nextElem:{
         type:nextElem
     }
-}
+};
 
 const V2TIMVideoElem = {
     videoPath:{
@@ -222,7 +214,7 @@ const V2TIMVideoElem = {
     nextElem:{
         type:nextElem
     }
-}
+};
 
 const V2TIMFileElem = {
     path:{
@@ -248,7 +240,7 @@ const V2TIMFileElem = {
     nextElem:{
         type:nextElem
     }
-}
+};
 
 const V2TIMLocationElem = {
     desc:{
@@ -263,7 +255,7 @@ const V2TIMLocationElem = {
     nextElem:{
         type:nextElem
     }
-}
+};
 
 const V2TIMFaceElem = {
     data:{
@@ -276,7 +268,7 @@ const V2TIMFaceElem = {
         type:nextElem,
         desc:"下一条消息内容"
     }
-}
+};
 
 const V2TIMMergerElem = {
     isLayersOverLimit:{
@@ -294,7 +286,7 @@ const V2TIMMergerElem = {
     nextElem:{
         type:nextElem
     }
-}
+};
 
 const V2TIMGroupMemberInfo ={
     userID:{
@@ -314,7 +306,7 @@ const V2TIMGroupMemberInfo ={
         type:"string",
         desc:"好友备注，如果没有拉取过好友信息或者不是好友，返回 null"
     }
-}
+};
 
 const V2TIMGroupChangeInfo = {
     value:{
@@ -340,7 +332,7 @@ const V2TIMGroupChangeInfo = {
         type:"string",
         desc:"变更自定义字段的 key 值（type = V2TIMGroupChangeInfo.V2TIM_GROUP_INFO_CHANGE_TYPE_CUSTOM 生效） 因为历史遗留原因，如果只修改了群自定义字段，当前消息不会存漫游和 DB"
     }
-}
+};
 
 
 const V2TIMGroupMemberChangeInfo = {
@@ -351,7 +343,7 @@ const V2TIMGroupMemberChangeInfo = {
         type:"number",
         desc:"被禁言时间"
     },
-}
+};
 
 const V2TIMGroupTipsElem = {
     groupID:{
@@ -397,7 +389,7 @@ const V2TIMGroupTipsElem = {
     nextElem:{
         type:nextElem
     }
-}
+};
 
 const V2TIMOfflinePushInfo = {
     desc:{
@@ -416,7 +408,7 @@ const V2TIMOfflinePushInfo = {
         type:"string",
         desc:"离线推送透传的扩展字段。"
     }
-}
+};
 
  const V2TIMMessage = {
     msgID:{
@@ -584,7 +576,7 @@ const V2TIMOfflinePushInfo = {
         type:V2TIMOfflinePushInfo,
         desc:"消息的离线推送信息"
     },
-}
+};
 
 
  const V2TIMExtension ={
@@ -594,7 +586,7 @@ const V2TIMOfflinePushInfo = {
     extensionValue:{
         type:"string"
     }
-}
+};
  const V2TIMMessageExtensionResult = {
     resultCode:{
         type:"number"
@@ -605,7 +597,7 @@ const V2TIMOfflinePushInfo = {
     extension:{
         type:V2TIMExtension
     }
-}
+};
 
  const V2TIMReceiveMessageOptInfo = {
     c2CReceiveMessageOpt:{
@@ -619,7 +611,7 @@ const V2TIMOfflinePushInfo = {
     userID:{
         type:"string"
     }
-}
+};
 
  const V2TIMGroupInfo = {
     groupType:{
@@ -664,7 +656,7 @@ const V2TIMOfflinePushInfo = {
     customInfo:{
         type:"Object"
     }
-}
+};
  const V2TIMGroupInfoResult = {
     resultCode:{
         type:"numbeer"
@@ -675,8 +667,8 @@ const V2TIMOfflinePushInfo = {
     groupInfo:{
         type:V2TIMGroupInfo
     }
-}
- const V2TIMGroupMemberFullInfo = {
+};
+const V2TIMGroupMemberFullInfo = {
     userID:{
         type:"string"
     },
@@ -711,7 +703,7 @@ const V2TIMOfflinePushInfo = {
         type:"string",
         desc:"好友备注。如果没有拉取过好友信息或者不是好友，返回 null"
     }
-}
+};
 
 
  const V2TIMInviteUserToGroupResult = {
@@ -728,7 +720,7 @@ const V2TIMOfflinePushInfo = {
             4:"overlimit"
         }
     }
-}
+};
 
  const V2TIMGroupApplication = {
     groupID:{
@@ -777,7 +769,7 @@ const V2TIMOfflinePushInfo = {
             1:"agree"
         }
     },
-}
+};
 
 const V2TIMGroupAtInfo = {
     atType:{
@@ -792,7 +784,7 @@ const V2TIMGroupAtInfo = {
     seq:{
         type:"number"
     }
-}
+};
 
  const V2TIMTopicInfo = {
     topicID:{
@@ -847,7 +839,7 @@ const V2TIMGroupAtInfo = {
         type:"Array",
         arrayType:V2TIMGroupAtInfo
     }
-}
+};
 
  const V2TIMTopicResult = {
     errorCode:{
@@ -859,7 +851,7 @@ const V2TIMGroupAtInfo = {
     errorMessage:{
         type:"string"
     },
-}
+};
 
  const V2TIMSignalingInfo = {
     inviteID:{
@@ -892,7 +884,7 @@ const V2TIMGroupAtInfo = {
             5:"邀请超时"
         }
     }
-}
+};
  const V2TIMConversation = {
     conversationID:{
         type:"string",
@@ -974,7 +966,7 @@ const V2TIMGroupAtInfo = {
         type:"Array",
         arrayType:V2TIMGroupAtInfo
     },
-}
+};
  const V2TIMConversationResult = {
     conversationID:{
         type:"string"
@@ -985,7 +977,7 @@ const V2TIMGroupAtInfo = {
     resultInfo:{
         type:"string"
     }
-}
+};
  const V2TIMFriendInfo = {
     userID:{
         type:"string"
@@ -1003,7 +995,7 @@ const V2TIMGroupAtInfo = {
     friendCustomInfo:{
         type:"Object"
     }
-}
+};
  const V2TIMFriendInfoResult = {
     resultCode:{
         type:"number"
@@ -1023,7 +1015,7 @@ const V2TIMGroupAtInfo = {
     friendInfo:{
         type:V2TIMFriendInfo
     }
-}
+};
  const V2TIMCheckFriendResult = {
     userID:{
         type:"string"
@@ -1043,7 +1035,7 @@ const V2TIMGroupAtInfo = {
             3:"both way"
         }
     },
-}
+};
  const V2TIMFriendGroup = {
     name:{
         type:"string"
@@ -1055,7 +1047,7 @@ const V2TIMGroupAtInfo = {
         typee:"Array",
         arrayType:"string"
     }
-}
+};
  const V2TIMFriendOperationResult = {
     userID:{
         type:"string"
@@ -1066,7 +1058,7 @@ const V2TIMGroupAtInfo = {
     resultInfo:{
         type:"string"
     },
-}
+};
  const V2TIMMessageSearchResultItem = {
     conversationID:{
         type:"string",
@@ -1080,7 +1072,7 @@ const V2TIMGroupAtInfo = {
         type:"Array",
         arrayType:V2TIMMessage
     }
-}
+};
  const V2TIMMessageReceipt = {
     userID:{
         type:"string",
@@ -1104,9 +1096,9 @@ const V2TIMGroupAtInfo = {
         type:"number",
         desc:"群消息未读人数"
     }
-}
+};
 
-//param
+// param
  const params = {
     initSDK:{
         param:{
@@ -2578,7 +2570,7 @@ const V2TIMGroupAtInfo = {
             }
         }
     },
-    //V2TIMGroupManager
+    // V2TIMGroupManager
     getJoinedGroupList:{
         param:{},
         response:{
@@ -3221,7 +3213,7 @@ const V2TIMGroupAtInfo = {
             }
         }
     },
-    //signaling manager
+    // signaling manager
     invite:{
         param:{
             invitee:{
@@ -3361,7 +3353,7 @@ const V2TIMGroupAtInfo = {
             }
         }
     },
-    //conversation manager
+    // conversation manager
     getConversationList:{
         param:{
             nextSeq:{
@@ -3690,7 +3682,7 @@ const V2TIMGroupAtInfo = {
             }
         }
     },
-    //friendship manager
+    // friendship manager
     getFriendList:{
         param:{},
         response:{
@@ -4092,7 +4084,7 @@ const V2TIMGroupAtInfo = {
             }
         }
     },
-    //offlinepush manager
+    // offlinepush manager
     setOfflinePushConfig:{
         param:{
             businessID:{
@@ -4139,7 +4131,7 @@ const V2TIMGroupAtInfo = {
             }
         }
     },
-}
+};
 
 const listeners = {
     addGroupListener:{
@@ -4653,6 +4645,60 @@ const listeners = {
                     type:"string",
                 }
             },
+            onDownloadMessageProgress:{
+                method:"advancedMsgListener",
+                type:"onDownloadMessageProgress",
+                data:{
+                    type:"object",
+                    component:{
+                        isFinished:{
+                            type:"boolean"
+                        },
+                        isError:{
+                            type:"boolean"
+                        },
+                        currentSize:{
+                            type:"number"
+                        },
+                        totalSize:{
+                            type:"number"
+                        },
+                        msgID:{
+                            type:"string"
+                        },
+                        type:{
+                            type:"number"
+                        },
+                        isSnapshot:{
+                            type:"boolean"
+                        },
+                        path:{
+                            type:"string"
+                        },
+                        errorCode:{
+                            type:"number"
+                        },
+                        errorDesc:{
+                            type:"string"
+                        }
+                    }
+                }
+            },
+            onSendMessageProgress:{
+                method:"onSendMessageProgress",
+                type:"onSendMessageProgress",
+                data:{
+                    type:"object",
+                    component:{
+                        msg:{
+                            type:V2TIMMessage
+                        },
+                        progress:{
+                            type:"number"
+                        }
+                    }
+                }
+            }
         }
     },
     addSignalingListener:{
@@ -5037,37 +5083,37 @@ const listeners = {
             },
         }
     }
-}
+};
 
 function isArray(something){
     return Object.prototype.toString.call(something) === '[object Array]';
 }
 
 function compareParam(name,param){
-    var compare = params[name].param;
-    var flag = {
+    const compare = params[name].param;
+    const flag = {
         param:compare,
         required: []
     };
     
     Object.keys(compare).forEach((key)=>{
         if(compare[key].required == true){
-            flag.required.push(key)
+            flag.required.push(key);
         }
-        //是否存在
+        // 是否存在
         if(key in param){
             // 类型匹配
             // Object
             if(typeof param[key] == "object"){
                 // Array
                 if(isArray(param[key]) && compare[key].type == "Array"){
-                    if(param[key].length==0){
-                        flag.error = key +" array length is 0";
-                    }else if(param[key][0]== ""){
-                        flag.error = key +" array element is required"
+                    if(param[key].length == 0){
+                        flag.error = key + " array length is 0";
+                    }else if(param[key][0] == ""){
+                        flag.error = key + " array element is required"
                     }
-                    else if(compare[key].arrayType!="object" && typeof compare[key].arrayType!="object" && typeof param[key][0] != compare[key].arrayType){
-                        flag.error = key + " is not array of type "+compare[key].arrayType;
+                    else if(compare[key].arrayType != "object" && typeof compare[key].arrayType != "object" && typeof param[key][0] != compare[key].arrayType){
+                        flag.error = key + " is not array of type "+ compare[key].arrayType;
                     }
                 }else if(typeof compare[key].type == "object"){
                     // 其他类
@@ -5081,11 +5127,11 @@ function compareParam(name,param){
                 flag.error = key + " is not type of " + compare[key].type;
             }
         }else if(compare[key].required == true){
-            console.log(key +" is required")
-            flag.error = key+" is required"
+            console.log(key + " is required");
+            flag.error = key + " is required";
         }else if(compare[key].required == false){
             // 加入到param
-            param[key] = compare[key].default
+            param[key] = compare[key].default;
         }
     });
     if("error" in flag){
@@ -5095,27 +5141,27 @@ function compareParam(name,param){
 }
 
 function addResponseType(name){
-    let response = {}
-    let type = params[name].response.data;
+    const response = {}
+    const type = params[name].response.data;
     response.type = type;
     if(type.type == "Array"){
-        response.subtype = type.arrayType
+        response.subtype = type.arrayType;
     }
     return response;
 }
 
 function randomString(e) {    
     e = e || 32;
-    var t = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678",
+    let t = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678",
     a = t.length,
     n = "";
     for (i = 0; i < e; i++) n += t.charAt(Math.floor(Math.random() * a));
-    return n
+    return n;
 }
 
 class sdkListener{
     count = "";
-    constructor({onConnecting= null,onConnectSuccess=null,onConnectFailed=null,onKickedOffline=null,onUserSigExpired=null,onSelfInfoUpdated=null,onUserStatusChanged=null}){
+    constructor({onConnecting = null,onConnectSuccess = null,onConnectFailed = null,onKickedOffline = null,onUserSigExpired = null,onSelfInfoUpdated = null,onUserStatusChanged = null}){
         this.count = randomString(6);
         this.onConnecting = onConnecting;
         this.onConnectSuccess = onConnectSuccess;
@@ -5125,15 +5171,13 @@ class sdkListener{
         this.onSelfInfoUpdated = onSelfInfoUpdated;
         this.onUserStatusChanged = onUserStatusChanged;
     }
-}
-
-
+};
 
 class advancedMsgListener{
     count = "";
     constructor({
-        onRecvNewMessage,onRecvMessageReadReceipts=null,onRecvC2CReadReceipt=null,onRecvMessageRevoked=null,
-        onRecvMessageModified=null,onRecvMessageExtensionsChanged=null,onRecvMessageExtensionsDeleted=null,
+        onRecvNewMessage = null,onRecvMessageReadReceipts = null,onRecvC2CReadReceipt = null,onRecvMessageRevoked = null,
+        onRecvMessageModified = null,onRecvMessageExtensionsChanged = null,onRecvMessageExtensionsDeleted = null,
         onDownloadMessageProgress = null,onSendMessageProgress = null
         
     }){
@@ -5148,409 +5192,346 @@ class advancedMsgListener{
         this.onDownloadMessageProgress = onDownloadMessageProgress;
         this.onSendMessageProgress = onSendMessageProgress;
     }
-}
+};
 
 function sortListenerType(data,listener){
     let type = data["type"]
     switch(type){
         case "onConnecting":{
-            if(listener.onConnecting!=null)
+            if(listener.onConnecting != null)
                 listener.onConnecting(data);
-            
             break;
         }
         case "onConnectSuccess":{
-            if(listener.onConnectSuccess!=null)
-                listener.onConnectSuccess(data)
-                
+            if(listener.onConnectSuccess != null)
+                listener.onConnectSuccess(data);               
             break;
         }
         case "onConnectFailed":{
-            if(listener.onConnectFailed!=null)
-                listener.onConnectFailed(data)
-                
+            if(listener.onConnectFailed != null)
+                listener.onConnectFailed(data);                
             break;
         }
         case "onKickedOffline":{
-            if(listener.onKickedOffline!=null)
-                listener.onKickedOffline(data)
-                
+            if(listener.onKickedOffline != null)
+                listener.onKickedOffline(data);               
             break;
         }
         case "onUserSigExpired":{
-            if(listener.onUserSigExpired!=null)
-                listener.onUserSigExpired(data)
-                
+            if(listener.onUserSigExpired != null)
+                listener.onUserSigExpired(data);
             break;
         }
         case "onSelfInfoUpdated":{
-            if(listener.onSelfInfoUpdated!=null)
-                listener.onSelfInfoUpdated(data)
-                
+            if(listener.onSelfInfoUpdated != null)
+                listener.onSelfInfoUpdated(data);
             break;
         }
         case "onUserStatusChanged":{
-            if(listener.onUserStatusChanged!=null)
-                listener.onUserStatusChanged(data)
-                
+            if(listener.onUserStatusChanged != null)
+                listener.onUserStatusChanged(data);
             break;
         }
         case "onRecvNewMessage":{
-            listener.onRecvNewMessage(data);
+            if(listener.onRecvNewMessage != null)
+                listener.onRecvNewMessage(data);
             break;
         }
         case "onRecvMessageReadReceipts":{
-            if(listener.onRecvMessageReadReceipts!=null)
+            if(listener.onRecvMessageReadReceipts != null)
                 listener.onRecvMessageReadReceipts(data);
-            
             break;
         }
         case "onRecvC2CReadReceipt":{
-            if(listener.onRecvC2CReadReceipt!=null)
+            if(listener.onRecvC2CReadReceipt != null)
                 listener.onRecvC2CReadReceipt(data);
-            
             break;
         }
         case "onRecvMessageRevoked":{
-            if(listener.onRecvMessageRevoked!=null)
+            if(listener.onRecvMessageRevoked != null)
                 listener.onRecvMessageRevoked(data);
-                
             break;
         }
         case "onRecvMessageModified":{
-            if(listener.onRecvMessageModified!=null)
+            if(listener.onRecvMessageModified != null)
                 listener.onRecvMessageModified(data);
-                
             break;
         }
         case "onRecvMessageExtensionsChanged":{
-            if(listener.onRecvMessageExtensionsChanged!=null)
+            if(listener.onRecvMessageExtensionsChanged != null)
                 listener.onRecvMessageExtensionsChanged(data);
-                
             break;
         }
         case "onRecvMessageExtensionsDeleted":{
-            if(listener.onRecvMessageExtensionsDeleted!=null)
+            if(listener.onRecvMessageExtensionsDeleted != null)
                 listener.onRecvMessageExtensionsDeleted(data);
-                
             break;
         }
         case "onSendMessageProgress":{
-            if(listener.onSendMessageProgress!=null){
-                listener.onSendMessageProgress(data)
+            if(listener.onSendMessageProgress != null){
+                listener.onSendMessageProgress(data);
             }
             break;
         }
         case "onDownloadMessageProgress":{
-            if(listener.onDownloadMessageProgress!=null){
-                listener.onDownloadMessageProgress(data)
+            if(listener.onDownloadMessageProgress != null){
+                listener.onDownloadMessageProgress(data);
             }
             break;
         }
         case "onConnecting":{
-            if(listener.onConnecting!=null)
+            if(listener.onConnecting != null)
                 listener.onConnecting(data);
-            
             break;
         }
         case "onConnectSuccess":{
-            if(listener.onConnectSuccess!=null)
+            if(listener.onConnectSuccess != null)
                 listener.onConnectSuccess(data)
-                
             break;
         }
         case "onConnectFailed":{
-            if(listener.onConnectFailed!=null)
-                listener.onConnectFailed(data)
-                
+            if(listener.onConnectFailed != null)
+                listener.onConnectFailed(data);
             break;
         }
         case "onKickedOffline":{
-            if(listener.onKickedOffline!=null)
-                listener.onKickedOffline(data)
-                
+            if(listener.onKickedOffline != null)
+                listener.onKickedOffline(data);
             break;
         }
         case "onUserSigExpired":{
-            if(listener.onUserSigExpired!=null)
-                listener.onUserSigExpired(data)
-                
+            if(listener.onUserSigExpired != null)
+                listener.onUserSigExpired(data);
             break;
         }
         case "onSelfInfoUpdated":{
-            if(listener.onSelfInfoUpdated!=null)
-                listener.onSelfInfoUpdated(data)
-                
+            if(listener.onSelfInfoUpdated != null)
+                listener.onSelfInfoUpdated(data);
             break;
         }
         case "onUserStatusChanged":{
-            if(listener.onUserStatusChanged!=null)
-                listener.onUserStatusChanged(data)
-                
+            if(listener.onUserStatusChanged != null)
+                listener.onUserStatusChanged(data);
             break;
         }
         case "onReceiveNewInvitation":{
-            if(listener.onReceiveNewInvitation!=null)
-                listener.onReceiveNewInvitation(data)
-                
+            if(listener.onReceiveNewInvitation != null)
+                listener.onReceiveNewInvitation(data);
             break;
         }
         case "onInviteeAccepted":{
-            if(listener.onInviteeAccepted!=null)
-                listener.onInviteeAccepted(data)
-                
+            if(listener.onInviteeAccepted != null)
+                listener.onInviteeAccepted(data);
             break;
         }
         case "onInviteeRejected":{
-            if(listener.onInviteeRejected!=null)
-                listener.onInviteeRejected(data)
-                
+            if(listener.onInviteeRejected != null)
+                listener.onInviteeRejected(data);
             break;
         }
         case "onInvitationCancelled":{
-            if(listener.onInvitationCancelled!=null)
-                listener.onInvitationCancelled(data)
-                
+            if(listener.onInvitationCancelled != null)
+                listener.onInvitationCancelled(data);
             break;
         }
         case "onInvitationTimeout":{
-            if(listener.onInvitationTimeout!=null)
-                listener.onInvitationTimeout(data)
-                
+            if(listener.onInvitationTimeout != null)
+                listener.onInvitationTimeout(data);
             break;
         }
         case "onInvitationModified":{
-            if(listener.onInvitationModified!=null)
-                listener.onInvitationModified(data)
-                
+            if(listener.onInvitationModified != null)
+                listener.onInvitationModified(data);
             break;
         }
         case "onMemberEnter":{
-            if(listener.onMemberEnter!=null)
-                listener.onMemberEnter(data)
-                
+            if(listener.onMemberEnter != null)
+                listener.onMemberEnter(data);
             break;
         }
         case "onMemberLeave":{
-            if(listener.onMemberLeave!=null)
-                listener.onMemberLeave(data)
-                
+            if(listener.onMemberLeave != null)
+                listener.onMemberLeave(data);
             break;
         }
         case "onMemberInvited":{
-            if(listener.onMemberInvited!=null)
-                listener.onMemberInvited(data)
-                
+            if(listener.onMemberInvited != null)
+                listener.onMemberInvited(data);
             break;
         }
         case "onMemberKicked":{
-            if(listener.onMemberKicked!=null)
-                listener.onMemberKicked(data)
-                
+            if(listener.onMemberKicked != null)
+                listener.onMemberKicked(data);
             break;
         }
         case "onMemberInfoChanged":{
-            if(listener.onMemberInfoChanged!=null)
-                listener.onMemberInfoChanged(data)
-                
+            if(listener.onMemberInfoChanged != null)
+                listener.onMemberInfoChanged(data);
             break;
         }
         case "onGroupCreated":{
-            if(listener.onGroupCreated!=null)
-                listener.onGroupCreated(data)
-                
+            if(listener.onGroupCreated != null)
+                listener.onGroupCreated(data);
             break;
         }
         case "onGroupDismissed":{
-            if(listener.onGroupDismissed!=null)
-                listener.onGroupDismissed(data)
-                
+            if(listener.onGroupDismissed != null)
+                listener.onGroupDismissed(data);
             break;
         }
         case "onGroupRecycled":{
-            if(listener.onGroupRecycled!=null)
-                listener.onGroupRecycled(data)
-                
+            if(listener.onGroupRecycled != null)
+                listener.onGroupRecycled(data);
             break;
         }
         case "onGroupInfoChanged":{
-            if(listener.onGroupInfoChanged!=null)
-                listener.onGroupInfoChanged(data)
-                
+            if(listener.onGroupInfoChanged != null)
+                listener.onGroupInfoChanged(data);
             break;
         }
         case "onReceiveJoinApplication":{
-            if(listener.onReceiveJoinApplication!=null)
-                listener.onReceiveJoinApplication(data)
-                
+            if(listener.onReceiveJoinApplication != null)
+                listener.onReceiveJoinApplication(data);
             break;
         }
         case "onApplicationProcessed":{
-            if(listener.onApplicationProcessed!=null)
-                listener.onApplicationProcessed(data)
-                
+            if(listener.onApplicationProcessed != null)
+                listener.onApplicationProcessed(data);
             break;
         }
         case "onGrantAdministrator":{
-            if(listener.onGrantAdministrator!=null)
-                listener.onGrantAdministrator(data)
-                
+            if(listener.onGrantAdministrator != null)
+                listener.onGrantAdministrator(data);
             break;
         }
         case "onRevokeAdministrator":{
-            if(listener.onRevokeAdministrator!=null)
-                listener.onRevokeAdministrator(data)
-                
+            if(listener.onRevokeAdministrator != null)
+                listener.onRevokeAdministrator(data);
             break;
         }
         case "onQuitFromGroup":{
-            if(listener.onQuitFromGroup!=null)
-                listener.onQuitFromGroup(data)
-                
+            if(listener.onQuitFromGroup != null)
+                listener.onQuitFromGroup(data);
             break;
         }
         case "onReceiveRESTCustomData":{
-            if(listener.onReceiveRESTCustomData!=null)
-                listener.onReceiveRESTCustomData(data)
-                
+            if(listener.onReceiveRESTCustomData != null)
+                listener.onReceiveRESTCustomData(data);
             break;
         }
         case "onGroupAttributeChanged":{
-            if(listener.onGroupAttributeChanged!=null)
-                listener.onGroupAttributeChanged(data)
-                
+            if(listener.onGroupAttributeChanged != null)
+                listener.onGroupAttributeChanged(data);
             break;
         }
         case "onTopicCreated":{
-            if(listener.onTopicCreated!=null)
-                listener.onTopicCreated(data)
-                
+            if(listener.onTopicCreated != null)
+                listener.onTopicCreated(data);
             break;
         }
         case "onTopicDeleted":{
-            if(listener.onTopicDeleted!=null)
-                listener.onTopicDeleted(data)
-                
+            if(listener.onTopicDeleted != null)
+                listener.onTopicDeleted(data);
             break;
         }
         case "onTopicInfoChanged":{
-            if(listener.onTopicInfoChanged!=null)
-                listener.onTopicInfoChanged(data)
-                
+            if(listener.onTopicInfoChanged != null)
+                listener.onTopicInfoChanged(data);
             break;
         }
         case "onFriendApplicationListAdded":{
-            if(listener.onFriendApplicationListAdded!=null)
-                listener.onFriendApplicationListAdded(data)
-                
+            if(listener.onFriendApplicationListAdded != null)
+                listener.onFriendApplicationListAdded(data);
             break;
         }
         case "onFriendApplicationListDeleted":{
-            if(listener.onFriendApplicationListDeleted!=null)
-                listener.onFriendApplicationListDeleted(data)
-                
+            if(listener.onFriendApplicationListDeleted != null)
+                listener.onFriendApplicationListDeleted(data);
             break;
         }
         case "onFriendApplicationListRead":{
-            if(listener.onFriendApplicationListRead!=null)
-                listener.onFriendApplicationListRead(data)
-                
+            if(listener.onFriendApplicationListRead != null)
+                listener.onFriendApplicationListRead(data);
             break;
         }
         case "onFriendListAdded":{
-            if(listener.onFriendListAdded!=null)
-                listener.onFriendListAdded(data)
-                
+            if(listener.onFriendListAdded != null)
+                listener.onFriendListAdded(data);
             break;
         }
         case "onFriendListDeleted":{
-            if(listener.onFriendListDeleted!=null)
-                listener.onFriendListDeleted(data)
-                
+            if(listener.onFriendListDeleted != null)
+                listener.onFriendListDeleted(data);
             break;
         }
         case "onBlackListAdd":{
-            if(listener.onBlackListAdd!=null)
-                listener.onBlackListAdd(data)
-                
+            if(listener.onBlackListAdd != null)
+                listener.onBlackListAdd(data);
             break;
         }
         case "onBlackListDeleted":{
-            if(listener.onBlackListDeleted!=null)
-                listener.onBlackListDeleted(data)
-                
+            if(listener.onBlackListDeleted != null)
+                listener.onBlackListDeleted(data);
             break;
         }
         case "onFriendInfoChanged":{
-            if(listener.onFriendInfoChanged!=null)
-                listener.onFriendInfoChanged(data)
-                
+            if(listener.onFriendInfoChanged != null)
+                listener.onFriendInfoChanged(data);
             break;
         }
         case "onSyncServerStart":{
-            if(listener.onSyncServerStart!=null)
-                listener.onSyncServerStart(data)
-                
+            if(listener.onSyncServerStart != null)
+                listener.onSyncServerStart(data);
             break;
         }
         case "onSyncServerFinish":{
-            if(listener.onSyncServerFinish!=null)
-                listener.onSyncServerFinish(data)
-                
+            if(listener.onSyncServerFinish != null)
+                listener.onSyncServerFinish(data);
             break;
         }
         case "onSyncServerFailed":{
-            if(listener.onSyncServerFailed!=null)
-                listener.onSyncServerFailed(data)
-                
+            if(listener.onSyncServerFailed != null)
+                listener.onSyncServerFailed(data);
             break;
         }
         case "onNewConversation":{
-            if(listener.onNewConversation!=null)
-                listener.onNewConversation(data)
-                
+            if(listener.onNewConversation != null)
+                listener.onNewConversation(data);
             break;
         }
         case "onConversationChanged":{
-            if(listener.onConversationChanged!=null)
-                listener.onConversationChanged(data)
-                
+            if(listener.onConversationChanged != null)
+                listener.onConversationChanged(data);
             break;
         }
         case "onTotalUnreadMessageCountChanged":{
-            if(listener.onTotalUnreadMessageCountChanged!=null)
-                listener.onTotalUnreadMessageCountChanged(data)
-                
+            if(listener.onTotalUnreadMessageCountChanged != null)
+                listener.onTotalUnreadMessageCountChanged(data);
             break;
         }
         case "onConversationGroupCreated":{
-            if(listener.onConversationGroupCreated!=null)
-                listener.onConversationGroupCreated(data)
-                
+            if(listener.onConversationGroupCreated != null)
+                listener.onConversationGroupCreated(data);
             break;
         }
         case "onConversationGroupDeleted":{
-            if(listener.onConversationGroupDeleted!=null)
-                listener.onConversationGroupDeleted(data)
-                
+            if(listener.onConversationGroupDeleted != null)
+                listener.onConversationGroupDeleted(data);
             break;
         }
         case "onConversationGroupNameChanged":{
-            if(listener.onConversationGroupNameChanged!=null)
-                listener.onConversationGroupNameChanged(data)
-                
+            if(listener.onConversationGroupNameChanged != null)
+                listener.onConversationGroupNameChanged(data);
             break;
         }
         case "onConversationsAddedToGroup":{
-            if(listener.onConversationsAddedToGroup!=null)
-                listener.onConversationsAddedToGroup(data)
-                
+            if(listener.onConversationsAddedToGroup != null)
+                listener.onConversationsAddedToGroup(data);
             break;
         }
         case "onConversationsDeletedFromGroup":{
-            if(listener.onConversationsDeletedFromGroup!=null)
-                listener.onConversationsDeletedFromGroup(data)
-                
+            if(listener.onConversationsDeletedFromGroup != null)
+                listener.onConversationsDeletedFromGroup(data);
             break;
         }
     }
@@ -5558,63 +5539,63 @@ function sortListenerType(data,listener){
 
 class signalingListener{
     count ="";
-    constructor({onReceiveNewInvitation=null,onInviteeAccepted = null,onInviteeRejected=null,onInvitationCancelled=null,onInvitationTimeout=null,onInvitationModified=null}){
+    constructor({onReceiveNewInvitation = null,onInviteeAccepted = null,onInviteeRejected = null,onInvitationCancelled = null,onInvitationTimeout = null,onInvitationModified = null}){
         this.count=randomString(6);
         this.onReceiveNewInvitation = onReceiveNewInvitation;
         this.onInviteeAccepted = onInviteeAccepted;
-        this.onInviteeRejected =onInviteeRejected;
-        this.onInvitationCancelled =onInvitationCancelled;
-        this.onInvitationTimeout =onInvitationTimeout;
-        this.onInvitationModified =onInvitationModified;
+        this.onInviteeRejected = onInviteeRejected;
+        this.onInvitationCancelled = onInvitationCancelled;
+        this.onInvitationTimeout = onInvitationTimeout;
+        this.onInvitationModified = onInvitationModified;
     }
-}
+};
 
 class groupListener{
-    constructor({onMemberEnter=null,onMemberLeave=null,onMemberInvited=null,onMemberKicked=null,onMemberInfoChanged=null,onGroupCreated=null,onGroupDismissed=null,onGroupRecycled=null,onGroupInfoChanged=null,onReceiveJoinApplication=null,onApplicationProcessed=null,onGrantAdministrator=null,onRevokeAdministrator=null,onQuitFromGroup=null,onReceiveRESTCustomData=null,onGroupAttributeChanged=null,onTopicCreated=null,onTopicDeleted=null,onTopicInfoChanged=null}){
-        this.count=randomString(6);
-        this.onMemberEnter =onMemberEnter;
+    constructor({onMemberEnter = null,onMemberLeave = null,onMemberInvited = null,onMemberKicked = null,onMemberInfoChanged = null,onGroupCreated = null,onGroupDismissed = null,onGroupRecycled = null,onGroupInfoChanged = null,onReceiveJoinApplication = null,onApplicationProcessed = null,onGrantAdministrator = null,onRevokeAdministrator = null,onQuitFromGroup = null,onReceiveRESTCustomData = null,onGroupAttributeChanged = null,onTopicCreated = null,onTopicDeleted = null,onTopicInfoChanged = null}){
+        this.count = randomString(6);
+        this.onMemberEnter = onMemberEnter;
         this.onMemberLeave = onMemberLeave;
         this.onMemberInvited = onMemberInvited;
-        this.onMemberKicked =onMemberKicked;
-        this.onMemberInfoChanged =onMemberInfoChanged;
-        this.onGroupCreated =onGroupCreated;
-        this.onGroupDismissed =onGroupDismissed;
-        this.onGroupRecycled =onGroupRecycled;
-        this.onGroupInfoChanged =onGroupInfoChanged;
+        this.onMemberKicked = onMemberKicked;
+        this.onMemberInfoChanged = onMemberInfoChanged;
+        this.onGroupCreated = onGroupCreated;
+        this.onGroupDismissed = onGroupDismissed;
+        this.onGroupRecycled = onGroupRecycled;
+        this.onGroupInfoChanged = onGroupInfoChanged;
         this.onReceiveJoinApplication = onReceiveJoinApplication;
-        this.onApplicationProcessed =onApplicationProcessed;
-        this.onGrantAdministrator =onGrantAdministrator;
-        this.onRevokeAdministrator =onRevokeAdministrator;
-        this.onQuitFromGroup =onQuitFromGroup;
-        this.onReceiveRESTCustomData =onReceiveRESTCustomData;
-        this.onGroupAttributeChanged =onGroupAttributeChanged;
-        this.onTopicCreated =onTopicCreated;
-        this.onTopicDeleted =onTopicDeleted;
-        this.onTopicInfoChanged =onTopicInfoChanged;
+        this.onApplicationProcessed = onApplicationProcessed;
+        this.onGrantAdministrator = onGrantAdministrator;
+        this.onRevokeAdministrator = onRevokeAdministrator;
+        this.onQuitFromGroup = onQuitFromGroup;
+        this.onReceiveRESTCustomData = onReceiveRESTCustomData;
+        this.onGroupAttributeChanged = onGroupAttributeChanged;
+        this.onTopicCreated = onTopicCreated;
+        this.onTopicDeleted = onTopicDeleted;
+        this.onTopicInfoChanged = onTopicInfoChanged;
     }
-}
+};
 
 class friendshipListener{
-    constructor({onFriendApplicationListAdded=null,onFriendApplicationListDeleted=null,onFriendApplicationListRead=null,onFriendListAdded=null,onFriendListDeleted=null,onBlackListAdd=null,onBlackListDeleted=null,onFriendInfoChanged=null}){
+    constructor({onFriendApplicationListAdded = null,onFriendApplicationListDeleted = null,onFriendApplicationListRead = null,onFriendListAdded = null,onFriendListDeleted = null,onBlackListAdd = null,onBlackListDeleted = null,onFriendInfoChanged = null}){
         this.count=randomString(6);
         this.onFriendApplicationListAdded = onFriendApplicationListAdded;
-        this.onFriendApplicationListDeleted =onFriendApplicationListDeleted;
+        this.onFriendApplicationListDeleted = onFriendApplicationListDeleted;
         this.onFriendApplicationListRead = onFriendApplicationListRead;
         this.onFriendListAdded = onFriendListAdded;
-        this.onFriendListDeleted =onFriendListDeleted;
-        this.onBlackListAdd =onBlackListAdd;
-        this.onBlackListDeleted =onBlackListDeleted;
+        this.onFriendListDeleted = onFriendListDeleted;
+        this.onBlackListAdd = onBlackListAdd;
+        this.onBlackListDeleted = onBlackListDeleted;
         this.onFriendInfoChanged = onFriendInfoChanged;
     }
-}
+};
 
 class conversationListener{
-    constructor({onSyncServerStart = null,onSyncServerFinish = null,onSyncServerFailed=null,onNewConversation=null,onConversationChanged=null,onTotalUnreadMessageCountChanged=null,onConversationGroupCreated=null,onConversationGroupDeleted=null,onConversationGroupNameChanged=null,onConversationsAddedToGroup=null,onConversationsDeletedFromGroup=null}){
+    constructor({onSyncServerStart = null,onSyncServerFinish = null,onSyncServerFailed = null,onNewConversation = null,onConversationChanged = null,onTotalUnreadMessageCountChanged = null,onConversationGroupCreated = null,onConversationGroupDeleted = null,onConversationGroupNameChanged = null,onConversationsAddedToGroup = null,onConversationsDeletedFromGroup = null}){
         this.count=randomString(6);
-        this.onSyncServerStart =onSyncServerStart;
+        this.onSyncServerStart = onSyncServerStart;
         this.onSyncServerFinish = onSyncServerFinish;
-        this.onSyncServerFailed =onSyncServerFailed;
-        this.onNewConversation =onNewConversation;
+        this.onSyncServerFailed = onSyncServerFailed;
+        this.onNewConversation = onNewConversation;
         this.onConversationChanged = onConversationChanged;
         this.onTotalUnreadMessageCountChanged = onTotalUnreadMessageCountChanged;
         this.onConversationGroupCreated = onConversationGroupCreated;
@@ -5623,10 +5604,10 @@ class conversationListener{
         this.onConversationsAddedToGroup = onConversationsAddedToGroup;
         this.onConversationsDeletedFromGroup = onConversationsDeletedFromGroup;
     }
-}
+};
 
 function findUuid(map,listener){
-    return Object.keys(map).find(key=>map[key]==listener)
+    return Object.keys(map).find(key=>map[key] == listener);
 }
 
 
@@ -5669,7 +5650,7 @@ var tencentCloudChat = {
         let param = arguments[0];
         let finalParam = compareParam('initSDK',param);
         if("error" in finalParam){
-            
+            console.log(finalParam)
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
             })
@@ -5679,7 +5660,7 @@ var tencentCloudChat = {
                 if(err){
                     reject(err)
                 }else{
-                    // handle data
+                    
                     
                     resolve(data);
                 }
@@ -5694,7 +5675,7 @@ var tencentCloudChat = {
         let param = arguments[0];
         let finalParam = compareParam('initSDK',param);
         if("error" in finalParam){
-            
+            console.log(finalParam)
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
             })
@@ -5704,7 +5685,7 @@ var tencentCloudChat = {
                 if(err){
                     reject(err)
                 }else{
-                    // handle data
+                    
                     resolve(data);
                 }
             });
@@ -5719,7 +5700,7 @@ var tencentCloudChat = {
                 if(err){
                     reject(err)
                 }else{
-                    // handle data
+                    
                     that.sdkListenerFunction(data);
                     resolve(data);
                 }
@@ -5743,14 +5724,14 @@ var tencentCloudChat = {
     addAdvancedMsgListener:function(advancedMsgListener){
         let uuid = advancedMsgListener.count
         this.advancedMsgListenerMap[uuid] = advancedMsgListener;
-        
+        console.log(uuid)
         let that = this;
         return new Promise((resolve,reject)=>{
             this.tencentCloudChatSDK.addAdvancedMsgListener({"uuid":uuid},function(data,err){
                 if(err){
                     reject(err)
                 }else{
-                    // handle data
+                    
                     that.advancedMsgListenerFucntion(data);
                     resolve(data);
                 }
@@ -5760,7 +5741,7 @@ var tencentCloudChat = {
     removeAdvancedMsgListener:function(advancedMsgListener){
         let uuid = findUuid(this.advancedMsgListenerMap,advancedMsgListener);
         delete this.advancedMsgListenerMap[uuid];
-        
+        console.log(uuid)
         return new Promise((resolve,reject)=>{
             this.tencentCloudChatSDK.removeAdvancedMsgListener({"uuid":uuid},function(data,err){
                 if(err){
@@ -5773,7 +5754,7 @@ var tencentCloudChat = {
     },
     addGroupListener:function(groupListener){
         let uuid = groupListener.count.toString()
-        
+        console.log(uuid)
         this.groupListenerMap[uuid] = groupListener
         let that = this;
         return new Promise((resolve,reject)=>{
@@ -5781,7 +5762,7 @@ var tencentCloudChat = {
                 if(err){
                     reject(err)
                 }else{
-                    // handle data
+                    
                     that.groupListenerFunction(data);
                 }
             });
@@ -5790,7 +5771,7 @@ var tencentCloudChat = {
     removeGroupListener:function(groupListener){
         let uuid = findUuid(this.groupListenerMap,groupListener);
         delete this.groupListenerMap[uuid];
-        
+        console.log(uuid)
         let that = this;
         return new Promise((resolve,reject)=>{
             this.tencentCloudChatSDK.removeGroupListener({"uuid":uuid},function(data,err){
@@ -5811,7 +5792,7 @@ var tencentCloudChat = {
                 if(err){
                     reject(err)
                 }else{
-                    // handle data
+                    
                     that.friendshipListenerFunction(data)
                     resolve(data);
                 }
@@ -5821,7 +5802,7 @@ var tencentCloudChat = {
     removeFriendListener:function(friendListener){
         let uuid = findUuid(this.friendListenerMap,friendListener);
         delete this.friendListenerMap[uuid];
-        
+        console.log(uuid)
         return new Promise((resolve,reject)=>{
             this.tencentCloudChatSDK.removeFriendListener({"uuid":uuid},function(data,err){
                 if(err){
@@ -5841,7 +5822,7 @@ var tencentCloudChat = {
                 if(err){
                     reject(err)
                 }else{
-                    // handle data
+                    
                     that.conversationListenerFunction(data)
                     resolve(data);
                 }
@@ -5851,7 +5832,7 @@ var tencentCloudChat = {
     removeConversationListener:function(conversationListener){
         let uuid = findUuid(this.conversationListenerMap,conversationListener);
         delete this.conversationListenerMap[uuid];
-        
+        console.log(uuid)
         let that = this;
         return new Promise((resolve,reject)=>{
             this.tencentCloudChatSDK.removeConversationListener({"uuid":uuid},function(data,err){
@@ -5872,7 +5853,7 @@ var tencentCloudChat = {
                 if(err){
                     reject(err)
                 }else{
-                    // handle data
+                    
                     that.signalingListenerFunction(data);
                     resolve(data);
                 }
@@ -5882,7 +5863,7 @@ var tencentCloudChat = {
     removeSignalingListener:function(signalingListener){
         let uuid = findUuid(this.signalingListenerMap,signalingListener);
         delete this.signalingListenerMap[uuid];
-        
+        console.log(uuid)
         let that = this;
         return new Promise((resolve,reject)=>{
             this.tencentCloudChatSDK.removeSignalingListener({"uuid":uuid},function(data,err){
@@ -5897,7 +5878,7 @@ var tencentCloudChat = {
     unInitSDK:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('unInitSDK',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -5907,7 +5888,7 @@ var tencentCloudChat = {
             let result = addResponseType('unInitSDK');
             this.tencentCloudChatSDK.unInitSDK(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -5919,7 +5900,7 @@ var tencentCloudChat = {
     getVersion:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('getVersion',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -5929,7 +5910,7 @@ var tencentCloudChat = {
             let result = addResponseType('getVersion');
             this.tencentCloudChatSDK.getVersion(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -5941,7 +5922,7 @@ var tencentCloudChat = {
     getServerTime:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('getServerTime',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -5951,7 +5932,7 @@ var tencentCloudChat = {
             let result = addResponseType('getServerTime');
             this.tencentCloudChatSDK.getServerTime(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -5963,7 +5944,7 @@ var tencentCloudChat = {
     login:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('login',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -5971,13 +5952,13 @@ var tencentCloudChat = {
         }
         return new Promise((resolve,reject)=>{
             let result = addResponseType('login');
-            this.tencentCloudChatSDK.login(finalParam,function(data,err){if(err){reject(err);}else{console.log(data);result.data = data ; resolve(result);}});
+            this.tencentCloudChatSDK.login(finalParam,function(data,err){if(err){console.log(JSON.stringify(err));reject(err);}else{;result.data = data ; resolve(result);}});
         })
     },
     logout:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('logout',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -5987,7 +5968,7 @@ var tencentCloudChat = {
             let result = addResponseType('logout');
             this.tencentCloudChatSDK.logout(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -5999,7 +5980,7 @@ var tencentCloudChat = {
     getLoginUser:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('getLoginUser',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6009,7 +5990,7 @@ var tencentCloudChat = {
             let result = addResponseType('getLoginUser');
             this.tencentCloudChatSDK.getLoginUser(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6021,7 +6002,7 @@ var tencentCloudChat = {
     getLoginStatus:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('getLoginStatus',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6031,7 +6012,7 @@ var tencentCloudChat = {
             let result = addResponseType('getLoginStatus');
             this.tencentCloudChatSDK.getLoginStatus(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6043,7 +6024,7 @@ var tencentCloudChat = {
     createGroup:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('createGroup',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6053,7 +6034,7 @@ var tencentCloudChat = {
             let result = addResponseType('createGroup');
             this.tencentCloudChatSDK.createGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6065,7 +6046,7 @@ var tencentCloudChat = {
     joinGroup:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('joinGroup',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6075,7 +6056,7 @@ var tencentCloudChat = {
             let result = addResponseType('joinGroup');
             this.tencentCloudChatSDK.joinGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6087,7 +6068,7 @@ var tencentCloudChat = {
     quitGroup:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('quitGroup',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6097,7 +6078,7 @@ var tencentCloudChat = {
             let result = addResponseType('quitGroup');
             this.tencentCloudChatSDK.quitGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6109,7 +6090,7 @@ var tencentCloudChat = {
     dismissGroup:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('dismissGroup',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6119,7 +6100,7 @@ var tencentCloudChat = {
             let result = addResponseType('dismissGroup');
             this.tencentCloudChatSDK.dismissGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6131,7 +6112,7 @@ var tencentCloudChat = {
     getUsersInfo:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('getUsersInfo',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6141,7 +6122,7 @@ var tencentCloudChat = {
             let result = addResponseType('getUsersInfo');
             this.tencentCloudChatSDK.getUsersInfo(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6153,7 +6134,7 @@ var tencentCloudChat = {
     getUserStatus:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('getUserStatus',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6163,7 +6144,7 @@ var tencentCloudChat = {
             let result = addResponseType('getUserStatus');
             this.tencentCloudChatSDK.getUserStatus(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6175,7 +6156,7 @@ var tencentCloudChat = {
     setSelfInfo:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('setSelfInfo',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6185,7 +6166,7 @@ var tencentCloudChat = {
             let result = addResponseType('setSelfInfo');
             this.tencentCloudChatSDK.setSelfInfo(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6197,7 +6178,7 @@ var tencentCloudChat = {
     setSelfStatus:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('setSelfStatus',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6207,7 +6188,7 @@ var tencentCloudChat = {
             let result = addResponseType('setSelfStatus');
             this.tencentCloudChatSDK.setSelfStatus(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6219,7 +6200,7 @@ var tencentCloudChat = {
     subscribeUserStatus:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('subscribeUserStatus',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6229,7 +6210,7 @@ var tencentCloudChat = {
             let result = addResponseType('subscribeUserStatus');
             this.tencentCloudChatSDK.subscribeUserStatus(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6241,7 +6222,7 @@ var tencentCloudChat = {
     unsubscribeUserStatus:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('unsubscribeUserStatus',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6251,7 +6232,7 @@ var tencentCloudChat = {
             let result = addResponseType('unsubscribeUserStatus');
             this.tencentCloudChatSDK.unsubscribeUserStatus(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6264,7 +6245,7 @@ var tencentCloudChat = {
     createTextMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('createTextMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6274,7 +6255,7 @@ var tencentCloudChat = {
             let result = addResponseType('createTextMessage');
             this.tencentCloudChatSDK.createTextMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6286,7 +6267,7 @@ var tencentCloudChat = {
     createTextAtMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('createTextAtMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6296,7 +6277,7 @@ var tencentCloudChat = {
             let result = addResponseType('createTextAtMessage');
             this.tencentCloudChatSDK.createTextAtMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6308,7 +6289,7 @@ var tencentCloudChat = {
     createCustomMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('createCustomMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6318,7 +6299,7 @@ var tencentCloudChat = {
             let result = addResponseType('createCustomMessage');
             this.tencentCloudChatSDK.createCustomMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6330,7 +6311,7 @@ var tencentCloudChat = {
     createImageMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('createImageMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6340,7 +6321,7 @@ var tencentCloudChat = {
             let result = addResponseType('createImageMessage');
             this.tencentCloudChatSDK.createImageMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6352,7 +6333,7 @@ var tencentCloudChat = {
     createSoundMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('createSoundMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6362,7 +6343,7 @@ var tencentCloudChat = {
             let result = addResponseType('createSoundMessage');
             this.tencentCloudChatSDK.createSoundMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6374,7 +6355,7 @@ var tencentCloudChat = {
     createVideoMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('createVideoMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6384,7 +6365,7 @@ var tencentCloudChat = {
             let result = addResponseType('createVideoMessage');
             this.tencentCloudChatSDK.createVideoMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6396,7 +6377,7 @@ var tencentCloudChat = {
     createFileMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('createFileMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6406,7 +6387,7 @@ var tencentCloudChat = {
             let result = addResponseType('createFileMessage');
             this.tencentCloudChatSDK.createFileMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6418,7 +6399,7 @@ var tencentCloudChat = {
     createLocationMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('createLocationMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6428,7 +6409,7 @@ var tencentCloudChat = {
             let result = addResponseType('createLocationMessage');
             this.tencentCloudChatSDK.createLocationMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6440,7 +6421,7 @@ var tencentCloudChat = {
     createFaceMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('createFaceMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6450,7 +6431,7 @@ var tencentCloudChat = {
             let result = addResponseType('createFaceMessage');
             this.tencentCloudChatSDK.createFaceMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6462,7 +6443,7 @@ var tencentCloudChat = {
     createMergerMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('createMergerMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6472,7 +6453,7 @@ var tencentCloudChat = {
             let result = addResponseType('createMergerMessage');
             this.tencentCloudChatSDK.createMergerMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6484,7 +6465,7 @@ var tencentCloudChat = {
     createForwardMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('createForwardMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6494,7 +6475,7 @@ var tencentCloudChat = {
             let result = addResponseType('createForwardMessage');
             this.tencentCloudChatSDK.createForwardMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6506,7 +6487,7 @@ var tencentCloudChat = {
     createTargetedGroupMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('createTargetedGroupMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6516,7 +6497,7 @@ var tencentCloudChat = {
             let result = addResponseType('createTargetedGroupMessage');
             this.tencentCloudChatSDK.createTargetedGroupMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6528,7 +6509,7 @@ var tencentCloudChat = {
     sendMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('sendMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6538,7 +6519,7 @@ var tencentCloudChat = {
             let result = addResponseType('sendMessage');
             this.tencentCloudChatSDK.sendMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6550,7 +6531,7 @@ var tencentCloudChat = {
     setC2CReceiveMessageOpt:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('setC2CReceiveMessageOpt',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6560,7 +6541,7 @@ var tencentCloudChat = {
             let result = addResponseType('setC2CReceiveMessageOpt');
             this.tencentCloudChatSDK.setC2CReceiveMessageOpt(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6572,7 +6553,7 @@ var tencentCloudChat = {
     getC2CReceiveMessageOpt:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('getC2CReceiveMessageOpt',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6582,7 +6563,7 @@ var tencentCloudChat = {
             let result = addResponseType('getC2CReceiveMessageOpt');
             this.tencentCloudChatSDK.getC2CReceiveMessageOpt(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6594,7 +6575,7 @@ var tencentCloudChat = {
     setGroupReceiveMessageOpt:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('setGroupReceiveMessageOpt',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6604,7 +6585,7 @@ var tencentCloudChat = {
             let result = addResponseType('setGroupReceiveMessageOpt');
             this.tencentCloudChatSDK.setGroupReceiveMessageOpt(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6616,7 +6597,7 @@ var tencentCloudChat = {
     getC2CHistoryMessageList:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('getC2CHistoryMessageList',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6626,7 +6607,7 @@ var tencentCloudChat = {
             let result = addResponseType('getC2CHistoryMessageList');
             this.tencentCloudChatSDK.getC2CHistoryMessageList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6638,7 +6619,7 @@ var tencentCloudChat = {
     getGroupHistoryMessageList:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('getGroupHistoryMessageList',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6648,7 +6629,7 @@ var tencentCloudChat = {
             let result = addResponseType('getGroupHistoryMessageList');
             this.tencentCloudChatSDK.getGroupHistoryMessageList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6660,7 +6641,7 @@ var tencentCloudChat = {
     getHistoryMessageList:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('getHistoryMessageList',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6670,7 +6651,7 @@ var tencentCloudChat = {
             let result = addResponseType('getHistoryMessageList');
             this.tencentCloudChatSDK.getHistoryMessageList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6682,7 +6663,7 @@ var tencentCloudChat = {
     revokeMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('revokeMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6692,7 +6673,7 @@ var tencentCloudChat = {
             let result = addResponseType('revokeMessage');
             this.tencentCloudChatSDK.revokeMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6704,7 +6685,7 @@ var tencentCloudChat = {
     modifyMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('modifyMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6714,7 +6695,7 @@ var tencentCloudChat = {
             let result = addResponseType('modifyMessage');
             this.tencentCloudChatSDK.modifyMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6726,7 +6707,7 @@ var tencentCloudChat = {
     markC2CMessageAsRead:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('markC2CMessageAsRead',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6736,7 +6717,7 @@ var tencentCloudChat = {
             let result = addResponseType('markC2CMessageAsRead');
             this.tencentCloudChatSDK.markC2CMessageAsRead(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6748,7 +6729,7 @@ var tencentCloudChat = {
     markGroupMessageAsRead:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('markGroupMessageAsRead',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6758,7 +6739,7 @@ var tencentCloudChat = {
             let result = addResponseType('markGroupMessageAsRead');
             this.tencentCloudChatSDK.markGroupMessageAsRead(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6770,7 +6751,7 @@ var tencentCloudChat = {
     markAllMessageAsRead:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('markAllMessageAsRead',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6780,7 +6761,7 @@ var tencentCloudChat = {
             let result = addResponseType('markAllMessageAsRead');
             this.tencentCloudChatSDK.markAllMessageAsRead(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6792,7 +6773,7 @@ var tencentCloudChat = {
     deleteMessageFromLocalStorage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('deleteMessageFromLocalStorage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6802,7 +6783,7 @@ var tencentCloudChat = {
             let result = addResponseType('deleteMessageFromLocalStorage');
             this.tencentCloudChatSDK.deleteMessageFromLocalStorage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6814,7 +6795,7 @@ var tencentCloudChat = {
     deleteMessages:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('deleteMessages',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6824,7 +6805,7 @@ var tencentCloudChat = {
             let result = addResponseType('deleteMessages');
             this.tencentCloudChatSDK.deleteMessages(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6836,7 +6817,7 @@ var tencentCloudChat = {
     clearC2CHistoryMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('clearC2CHistoryMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6846,7 +6827,7 @@ var tencentCloudChat = {
             let result = addResponseType('clearC2CHistoryMessage');
             this.tencentCloudChatSDK.clearC2CHistoryMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6858,7 +6839,7 @@ var tencentCloudChat = {
     clearGroupHistoryMessage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('clearGroupHistoryMessage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6868,7 +6849,7 @@ var tencentCloudChat = {
             let result = addResponseType('clearGroupHistoryMessage');
             this.tencentCloudChatSDK.clearGroupHistoryMessage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6880,7 +6861,7 @@ var tencentCloudChat = {
     insertGroupMessageToLocalStorage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('insertGroupMessageToLocalStorage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6890,7 +6871,7 @@ var tencentCloudChat = {
             let result = addResponseType('insertGroupMessageToLocalStorage');
             this.tencentCloudChatSDK.insertGroupMessageToLocalStorage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6902,7 +6883,7 @@ var tencentCloudChat = {
     insertC2CMessageToLocalStorage:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('insertC2CMessageToLocalStorage',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6912,7 +6893,7 @@ var tencentCloudChat = {
             let result = addResponseType('insertC2CMessageToLocalStorage');
             this.tencentCloudChatSDK.insertC2CMessageToLocalStorage(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6924,7 +6905,7 @@ var tencentCloudChat = {
     findMessages:function({...p}){
         let param = arguments[0];
         let finalParam = compareParam('findMessages',param);
-        
+        console.log(JSON.stringify(finalParam))
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
@@ -6934,7 +6915,7 @@ var tencentCloudChat = {
             let result = addResponseType('findMessages');
             this.tencentCloudChatSDK.findMessages(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6955,7 +6936,7 @@ var tencentCloudChat = {
             let result = addResponseType('searchLocalMessages');
             this.tencentCloudChatSDK.searchLocalMessages(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6976,7 +6957,7 @@ var tencentCloudChat = {
             let result = addResponseType('sendMessageReadReceipts');
             this.tencentCloudChatSDK.sendMessageReadReceipts(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -6997,7 +6978,7 @@ var tencentCloudChat = {
             let result = addResponseType('getMessageReadReceipts');
             this.tencentCloudChatSDK.getMessageReadReceipts(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7018,7 +6999,7 @@ var tencentCloudChat = {
             let result = addResponseType('getGroupMessageReadMemberList');
             this.tencentCloudChatSDK.getGroupMessageReadMemberList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7039,7 +7020,7 @@ var tencentCloudChat = {
             let result = addResponseType('setMessageExtensions');
             this.tencentCloudChatSDK.setMessageExtensions(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7060,7 +7041,7 @@ var tencentCloudChat = {
             let result = addResponseType('getMessageExtensions');
             this.tencentCloudChatSDK.getMessageExtensions(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7081,7 +7062,28 @@ var tencentCloudChat = {
             let result = addResponseType('deleteMessageExtensions');
             this.tencentCloudChatSDK.deleteMessageExtensions(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }
+            else{
+                result.data = data ; 
+                resolve(result);
+            }});
+        })
+    },
+    downloadMessage:function({...p}){
+        let param = arguments[0];
+        let finalParam = compareParam('downloadMessage',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            })
+        }
+        return new Promise((resolve,reject)=>{
+            let result = addResponseType('downloadMessage');
+            this.tencentCloudChatSDK.downloadMessage(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7102,7 +7104,7 @@ var tencentCloudChat = {
             let result = addResponseType('getMessageOnlineUrl');
             this.tencentCloudChatSDK.getMessageOnlineUrl(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7123,7 +7125,7 @@ var tencentCloudChat = {
             let result = addResponseType('getJoinedGroupList');
             this.tencentCloudChatSDK.getJoinedGroupList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7144,7 +7146,7 @@ var tencentCloudChat = {
             let result = addResponseType('getGroupsInfo');
             this.tencentCloudChatSDK.getGroupsInfo(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7165,7 +7167,7 @@ var tencentCloudChat = {
             let result = addResponseType('searchGroups');
             this.tencentCloudChatSDK.searchGroups(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7186,7 +7188,7 @@ var tencentCloudChat = {
             let result = addResponseType('setGroupInfo');
             this.tencentCloudChatSDK.setGroupInfo(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7207,7 +7209,7 @@ var tencentCloudChat = {
             let result = addResponseType('initGroupAttributes');
             this.tencentCloudChatSDK.initGroupAttributes(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7228,7 +7230,7 @@ var tencentCloudChat = {
             let result = addResponseType('setGroupAttributes');
             this.tencentCloudChatSDK.setGroupAttributes(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7249,7 +7251,7 @@ var tencentCloudChat = {
             let result = addResponseType('deleteGroupAttributes');
             this.tencentCloudChatSDK.deleteGroupAttributes(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7270,7 +7272,7 @@ var tencentCloudChat = {
             let result = addResponseType('getGroupAttributes');
             this.tencentCloudChatSDK.getGroupAttributes(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7291,7 +7293,7 @@ var tencentCloudChat = {
             let result = addResponseType('getGroupOnlineMemberCount');
             this.tencentCloudChatSDK.getGroupOnlineMemberCount(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7312,7 +7314,7 @@ var tencentCloudChat = {
             let result = addResponseType('getGroupMemberList');
             this.tencentCloudChatSDK.getGroupMemberList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7333,7 +7335,7 @@ var tencentCloudChat = {
             let result = addResponseType('getGroupMembersInfo');
             this.tencentCloudChatSDK.getGroupMembersInfo(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7354,7 +7356,7 @@ var tencentCloudChat = {
             let result = addResponseType('searchGroupMembers');
             this.tencentCloudChatSDK.searchGroupMembers(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7375,7 +7377,7 @@ var tencentCloudChat = {
             let result = addResponseType('setGroupMemberInfo');
             this.tencentCloudChatSDK.setGroupMemberInfo(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7396,7 +7398,7 @@ var tencentCloudChat = {
             let result = addResponseType('muteGroupMember');
             this.tencentCloudChatSDK.muteGroupMember(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7417,7 +7419,7 @@ var tencentCloudChat = {
             let result = addResponseType('inviteUserToGroup');
             this.tencentCloudChatSDK.inviteUserToGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7438,7 +7440,7 @@ var tencentCloudChat = {
             let result = addResponseType('kickGroupMember');
             this.tencentCloudChatSDK.kickGroupMember(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7459,7 +7461,7 @@ var tencentCloudChat = {
             let result = addResponseType('setGroupMemberRole');
             this.tencentCloudChatSDK.setGroupMemberRole(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7480,7 +7482,7 @@ var tencentCloudChat = {
             let result = addResponseType('markGroupMemberList');
             this.tencentCloudChatSDK.markGroupMemberList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7501,7 +7503,7 @@ var tencentCloudChat = {
             let result = addResponseType('transferGroupOwner');
             this.tencentCloudChatSDK.transferGroupOwner(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7522,7 +7524,7 @@ var tencentCloudChat = {
             let result = addResponseType('getGroupApplicationList');
             this.tencentCloudChatSDK.getGroupApplicationList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7543,7 +7545,7 @@ var tencentCloudChat = {
             let result = addResponseType('acceptGroupApplication');
             this.tencentCloudChatSDK.acceptGroupApplication(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7564,7 +7566,7 @@ var tencentCloudChat = {
             let result = addResponseType('refuseGroupApplication');
             this.tencentCloudChatSDK.refuseGroupApplication(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7585,7 +7587,7 @@ var tencentCloudChat = {
             let result = addResponseType('setGroupApplicationRead');
             this.tencentCloudChatSDK.setGroupApplicationRead(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7606,7 +7608,7 @@ var tencentCloudChat = {
             let result = addResponseType('getJoinedCommunityList');
             this.tencentCloudChatSDK.getJoinedCommunityList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7627,7 +7629,7 @@ var tencentCloudChat = {
             let result = addResponseType('createTopicInCommunity');
             this.tencentCloudChatSDK.createTopicInCommunity(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7648,7 +7650,7 @@ var tencentCloudChat = {
             let result = addResponseType('deleteTopicFromCommunity');
             this.tencentCloudChatSDK.deleteTopicFromCommunity(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7669,7 +7671,7 @@ var tencentCloudChat = {
             let result = addResponseType('setTopicInfo');
             this.tencentCloudChatSDK.setTopicInfo(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7690,7 +7692,7 @@ var tencentCloudChat = {
             let result = addResponseType('getTopicInfoList');
             this.tencentCloudChatSDK.getTopicInfoList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7711,7 +7713,7 @@ var tencentCloudChat = {
             let result = addResponseType('invite');
             this.tencentCloudChatSDK.invite(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7732,7 +7734,7 @@ var tencentCloudChat = {
             let result = addResponseType('inviteInGroup');
             this.tencentCloudChatSDK.inviteInGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7753,7 +7755,7 @@ var tencentCloudChat = {
             let result = addResponseType('cancel');
             this.tencentCloudChatSDK.cancel(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7774,7 +7776,7 @@ var tencentCloudChat = {
             let result = addResponseType('accept');
             this.tencentCloudChatSDK.accept(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7795,7 +7797,7 @@ var tencentCloudChat = {
             let result = addResponseType('reject');
             this.tencentCloudChatSDK.reject(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7816,7 +7818,7 @@ var tencentCloudChat = {
             let result = addResponseType('getSignalingInfo');
             this.tencentCloudChatSDK.getSignalingInfo(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7837,7 +7839,7 @@ var tencentCloudChat = {
             let result = addResponseType('addInvitedSignaling');
             this.tencentCloudChatSDK.addInvitedSignaling(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7858,7 +7860,7 @@ var tencentCloudChat = {
             let result = addResponseType('getConversationList');
             this.tencentCloudChatSDK.getConversationList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7879,7 +7881,7 @@ var tencentCloudChat = {
             let result = addResponseType('getConversationListByConversaionIds');
             this.tencentCloudChatSDK.getConversationListByConversaionIds(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7900,7 +7902,7 @@ var tencentCloudChat = {
             let result = addResponseType('getConversation');
             this.tencentCloudChatSDK.getConversation(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7921,7 +7923,7 @@ var tencentCloudChat = {
             let result = addResponseType('getConversationListByFilter');
             this.tencentCloudChatSDK.getConversationListByFilter (finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7942,7 +7944,7 @@ var tencentCloudChat = {
             let result = addResponseType('deleteConversation');
             this.tencentCloudChatSDK.deleteConversation (finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7963,7 +7965,7 @@ var tencentCloudChat = {
             let result = addResponseType('setConversationDraft');
             this.tencentCloudChatSDK.setConversationDraft(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -7984,7 +7986,7 @@ var tencentCloudChat = {
             let result = addResponseType('setConversationCustomData');
             this.tencentCloudChatSDK.setConversationCustomData(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8005,7 +8007,7 @@ var tencentCloudChat = {
             let result = addResponseType('pinConversation');
             this.tencentCloudChatSDK.pinConversation(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8026,7 +8028,7 @@ var tencentCloudChat = {
             let result = addResponseType('markConversation');
             this.tencentCloudChatSDK.markConversation(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8047,7 +8049,7 @@ var tencentCloudChat = {
             let result = addResponseType('getTotalUnreadMessageCount');
             this.tencentCloudChatSDK.getTotalUnreadMessageCount(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8068,7 +8070,7 @@ var tencentCloudChat = {
             let result = addResponseType('createConversationGroup');
             this.tencentCloudChatSDK.createConversationGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8089,7 +8091,7 @@ var tencentCloudChat = {
             let result = addResponseType('getConversationGroupList');
             this.tencentCloudChatSDK.getConversationGroupList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8110,7 +8112,7 @@ var tencentCloudChat = {
             let result = addResponseType('deleteConversationGroup');
             this.tencentCloudChatSDK.deleteConversationGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8131,7 +8133,7 @@ var tencentCloudChat = {
             let result = addResponseType('renameConversationGroup');
             this.tencentCloudChatSDK.renameConversationGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8152,7 +8154,7 @@ var tencentCloudChat = {
             let result = addResponseType('addConversationsToGroup');
             this.tencentCloudChatSDK.addConversationsToGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8173,7 +8175,7 @@ var tencentCloudChat = {
             let result = addResponseType('deleteConversationsFromGroup');
             this.tencentCloudChatSDK.deleteConversationsFromGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8194,7 +8196,7 @@ var tencentCloudChat = {
             let result = addResponseType('getFriendList');
             this.tencentCloudChatSDK.getFriendList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8215,7 +8217,7 @@ var tencentCloudChat = {
             let result = addResponseType('getFriendsInfo');
             this.tencentCloudChatSDK.getFriendsInfo(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8236,7 +8238,7 @@ var tencentCloudChat = {
             let result = addResponseType('setFriendInfo');
             this.tencentCloudChatSDK.setFriendInfo(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8257,7 +8259,7 @@ var tencentCloudChat = {
             let result = addResponseType('searchFriends');
             this.tencentCloudChatSDK.searchFriends(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8278,7 +8280,7 @@ var tencentCloudChat = {
             let result = addResponseType('addFriend');
             this.tencentCloudChatSDK.addFriend(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8299,7 +8301,7 @@ var tencentCloudChat = {
             let result = addResponseType('deleteFromFriendList');
             this.tencentCloudChatSDK.deleteFromFriendList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8320,7 +8322,7 @@ var tencentCloudChat = {
             let result = addResponseType('checkFriend');
             this.tencentCloudChatSDK.checkFriend(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8341,7 +8343,7 @@ var tencentCloudChat = {
             let result = addResponseType('getFriendApplicationList');
             this.tencentCloudChatSDK.getFriendApplicationList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8362,7 +8364,7 @@ var tencentCloudChat = {
             let result = addResponseType('acceptFriendApplication');
             this.tencentCloudChatSDK.acceptFriendApplication(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8383,7 +8385,7 @@ var tencentCloudChat = {
             let result = addResponseType('refuseFriendApplication');
             this.tencentCloudChatSDK.refuseFriendApplication(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8404,7 +8406,7 @@ var tencentCloudChat = {
             let result = addResponseType('deleteFriendApplication');
             this.tencentCloudChatSDK.deleteFriendApplication(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8425,7 +8427,7 @@ var tencentCloudChat = {
             let result = addResponseType('setFriendApplicationRead');
             this.tencentCloudChatSDK.setFriendApplicationRead(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8446,7 +8448,7 @@ var tencentCloudChat = {
             let result = addResponseType('addToBlackList');
             this.tencentCloudChatSDK.addToBlackList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8467,7 +8469,7 @@ var tencentCloudChat = {
             let result = addResponseType('deleteFromBlackList');
             this.tencentCloudChatSDK.deleteFromBlackList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8488,7 +8490,7 @@ var tencentCloudChat = {
             let result = addResponseType('getBlackList');
             this.tencentCloudChatSDK.getBlackList(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8509,7 +8511,7 @@ var tencentCloudChat = {
             let result = addResponseType('createFriendGroup');
             this.tencentCloudChatSDK.createFriendGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8530,7 +8532,7 @@ var tencentCloudChat = {
             let result = addResponseType('getFriendGroups');
             this.tencentCloudChatSDK.getFriendGroups(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8551,7 +8553,7 @@ var tencentCloudChat = {
             let result = addResponseType('deleteFriendGroup');
             this.tencentCloudChatSDK.deleteFriendGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8572,7 +8574,7 @@ var tencentCloudChat = {
             let result = addResponseType('renameFriendGroup');
             this.tencentCloudChatSDK.renameFriendGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8593,7 +8595,7 @@ var tencentCloudChat = {
             let result = addResponseType('addFriendsToFriendGroup');
             this.tencentCloudChatSDK.addFriendsToFriendGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8614,7 +8616,7 @@ var tencentCloudChat = {
             let result = addResponseType('deleteFriendsFromFriendGroup');
             this.tencentCloudChatSDK.deleteFriendsFromFriendGroup(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8635,7 +8637,7 @@ var tencentCloudChat = {
             let result = addResponseType('setOfflinePushConfig');
             this.tencentCloudChatSDK.setOfflinePushConfig(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8656,7 +8658,7 @@ var tencentCloudChat = {
             let result = addResponseType('doBackground');
             this.tencentCloudChatSDK.doBackground(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8677,7 +8679,7 @@ var tencentCloudChat = {
             let result = addResponseType('doForeground');
             this.tencentCloudChatSDK.doForeground(finalParam,function(data,err){
                 if(err){
-                    
+                    console.log(JSON.stringify(err));
                     reject(err);
                 }
             else{
@@ -8686,7 +8688,7 @@ var tencentCloudChat = {
             }});
         })
     },
-}
+};
 
 
 
@@ -8694,8 +8696,8 @@ var tencentCloudChat = {
     Object.keys(params).forEach((key)=>{
         if(!(key in tencentCloudChat)){
 
-            var parr = Object.keys(params[key].param);
-            var p = {};
+            let parr = Object.keys(params[key].param);
+            let p = {};
             parr.forEach((pa)=>{
                 const paramItem = params[key].param[pa];
                 if(paramItem.required){
@@ -8707,6 +8709,7 @@ var tencentCloudChat = {
             tencentCloudChat[key] = function({...p}){
                 let param = arguments[0];
                 let finalParam = compareParam(key,param);
+                console.log(JSON.stringify(finalParam))
                 if("error" in finalParam){
                     return new Promise((resolve,reject)=>{
                         reject(finalParam);
@@ -8714,7 +8717,7 @@ var tencentCloudChat = {
                 }
                 return new Promise((resolve,reject)=>{
                     
-                    let func = "let result = addResponseType(key);this.tencentCloudChatSDK."+key+"(finalParam,function(data,err){if(err){reject(err);}else{console.log(data);result.data = data ; resolve(result);}});"
+                    let func = "let result = addResponseType(key);this.tencentCloudChatSDK."+key+"(finalParam,function(data,err){if(err){console.log(JSON.stringify(err));reject(err);}else{;result.data = data ; resolve(result);}});"
                     eval(func)
                 })
             }
