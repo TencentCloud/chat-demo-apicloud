@@ -4,6 +4,7 @@
 
 该 demo 为腾讯云即时通信 IM 在 APICloud 平台上发布的 tencentCloudChatSDK 模块和 tencentCloudChatH5 H5模块的简单demo。
 该demo仅包含 tencentCloudChatH5 里各个 api 的使用方法。
+==该模块对应apicloud 的 tencentCloudChatSDK 1.1.8版本==
 
 **关于腾讯云即时通信**
 
@@ -92,8 +93,7 @@
 
 ## 相关内容
 [腾讯云IM 官网](https://cloud.tencent.com/document/product/269/86557)
-[tencentCloudChatSDK](https://www.apicloud.com/mod_detail/149186)
-[tencentCloudChatH5](https://www.apicloud.com/mod_detail/149201)
+[tencentCloudChatSDK](https://developer.yonyou.com/cloud/moduleStore/modelDetail?mdId=1674370745722556417)
 
 ## 开发群
 <img src="https://qcloudimg.tencent-cloud.cn/raw/f348789d03975dc153a6203b8744f335.jpg" width="50%"></img>

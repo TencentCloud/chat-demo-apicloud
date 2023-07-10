@@ -54,7 +54,7 @@ const V2TIMCreateGroupMemberInfo = {
     customInfo:{
         type:"Object"
     },
-}
+};
  const  V2TIMUserStatus = {
     userID:{
         type:"string"
@@ -288,7 +288,7 @@ const V2TIMMergerElem = {
     }
 };
 
-const V2TIMGroupMemberInfo ={
+const V2TIMGroupMemberInfo = {
     userID:{
         type:"string"
     },
@@ -579,7 +579,7 @@ const V2TIMOfflinePushInfo = {
 };
 
 
- const V2TIMExtension ={
+ const V2TIMExtension = {
     extensionKey:{
         type:"string"
     },
@@ -1884,6 +1884,42 @@ const V2TIMGroupAtInfo = {
                 required:false,
                 default:false,
                 desc:""
+            },
+            cloudCustomData:{
+                type:"string",
+                required:false,
+                default:"",
+                desc:"云端自定义数据"
+            },
+            localCustomData:{
+                type:"string",
+                required:false,
+                default:"",
+                default:"消息自定义数据"
+            },
+            isExcludedFromUnreadCount:{
+                type:"boolean",
+                required:false,
+                default:false,
+                desc:"消息是否不计入会话未读数"
+            },
+            isExcludedFromLastMessage:{
+                type:"boolean",
+                required:false,
+                default:false,
+                desc:"获取消息是否不计入会话 "
+            },
+            isSupportMessageExtension:{
+                type:"boolean",
+                required:false,
+                default:false,
+                desc:"设置支持消息扩展（需要您购买旗舰版套餐）"
+            },
+            needReadReceipt:{
+                type:"boolean",
+                required:false,
+                default:false,
+                desc:"消息是否需要已读回执"
             },
             offlinePushInfo:{
                 type:V2TIMOfflinePushInfo,
@@ -3232,6 +3268,10 @@ const V2TIMGroupAtInfo = {
                 type:"number",
                 required:true
             },
+            offlinePushInfo:{
+                type:V2TIMOfflinePushInfo,
+                required:true
+            }
         },
         response:{
             data:{
@@ -5108,27 +5148,23 @@ function compareParam(name,param){
                 // Array
                 if(isArray(param[key]) && compare[key].type == "Array"){
                     if(param[key].length == 0){
-                        flag.error = key + " array length is 0";
+                        flag.error = `${key} array length is 0`;
                     }else if(param[key][0] == ""){
-                        flag.error = key + " array element is required"
-                    }
-                    else if(compare[key].arrayType != "object" && typeof compare[key].arrayType != "object" && typeof param[key][0] != compare[key].arrayType){
-                        flag.error = key + " is not array of type "+ compare[key].arrayType;
+                        flag.error = `${key} array element is required`;
+                    }else if(compare[key].arrayType != "object" && typeof compare[key].arrayType != "object" && typeof param[key][0] != compare[key].arrayType){
+                        flag.error = `${key} is not array of type ${compare[key].arrayType}`;
                     }
                 }else if(typeof compare[key].type == "object"){
                     // 其他类
-                } else if(compare[key].type == "object"){
+                }else if(compare[key].type == "object"){
                     // object
                 }
-            }  
-            // string & number
-            else if(typeof param[key] != compare[key].type){
-                console.log(key + " is not type of " + compare[key].type);
-                flag.error = key + " is not type of " + compare[key].type;
+            }else if(typeof param[key] != compare[key].type){
+                // string & number
+                flag.error = `${key} is not type of ${compare[key].type}`;
             }
         }else if(compare[key].required == true){
-            console.log(key + " is required");
-            flag.error = key + " is required";
+            flag.error = `${key} is required`;
         }else if(compare[key].required == false){
             // 加入到param
             param[key] = compare[key].default;
@@ -5141,7 +5177,7 @@ function compareParam(name,param){
 }
 
 function addResponseType(name){
-    const response = {}
+    const response = {};
     const type = params[name].response.data;
     response.type = type;
     if(type.type == "Array"){
@@ -5152,16 +5188,24 @@ function addResponseType(name){
 
 function randomString(e) {    
     e = e || 32;
-    let t = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678",
-    a = t.length,
-    n = "";
+    const t = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678";
+    const a = t.length;
+    let n = "";
     for (i = 0; i < e; i++) n += t.charAt(Math.floor(Math.random() * a));
     return n;
 }
 
 class sdkListener{
     count = "";
-    constructor({onConnecting = null,onConnectSuccess = null,onConnectFailed = null,onKickedOffline = null,onUserSigExpired = null,onSelfInfoUpdated = null,onUserStatusChanged = null}){
+    constructor({
+        onConnecting = null,
+        onConnectSuccess = null,
+        onConnectFailed = null,
+        onKickedOffline = null,
+        onUserSigExpired = null,
+        onSelfInfoUpdated = null,
+        onUserStatusChanged = null,
+    }){
         this.count = randomString(6);
         this.onConnecting = onConnecting;
         this.onConnectSuccess = onConnectSuccess;
@@ -5176,12 +5220,17 @@ class sdkListener{
 class advancedMsgListener{
     count = "";
     constructor({
-        onRecvNewMessage = null,onRecvMessageReadReceipts = null,onRecvC2CReadReceipt = null,onRecvMessageRevoked = null,
-        onRecvMessageModified = null,onRecvMessageExtensionsChanged = null,onRecvMessageExtensionsDeleted = null,
-        onDownloadMessageProgress = null,onSendMessageProgress = null
-        
+        onRecvNewMessage = null,
+        onRecvMessageReadReceipts = null,
+        onRecvC2CReadReceipt = null,
+        onRecvMessageRevoked = null,
+        onRecvMessageModified = null,
+        onRecvMessageExtensionsChanged = null,
+        onRecvMessageExtensionsDeleted = null,
+        onDownloadMessageProgress = null,
+        onSendMessageProgress = null, 
     }){
-        this.count = randomString(6)
+        this.count = randomString(6);
         this.onRecvNewMessage = onRecvNewMessage;
         this.onRecvMessageReadReceipts = onRecvMessageReadReceipts;
         this.onRecvC2CReadReceipt = onRecvC2CReadReceipt;
@@ -5195,76 +5244,90 @@ class advancedMsgListener{
 };
 
 function sortListenerType(data,listener){
-    let type = data["type"]
+    const type = data["type"];
     switch(type){
         case "onConnecting":{
-            if(listener.onConnecting != null)
+            if(listener.onConnecting != null){
                 listener.onConnecting(data);
+            }
             break;
         }
         case "onConnectSuccess":{
-            if(listener.onConnectSuccess != null)
-                listener.onConnectSuccess(data);               
+            if(listener.onConnectSuccess != null){
+                listener.onConnectSuccess(data);
+            }              
             break;
         }
         case "onConnectFailed":{
-            if(listener.onConnectFailed != null)
-                listener.onConnectFailed(data);                
+            if(listener.onConnectFailed != null){
+                listener.onConnectFailed(data);
+            }                
             break;
         }
         case "onKickedOffline":{
-            if(listener.onKickedOffline != null)
-                listener.onKickedOffline(data);               
+            if(listener.onKickedOffline != null){
+                listener.onKickedOffline(data);
+            }            
             break;
         }
         case "onUserSigExpired":{
-            if(listener.onUserSigExpired != null)
+            if(listener.onUserSigExpired != null){
                 listener.onUserSigExpired(data);
+            }
             break;
         }
         case "onSelfInfoUpdated":{
-            if(listener.onSelfInfoUpdated != null)
+            if(listener.onSelfInfoUpdated != null){
                 listener.onSelfInfoUpdated(data);
+            }
             break;
         }
         case "onUserStatusChanged":{
-            if(listener.onUserStatusChanged != null)
+            if(listener.onUserStatusChanged != null){
                 listener.onUserStatusChanged(data);
+            }
             break;
         }
         case "onRecvNewMessage":{
-            if(listener.onRecvNewMessage != null)
+            if(listener.onRecvNewMessage != null){
                 listener.onRecvNewMessage(data);
+            }
             break;
         }
         case "onRecvMessageReadReceipts":{
-            if(listener.onRecvMessageReadReceipts != null)
+            if(listener.onRecvMessageReadReceipts != null){
                 listener.onRecvMessageReadReceipts(data);
+            }
             break;
         }
         case "onRecvC2CReadReceipt":{
-            if(listener.onRecvC2CReadReceipt != null)
+            if(listener.onRecvC2CReadReceipt != null){
                 listener.onRecvC2CReadReceipt(data);
+            } 
             break;
         }
         case "onRecvMessageRevoked":{
-            if(listener.onRecvMessageRevoked != null)
+            if(listener.onRecvMessageRevoked != null){
                 listener.onRecvMessageRevoked(data);
+            }
             break;
         }
         case "onRecvMessageModified":{
-            if(listener.onRecvMessageModified != null)
+            if(listener.onRecvMessageModified != null){
                 listener.onRecvMessageModified(data);
+            }
             break;
         }
         case "onRecvMessageExtensionsChanged":{
-            if(listener.onRecvMessageExtensionsChanged != null)
+            if(listener.onRecvMessageExtensionsChanged != null){
                 listener.onRecvMessageExtensionsChanged(data);
+            }
             break;
         }
         case "onRecvMessageExtensionsDeleted":{
-            if(listener.onRecvMessageExtensionsDeleted != null)
+            if(listener.onRecvMessageExtensionsDeleted != null){
                 listener.onRecvMessageExtensionsDeleted(data);
+            }  
             break;
         }
         case "onSendMessageProgress":{
@@ -5280,258 +5343,309 @@ function sortListenerType(data,listener){
             break;
         }
         case "onConnecting":{
-            if(listener.onConnecting != null)
+            if(listener.onConnecting != null){
                 listener.onConnecting(data);
+            }
             break;
         }
         case "onConnectSuccess":{
-            if(listener.onConnectSuccess != null)
-                listener.onConnectSuccess(data)
+            if(listener.onConnectSuccess != null){
+                listener.onConnectSuccess(data);
+            }    
             break;
         }
         case "onConnectFailed":{
-            if(listener.onConnectFailed != null)
+            if(listener.onConnectFailed != null){
                 listener.onConnectFailed(data);
+            } 
             break;
         }
         case "onKickedOffline":{
-            if(listener.onKickedOffline != null)
+            if(listener.onKickedOffline != null){
                 listener.onKickedOffline(data);
+            }
             break;
         }
         case "onUserSigExpired":{
-            if(listener.onUserSigExpired != null)
+            if(listener.onUserSigExpired != null){
                 listener.onUserSigExpired(data);
+            }
             break;
         }
         case "onSelfInfoUpdated":{
-            if(listener.onSelfInfoUpdated != null)
+            if(listener.onSelfInfoUpdated != null){
                 listener.onSelfInfoUpdated(data);
+            }
             break;
         }
         case "onUserStatusChanged":{
-            if(listener.onUserStatusChanged != null)
+            if(listener.onUserStatusChanged != null){
                 listener.onUserStatusChanged(data);
+            }
             break;
         }
         case "onReceiveNewInvitation":{
-            if(listener.onReceiveNewInvitation != null)
+            if(listener.onReceiveNewInvitation != null){
                 listener.onReceiveNewInvitation(data);
+            }
             break;
         }
         case "onInviteeAccepted":{
-            if(listener.onInviteeAccepted != null)
+            if(listener.onInviteeAccepted != null){
                 listener.onInviteeAccepted(data);
+            }
             break;
         }
         case "onInviteeRejected":{
-            if(listener.onInviteeRejected != null)
+            if(listener.onInviteeRejected != null){
                 listener.onInviteeRejected(data);
+            }
             break;
         }
         case "onInvitationCancelled":{
-            if(listener.onInvitationCancelled != null)
+            if(listener.onInvitationCancelled != null){
                 listener.onInvitationCancelled(data);
+            }
             break;
         }
         case "onInvitationTimeout":{
-            if(listener.onInvitationTimeout != null)
+            if(listener.onInvitationTimeout != null){
                 listener.onInvitationTimeout(data);
+            }
             break;
         }
         case "onInvitationModified":{
-            if(listener.onInvitationModified != null)
+            if(listener.onInvitationModified != null){
                 listener.onInvitationModified(data);
+            }
             break;
         }
         case "onMemberEnter":{
-            if(listener.onMemberEnter != null)
+            if(listener.onMemberEnter != null){
                 listener.onMemberEnter(data);
+            }
             break;
         }
         case "onMemberLeave":{
-            if(listener.onMemberLeave != null)
+            if(listener.onMemberLeave != null){
                 listener.onMemberLeave(data);
+            }
             break;
         }
         case "onMemberInvited":{
-            if(listener.onMemberInvited != null)
+            if(listener.onMemberInvited != null){
                 listener.onMemberInvited(data);
+            }
             break;
         }
         case "onMemberKicked":{
-            if(listener.onMemberKicked != null)
+            if(listener.onMemberKicked != null){
                 listener.onMemberKicked(data);
+            }
             break;
         }
         case "onMemberInfoChanged":{
-            if(listener.onMemberInfoChanged != null)
+            if(listener.onMemberInfoChanged != null){
                 listener.onMemberInfoChanged(data);
+            }
             break;
         }
         case "onGroupCreated":{
-            if(listener.onGroupCreated != null)
+            if(listener.onGroupCreated != null){
                 listener.onGroupCreated(data);
+            }
             break;
         }
         case "onGroupDismissed":{
-            if(listener.onGroupDismissed != null)
+            if(listener.onGroupDismissed != null){
                 listener.onGroupDismissed(data);
+            }
             break;
         }
         case "onGroupRecycled":{
-            if(listener.onGroupRecycled != null)
+            if(listener.onGroupRecycled != null){
                 listener.onGroupRecycled(data);
+            }
             break;
         }
         case "onGroupInfoChanged":{
-            if(listener.onGroupInfoChanged != null)
+            if(listener.onGroupInfoChanged != null){
                 listener.onGroupInfoChanged(data);
+            }
             break;
         }
         case "onReceiveJoinApplication":{
-            if(listener.onReceiveJoinApplication != null)
+            if(listener.onReceiveJoinApplication != null){
                 listener.onReceiveJoinApplication(data);
+            }
             break;
         }
         case "onApplicationProcessed":{
-            if(listener.onApplicationProcessed != null)
+            if(listener.onApplicationProcessed != null){
                 listener.onApplicationProcessed(data);
+            }
             break;
         }
         case "onGrantAdministrator":{
-            if(listener.onGrantAdministrator != null)
+            if(listener.onGrantAdministrator != null){
                 listener.onGrantAdministrator(data);
+            }
             break;
         }
         case "onRevokeAdministrator":{
-            if(listener.onRevokeAdministrator != null)
+            if(listener.onRevokeAdministrator != null){
                 listener.onRevokeAdministrator(data);
+            }
             break;
         }
         case "onQuitFromGroup":{
-            if(listener.onQuitFromGroup != null)
+            if(listener.onQuitFromGroup != null){
                 listener.onQuitFromGroup(data);
+            }
             break;
         }
         case "onReceiveRESTCustomData":{
-            if(listener.onReceiveRESTCustomData != null)
+            if(listener.onReceiveRESTCustomData != null){
                 listener.onReceiveRESTCustomData(data);
+            }
             break;
         }
         case "onGroupAttributeChanged":{
-            if(listener.onGroupAttributeChanged != null)
+            if(listener.onGroupAttributeChanged != null){
                 listener.onGroupAttributeChanged(data);
+            }
             break;
         }
         case "onTopicCreated":{
-            if(listener.onTopicCreated != null)
+            if(listener.onTopicCreated != null){
                 listener.onTopicCreated(data);
+            }
             break;
         }
         case "onTopicDeleted":{
-            if(listener.onTopicDeleted != null)
+            if(listener.onTopicDeleted != null){
                 listener.onTopicDeleted(data);
+            }
             break;
         }
         case "onTopicInfoChanged":{
-            if(listener.onTopicInfoChanged != null)
+            if(listener.onTopicInfoChanged != null){
                 listener.onTopicInfoChanged(data);
+            }
             break;
         }
         case "onFriendApplicationListAdded":{
-            if(listener.onFriendApplicationListAdded != null)
+            if(listener.onFriendApplicationListAdded != null){
                 listener.onFriendApplicationListAdded(data);
+            }
             break;
         }
         case "onFriendApplicationListDeleted":{
-            if(listener.onFriendApplicationListDeleted != null)
+            if(listener.onFriendApplicationListDeleted != null){
                 listener.onFriendApplicationListDeleted(data);
+            }
             break;
         }
         case "onFriendApplicationListRead":{
-            if(listener.onFriendApplicationListRead != null)
+            if(listener.onFriendApplicationListRead != null){
                 listener.onFriendApplicationListRead(data);
+            }
             break;
         }
         case "onFriendListAdded":{
-            if(listener.onFriendListAdded != null)
+            if(listener.onFriendListAdded != null){
                 listener.onFriendListAdded(data);
+            }
             break;
         }
         case "onFriendListDeleted":{
-            if(listener.onFriendListDeleted != null)
+            if(listener.onFriendListDeleted != null){
                 listener.onFriendListDeleted(data);
+            }
             break;
         }
         case "onBlackListAdd":{
-            if(listener.onBlackListAdd != null)
+            if(listener.onBlackListAdd != null){
                 listener.onBlackListAdd(data);
+            }
             break;
         }
         case "onBlackListDeleted":{
-            if(listener.onBlackListDeleted != null)
+            if(listener.onBlackListDeleted != null){
                 listener.onBlackListDeleted(data);
+            }
             break;
         }
         case "onFriendInfoChanged":{
-            if(listener.onFriendInfoChanged != null)
+            if(listener.onFriendInfoChanged != null){
                 listener.onFriendInfoChanged(data);
+            }
             break;
         }
         case "onSyncServerStart":{
-            if(listener.onSyncServerStart != null)
+            if(listener.onSyncServerStart != null){
                 listener.onSyncServerStart(data);
+            }
             break;
         }
         case "onSyncServerFinish":{
-            if(listener.onSyncServerFinish != null)
+            if(listener.onSyncServerFinish != null){
                 listener.onSyncServerFinish(data);
+            }
             break;
         }
         case "onSyncServerFailed":{
-            if(listener.onSyncServerFailed != null)
+            if(listener.onSyncServerFailed != null){
                 listener.onSyncServerFailed(data);
+            }
             break;
         }
         case "onNewConversation":{
-            if(listener.onNewConversation != null)
+            if(listener.onNewConversation != null){
                 listener.onNewConversation(data);
+            } 
             break;
         }
         case "onConversationChanged":{
-            if(listener.onConversationChanged != null)
+            if(listener.onConversationChanged != null){
                 listener.onConversationChanged(data);
+            }
             break;
         }
         case "onTotalUnreadMessageCountChanged":{
-            if(listener.onTotalUnreadMessageCountChanged != null)
+            if(listener.onTotalUnreadMessageCountChanged != null){
                 listener.onTotalUnreadMessageCountChanged(data);
+            }
             break;
         }
         case "onConversationGroupCreated":{
-            if(listener.onConversationGroupCreated != null)
+            if(listener.onConversationGroupCreated != null){
                 listener.onConversationGroupCreated(data);
+            }
             break;
         }
         case "onConversationGroupDeleted":{
-            if(listener.onConversationGroupDeleted != null)
+            if(listener.onConversationGroupDeleted != null){
                 listener.onConversationGroupDeleted(data);
+            }
             break;
         }
         case "onConversationGroupNameChanged":{
-            if(listener.onConversationGroupNameChanged != null)
+            if(listener.onConversationGroupNameChanged != null){
                 listener.onConversationGroupNameChanged(data);
+            }
             break;
         }
         case "onConversationsAddedToGroup":{
-            if(listener.onConversationsAddedToGroup != null)
+            if(listener.onConversationsAddedToGroup != null){
                 listener.onConversationsAddedToGroup(data);
+            }
             break;
         }
         case "onConversationsDeletedFromGroup":{
-            if(listener.onConversationsDeletedFromGroup != null)
+            if(listener.onConversationsDeletedFromGroup != null){
                 listener.onConversationsDeletedFromGroup(data);
+            }
             break;
         }
     }
@@ -5539,8 +5653,15 @@ function sortListenerType(data,listener){
 
 class signalingListener{
     count ="";
-    constructor({onReceiveNewInvitation = null,onInviteeAccepted = null,onInviteeRejected = null,onInvitationCancelled = null,onInvitationTimeout = null,onInvitationModified = null}){
-        this.count=randomString(6);
+    constructor({
+        onReceiveNewInvitation = null,
+        onInviteeAccepted = null,
+        onInviteeRejected = null,
+        onInvitationCancelled = null,
+        onInvitationTimeout = null,
+        onInvitationModified = null,
+    }){
+        this.count = randomString(6);
         this.onReceiveNewInvitation = onReceiveNewInvitation;
         this.onInviteeAccepted = onInviteeAccepted;
         this.onInviteeRejected = onInviteeRejected;
@@ -5551,7 +5672,27 @@ class signalingListener{
 };
 
 class groupListener{
-    constructor({onMemberEnter = null,onMemberLeave = null,onMemberInvited = null,onMemberKicked = null,onMemberInfoChanged = null,onGroupCreated = null,onGroupDismissed = null,onGroupRecycled = null,onGroupInfoChanged = null,onReceiveJoinApplication = null,onApplicationProcessed = null,onGrantAdministrator = null,onRevokeAdministrator = null,onQuitFromGroup = null,onReceiveRESTCustomData = null,onGroupAttributeChanged = null,onTopicCreated = null,onTopicDeleted = null,onTopicInfoChanged = null}){
+    constructor({
+        onMemberEnter = null,
+        onMemberLeave = null,
+        onMemberInvited = null,
+        onMemberKicked = null,
+        onMemberInfoChanged = null,
+        onGroupCreated = null,
+        onGroupDismissed = null,
+        onGroupRecycled = null,
+        onGroupInfoChanged = null,
+        onReceiveJoinApplication = null,
+        onApplicationProcessed = null,
+        onGrantAdministrator = null,
+        onRevokeAdministrator = null,
+        onQuitFromGroup = null,
+        onReceiveRESTCustomData = null,
+        onGroupAttributeChanged = null,
+        onTopicCreated = null,
+        onTopicDeleted = null,
+        onTopicInfoChanged = null,
+    }){
         this.count = randomString(6);
         this.onMemberEnter = onMemberEnter;
         this.onMemberLeave = onMemberLeave;
@@ -5576,8 +5717,17 @@ class groupListener{
 };
 
 class friendshipListener{
-    constructor({onFriendApplicationListAdded = null,onFriendApplicationListDeleted = null,onFriendApplicationListRead = null,onFriendListAdded = null,onFriendListDeleted = null,onBlackListAdd = null,onBlackListDeleted = null,onFriendInfoChanged = null}){
-        this.count=randomString(6);
+    constructor({
+        onFriendApplicationListAdded = null,
+        onFriendApplicationListDeleted = null,
+        onFriendApplicationListRead = null,
+        onFriendListAdded = null,
+        onFriendListDeleted = null,
+        onBlackListAdd = null,
+        onBlackListDeleted = null,
+        onFriendInfoChanged = null,
+    }){
+        this.count = randomString(6);
         this.onFriendApplicationListAdded = onFriendApplicationListAdded;
         this.onFriendApplicationListDeleted = onFriendApplicationListDeleted;
         this.onFriendApplicationListRead = onFriendApplicationListRead;
@@ -5590,8 +5740,20 @@ class friendshipListener{
 };
 
 class conversationListener{
-    constructor({onSyncServerStart = null,onSyncServerFinish = null,onSyncServerFailed = null,onNewConversation = null,onConversationChanged = null,onTotalUnreadMessageCountChanged = null,onConversationGroupCreated = null,onConversationGroupDeleted = null,onConversationGroupNameChanged = null,onConversationsAddedToGroup = null,onConversationsDeletedFromGroup = null}){
-        this.count=randomString(6);
+    constructor({
+        onSyncServerStart = null,
+        onSyncServerFinish = null,
+        onSyncServerFailed = null,
+        onNewConversation = null,
+        onConversationChanged = null,
+        onTotalUnreadMessageCountChanged = null,
+        onConversationGroupCreated = null,
+        onConversationGroupDeleted = null,
+        onConversationGroupNameChanged = null,
+        onConversationsAddedToGroup = null,
+        onConversationsDeletedFromGroup = null,
+    }){
+        this.count = randomString(6);
         this.onSyncServerStart = onSyncServerStart;
         this.onSyncServerFinish = onSyncServerFinish;
         this.onSyncServerFailed = onSyncServerFailed;
@@ -5610,9 +5772,7 @@ function findUuid(map,listener){
     return Object.keys(map).find(key=>map[key] == listener);
 }
 
-
-
-var tencentCloudChat = {
+const tencentCloudChat = {
     tencentCloudChatSDK:null,
     sdkListenerMap:{},
     advancedMsgListenerMap:{},
@@ -5621,3108 +5781,3028 @@ var tencentCloudChat = {
     conversationListenerMap:{},
     signalingListenerMap:{},
     sdkListenerFunction:function(data){
-        let listenerUuid = data["listenerUuid"]
-        sortListenerType(data,this.sdkListenerMap[listenerUuid])
+        const listenerUuid = data["listenerUuid"];
+        sortListenerType(data,this.sdkListenerMap[listenerUuid]);
     },
     advancedMsgListenerFucntion:function(data){
-        let listenerUuid = data["listenerUuid"]
-        sortListenerType(data,this.advancedMsgListenerMap[listenerUuid])
+        const listenerUuid = data["listenerUuid"];
+        sortListenerType(data,this.advancedMsgListenerMap[listenerUuid]);
     },
     groupListenerFunction:function(data){
-        let listenerUuid = data["listenerUuid"]
-        sortListenerType(data,this.groupListenerMap[listenerUuid])
+        const listenerUuid = data["listenerUuid"];
+        sortListenerType(data,this.groupListenerMap[listenerUuid]);
     },
     friendshipListenerFunction:function(data){
-        let listenerUuid = data["listenerUuid"]
-        sortListenerType(data,this.friendListenerMap[listenerUuid])
+        const listenerUuid = data["listenerUuid"];
+        sortListenerType(data,this.friendListenerMap[listenerUuid]);
     },
     conversationListenerFunction:function(data){
-        let listenerUuid = data["listenerUuid"]
-        sortListenerType(data,this.conversationListenerMap[listenerUuid])
+        const listenerUuid = data["listenerUuid"];
+        sortListenerType(data,this.conversationListenerMap[listenerUuid]);
     },
     signalingListenerFunction:function(data){
-        let listenerUuid = data["listenerUuid"]
-        sortListenerType(data,this.signalingListenerMap[listenerUuid])
+        const listenerUuid = data["listenerUuid"];
+        sortListenerType(data,this.signalingListenerMap[listenerUuid]);
     },
     test:function({
         sdkAppID,logLevel,uuid
     }){
-        let param = arguments[0];
-        let finalParam = compareParam('initSDK',param);
+        const param = arguments[0];
+        const finalParam = compareParam('initSDK',param);
         if("error" in finalParam){
-            console.log(finalParam)
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
             this.tencentCloudChatSDK.initSDK(finalParam,function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
-                    
-                    
                     resolve(data);
                 }
             });
-        })
+        });
     },
     initTencentCloudChat:function(sdk){
         this.tencentCloudChatSDK = sdk;
     },
     initSDK:function({sdkAppID,logLevel,uuid}){
         // this.tencentCloudChatSDK = tencentCloudChatSDK;
-        let param = arguments[0];
-        let finalParam = compareParam('initSDK',param);
+        const param = arguments[0];
+        const finalParam = compareParam('initSDK',param);
         if("error" in finalParam){
             console.log(finalParam)
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
             this.tencentCloudChatSDK.initSDK(finalParam,function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
-                    
                     resolve(data);
                 }
             });
-        })
+        });
     },
     addIMSDKListener:function(sdkListener){
-        let uuid = sdkListener.count.toString()
+        const uuid = sdkListener.count.toString();
         this.sdkListenerMap[uuid] = sdkListener;
-        let that = this;
+        const that = this;
         return new Promise((resolve,reject)=>{
-            this.tencentCloudChatSDK.addIMSDKListener({"uuid":uuid},function(data,err){
+            this.tencentCloudChatSDK.addIMSDKListener({uuid:uuid},function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
-                    
                     that.sdkListenerFunction(data);
                     resolve(data);
                 }
             });
-        })
+        });
     },
     removeIMSDKListener:function(sdkListener){
-        let uuid = findUuid(this.sdkListenerMap,sdkListener);
+        const uuid = findUuid(this.sdkListenerMap,sdkListener);
         delete this.sdkListenerMap[uuid];
         return new Promise((resolve,reject)=>{
-            this.tencentCloudChatSDK.removeIMSDKListener({"uuid":uuid},function(data,err){
+            this.tencentCloudChatSDK.removeIMSDKListener({uuid:uuid},function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
                     resolve(data);
                 }
             });
-        })
+        });
 
     },
     addAdvancedMsgListener:function(advancedMsgListener){
-        let uuid = advancedMsgListener.count
+        const uuid = advancedMsgListener.count;
         this.advancedMsgListenerMap[uuid] = advancedMsgListener;
-        console.log(uuid)
-        let that = this;
+        const that = this;
         return new Promise((resolve,reject)=>{
-            this.tencentCloudChatSDK.addAdvancedMsgListener({"uuid":uuid},function(data,err){
+            this.tencentCloudChatSDK.addAdvancedMsgListener({uuid:uuid},function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
-                    
                     that.advancedMsgListenerFucntion(data);
                     resolve(data);
                 }
             });
-        })
+        });
     },
     removeAdvancedMsgListener:function(advancedMsgListener){
-        let uuid = findUuid(this.advancedMsgListenerMap,advancedMsgListener);
+        const uuid = findUuid(this.advancedMsgListenerMap,advancedMsgListener);
         delete this.advancedMsgListenerMap[uuid];
-        console.log(uuid)
         return new Promise((resolve,reject)=>{
-            this.tencentCloudChatSDK.removeAdvancedMsgListener({"uuid":uuid},function(data,err){
+            this.tencentCloudChatSDK.removeAdvancedMsgListener({uuid:uuid},function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
                     resolve(data);
                 }
             });
-        })
+        });
     },
     addGroupListener:function(groupListener){
-        let uuid = groupListener.count.toString()
-        console.log(uuid)
-        this.groupListenerMap[uuid] = groupListener
-        let that = this;
+        const uuid = groupListener.count.toString();
+        this.groupListenerMap[uuid] = groupListener;
+        const that = this;
         return new Promise((resolve,reject)=>{
-            this.tencentCloudChatSDK.addGroupListener({"uuid":uuid},function(data,err){
+            this.tencentCloudChatSDK.addGroupListener({uuid:uuid},function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
-                    
                     that.groupListenerFunction(data);
+                    resolve(data);
                 }
             });
-        })
+        });
     },
     removeGroupListener:function(groupListener){
-        let uuid = findUuid(this.groupListenerMap,groupListener);
+        const uuid = findUuid(this.groupListenerMap,groupListener);
         delete this.groupListenerMap[uuid];
-        console.log(uuid)
-        let that = this;
         return new Promise((resolve,reject)=>{
-            this.tencentCloudChatSDK.removeGroupListener({"uuid":uuid},function(data,err){
+            this.tencentCloudChatSDK.removeGroupListener({uuid:uuid},function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
                     resolve(data);
                 }
             });
-        })
+        });
     },
     addFriendListener:function(friendListener){
-        let uuid = friendListener.count.toString()
+        const uuid = friendListener.count.toString();
         this.friendListenerMap[uuid] = friendListener;
-        let that = this;
+        const that = this;
         return new Promise((resolve,reject)=>{
-            this.tencentCloudChatSDK.addFriendListener({"uuid":uuid},function(data,err){
+            this.tencentCloudChatSDK.addFriendListener({uuid:uuid},function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
-                    
-                    that.friendshipListenerFunction(data)
+                    that.friendshipListenerFunction(data);
                     resolve(data);
                 }
             });
-        })
+        });
     },
     removeFriendListener:function(friendListener){
-        let uuid = findUuid(this.friendListenerMap,friendListener);
+        const uuid = findUuid(this.friendListenerMap,friendListener);
         delete this.friendListenerMap[uuid];
-        console.log(uuid)
         return new Promise((resolve,reject)=>{
-            this.tencentCloudChatSDK.removeFriendListener({"uuid":uuid},function(data,err){
+            this.tencentCloudChatSDK.removeFriendListener({uuid:uuid},function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
                     resolve(data);
                 }
             });
-        })
+        });
     },
     addConversationListener:function(conversationListener){
-        let uuid = conversationListener.count.toString()
+        const uuid = conversationListener.count.toString();
         this.conversationListenerMap[uuid] = conversationListener;
-        let that = this;
+        const that = this;
         return new Promise((resolve,reject)=>{
-            this.tencentCloudChatSDK.addConversationListener({"uuid":uuid},function(data,err){
+            this.tencentCloudChatSDK.addConversationListener({uuid:uuid},function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
-                    
-                    that.conversationListenerFunction(data)
+                    that.conversationListenerFunction(data);
                     resolve(data);
                 }
             });
-        })
+        });
     },
     removeConversationListener:function(conversationListener){
-        let uuid = findUuid(this.conversationListenerMap,conversationListener);
+        const uuid = findUuid(this.conversationListenerMap,conversationListener);
         delete this.conversationListenerMap[uuid];
-        console.log(uuid)
-        let that = this;
         return new Promise((resolve,reject)=>{
-            this.tencentCloudChatSDK.removeConversationListener({"uuid":uuid},function(data,err){
+            this.tencentCloudChatSDK.removeConversationListener({uuid:uuid},function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
                     resolve(data);
                 }
             });
-        })
+        });
     },
     addSignalingListener:function(signalingListener){
-        let uuid = signalingListener.count.toString()
+        const uuid = signalingListener.count.toString();
         this.signalingListenerMap[uuid] = signalingListener;
-        let that = this;
+        const that = this;
         return new Promise((resolve,reject)=>{
-            this.tencentCloudChatSDK.addSignalingListener({"uuid":uuid},function(data,err){
+            this.tencentCloudChatSDK.addSignalingListener({uuid:uuid},function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
-                    
                     that.signalingListenerFunction(data);
                     resolve(data);
                 }
             });
-        })
+        });
     },
     removeSignalingListener:function(signalingListener){
-        let uuid = findUuid(this.signalingListenerMap,signalingListener);
+        const uuid = findUuid(this.signalingListenerMap,signalingListener);
         delete this.signalingListenerMap[uuid];
-        console.log(uuid)
-        let that = this;
         return new Promise((resolve,reject)=>{
-            this.tencentCloudChatSDK.removeSignalingListener({"uuid":uuid},function(data,err){
+            this.tencentCloudChatSDK.removeSignalingListener({uuid:uuid},function(data,err){
                 if(err){
-                    reject(err)
+                    reject(err);
                 }else{
                     resolve(data);
                 }
             });
-        })
+        });
     },
     unInitSDK:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('unInitSDK',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('unInitSDK',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('unInitSDK');
+            const result = addResponseType('unInitSDK');
             this.tencentCloudChatSDK.unInitSDK(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getVersion:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getVersion',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('getVersion',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getVersion');
+            const result = addResponseType('getVersion');
             this.tencentCloudChatSDK.getVersion(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getServerTime:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getServerTime',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('getServerTime',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getServerTime');
+            const result = addResponseType('getServerTime');
             this.tencentCloudChatSDK.getServerTime(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     login:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('login',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('login',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('login');
-            this.tencentCloudChatSDK.login(finalParam,function(data,err){if(err){console.log(JSON.stringify(err));reject(err);}else{;result.data = data ; resolve(result);}});
-        })
+            const result = addResponseType('login');
+            this.tencentCloudChatSDK.login(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
     },
     logout:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('logout',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('logout',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('logout');
+            const result = addResponseType('logout');
             this.tencentCloudChatSDK.logout(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getLoginUser:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getLoginUser',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('getLoginUser',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getLoginUser');
+            const result = addResponseType('getLoginUser');
             this.tencentCloudChatSDK.getLoginUser(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getLoginStatus:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getLoginStatus',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('getLoginStatus',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getLoginStatus');
+            const result = addResponseType('getLoginStatus');
             this.tencentCloudChatSDK.getLoginStatus(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createGroup',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('createGroup',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createGroup');
+            const result = addResponseType('createGroup');
             this.tencentCloudChatSDK.createGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     joinGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('joinGroup',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('joinGroup',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('joinGroup');
+            const result = addResponseType('joinGroup');
             this.tencentCloudChatSDK.joinGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     quitGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('quitGroup',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('quitGroup',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('quitGroup');
+            const result = addResponseType('quitGroup');
             this.tencentCloudChatSDK.quitGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     dismissGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('dismissGroup',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('dismissGroup',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('dismissGroup');
+            const result = addResponseType('dismissGroup');
             this.tencentCloudChatSDK.dismissGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getUsersInfo:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getUsersInfo',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('getUsersInfo',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getUsersInfo');
+            const result = addResponseType('getUsersInfo');
             this.tencentCloudChatSDK.getUsersInfo(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getUserStatus:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getUserStatus',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('getUserStatus',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getUserStatus');
+            const result = addResponseType('getUserStatus');
             this.tencentCloudChatSDK.getUserStatus(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setSelfInfo:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setSelfInfo',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('setSelfInfo',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setSelfInfo');
+            const result = addResponseType('setSelfInfo');
             this.tencentCloudChatSDK.setSelfInfo(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setSelfStatus:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setSelfStatus',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('setSelfStatus',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setSelfStatus');
+            const result = addResponseType('setSelfStatus');
             this.tencentCloudChatSDK.setSelfStatus(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     subscribeUserStatus:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('subscribeUserStatus',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('subscribeUserStatus',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('subscribeUserStatus');
+            const result = addResponseType('subscribeUserStatus');
             this.tencentCloudChatSDK.subscribeUserStatus(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     unsubscribeUserStatus:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('unsubscribeUserStatus',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('unsubscribeUserStatus',param);
+        console.log(JSON.stringify(finalParam));
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('unsubscribeUserStatus');
+            const result = addResponseType('unsubscribeUserStatus');
             this.tencentCloudChatSDK.unsubscribeUserStatus(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     // MessageManager
     createTextMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createTextMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('createTextMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createTextMessage');
+            const result = addResponseType('createTextMessage');
             this.tencentCloudChatSDK.createTextMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createTextAtMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createTextAtMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('createTextAtMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createTextAtMessage');
+            const result = addResponseType('createTextAtMessage');
             this.tencentCloudChatSDK.createTextAtMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createCustomMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createCustomMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('createCustomMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createCustomMessage');
+            const result = addResponseType('createCustomMessage');
             this.tencentCloudChatSDK.createCustomMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createImageMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createImageMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('createImageMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createImageMessage');
+            const result = addResponseType('createImageMessage');
             this.tencentCloudChatSDK.createImageMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createSoundMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createSoundMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('createSoundMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createSoundMessage');
+            const result = addResponseType('createSoundMessage');
             this.tencentCloudChatSDK.createSoundMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createVideoMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createVideoMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('createVideoMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createVideoMessage');
+            const result = addResponseType('createVideoMessage');
             this.tencentCloudChatSDK.createVideoMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createFileMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createFileMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('createFileMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createFileMessage');
+            const result = addResponseType('createFileMessage');
             this.tencentCloudChatSDK.createFileMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createLocationMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createLocationMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('createLocationMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createLocationMessage');
+            const result = addResponseType('createLocationMessage');
             this.tencentCloudChatSDK.createLocationMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createFaceMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createFaceMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('createFaceMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createFaceMessage');
+            const result = addResponseType('createFaceMessage');
             this.tencentCloudChatSDK.createFaceMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createMergerMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createMergerMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('createMergerMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createMergerMessage');
+            const result = addResponseType('createMergerMessage');
             this.tencentCloudChatSDK.createMergerMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createForwardMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createForwardMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('createForwardMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createForwardMessage');
+            const result = addResponseType('createForwardMessage');
             this.tencentCloudChatSDK.createForwardMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createTargetedGroupMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createTargetedGroupMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('createTargetedGroupMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createTargetedGroupMessage');
+            const result = addResponseType('createTargetedGroupMessage');
             this.tencentCloudChatSDK.createTargetedGroupMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     sendMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('sendMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('sendMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('sendMessage');
+            const result = addResponseType('sendMessage');
             this.tencentCloudChatSDK.sendMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setC2CReceiveMessageOpt:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setC2CReceiveMessageOpt',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('setC2CReceiveMessageOpt',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setC2CReceiveMessageOpt');
+            const result = addResponseType('setC2CReceiveMessageOpt');
             this.tencentCloudChatSDK.setC2CReceiveMessageOpt(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getC2CReceiveMessageOpt:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getC2CReceiveMessageOpt',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('getC2CReceiveMessageOpt',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getC2CReceiveMessageOpt');
+            const result = addResponseType('getC2CReceiveMessageOpt');
             this.tencentCloudChatSDK.getC2CReceiveMessageOpt(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setGroupReceiveMessageOpt:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setGroupReceiveMessageOpt',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('setGroupReceiveMessageOpt',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setGroupReceiveMessageOpt');
+            const result = addResponseType('setGroupReceiveMessageOpt');
             this.tencentCloudChatSDK.setGroupReceiveMessageOpt(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getC2CHistoryMessageList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getC2CHistoryMessageList',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('getC2CHistoryMessageList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getC2CHistoryMessageList');
+            const result = addResponseType('getC2CHistoryMessageList');
             this.tencentCloudChatSDK.getC2CHistoryMessageList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getGroupHistoryMessageList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getGroupHistoryMessageList',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('getGroupHistoryMessageList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getGroupHistoryMessageList');
+            const result = addResponseType('getGroupHistoryMessageList');
             this.tencentCloudChatSDK.getGroupHistoryMessageList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getHistoryMessageList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getHistoryMessageList',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('getHistoryMessageList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getHistoryMessageList');
+            const result = addResponseType('getHistoryMessageList');
             this.tencentCloudChatSDK.getHistoryMessageList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     revokeMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('revokeMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('revokeMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('revokeMessage');
+            const result = addResponseType('revokeMessage');
             this.tencentCloudChatSDK.revokeMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     modifyMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('modifyMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('modifyMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('modifyMessage');
+            const result = addResponseType('modifyMessage');
             this.tencentCloudChatSDK.modifyMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     markC2CMessageAsRead:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('markC2CMessageAsRead',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('markC2CMessageAsRead',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('markC2CMessageAsRead');
+            const result = addResponseType('markC2CMessageAsRead');
             this.tencentCloudChatSDK.markC2CMessageAsRead(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     markGroupMessageAsRead:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('markGroupMessageAsRead',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('markGroupMessageAsRead',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('markGroupMessageAsRead');
+            const result = addResponseType('markGroupMessageAsRead');
             this.tencentCloudChatSDK.markGroupMessageAsRead(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     markAllMessageAsRead:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('markAllMessageAsRead',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('markAllMessageAsRead',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('markAllMessageAsRead');
+            const result = addResponseType('markAllMessageAsRead');
             this.tencentCloudChatSDK.markAllMessageAsRead(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     deleteMessageFromLocalStorage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('deleteMessageFromLocalStorage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('deleteMessageFromLocalStorage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('deleteMessageFromLocalStorage');
+            const result = addResponseType('deleteMessageFromLocalStorage');
             this.tencentCloudChatSDK.deleteMessageFromLocalStorage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     deleteMessages:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('deleteMessages',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('deleteMessages',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('deleteMessages');
+            const result = addResponseType('deleteMessages');
             this.tencentCloudChatSDK.deleteMessages(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     clearC2CHistoryMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('clearC2CHistoryMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('clearC2CHistoryMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('clearC2CHistoryMessage');
+            const result = addResponseType('clearC2CHistoryMessage');
             this.tencentCloudChatSDK.clearC2CHistoryMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     clearGroupHistoryMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('clearGroupHistoryMessage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('clearGroupHistoryMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('clearGroupHistoryMessage');
+            const result = addResponseType('clearGroupHistoryMessage');
             this.tencentCloudChatSDK.clearGroupHistoryMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     insertGroupMessageToLocalStorage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('insertGroupMessageToLocalStorage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('insertGroupMessageToLocalStorage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('insertGroupMessageToLocalStorage');
+            const result = addResponseType('insertGroupMessageToLocalStorage');
             this.tencentCloudChatSDK.insertGroupMessageToLocalStorage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     insertC2CMessageToLocalStorage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('insertC2CMessageToLocalStorage',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('insertC2CMessageToLocalStorage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('insertC2CMessageToLocalStorage');
+            const result = addResponseType('insertC2CMessageToLocalStorage');
             this.tencentCloudChatSDK.insertC2CMessageToLocalStorage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     findMessages:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('findMessages',param);
-        console.log(JSON.stringify(finalParam))
+        const param = arguments[0];
+        const finalParam = compareParam('findMessages',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('findMessages');
+            const result = addResponseType('findMessages');
             this.tencentCloudChatSDK.findMessages(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     searchLocalMessages:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('searchLocalMessages',param);
+        const param = arguments[0];
+        const finalParam = compareParam('searchLocalMessages',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('searchLocalMessages');
+            const result = addResponseType('searchLocalMessages');
             this.tencentCloudChatSDK.searchLocalMessages(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     sendMessageReadReceipts:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('sendMessageReadReceipts',param);
+        const param = arguments[0];
+        const finalParam = compareParam('sendMessageReadReceipts',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('sendMessageReadReceipts');
+            const result = addResponseType('sendMessageReadReceipts');
             this.tencentCloudChatSDK.sendMessageReadReceipts(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getMessageReadReceipts:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getMessageReadReceipts',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getMessageReadReceipts',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getMessageReadReceipts');
+            const result = addResponseType('getMessageReadReceipts');
             this.tencentCloudChatSDK.getMessageReadReceipts(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getGroupMessageReadMemberList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getGroupMessageReadMemberList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getGroupMessageReadMemberList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getGroupMessageReadMemberList');
+            const result = addResponseType('getGroupMessageReadMemberList');
             this.tencentCloudChatSDK.getGroupMessageReadMemberList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setMessageExtensions:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setMessageExtensions',param);
+        const param = arguments[0];
+        const finalParam = compareParam('setMessageExtensions',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setMessageExtensions');
+            const result = addResponseType('setMessageExtensions');
             this.tencentCloudChatSDK.setMessageExtensions(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getMessageExtensions:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getMessageExtensions',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getMessageExtensions',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getMessageExtensions');
+            const result = addResponseType('getMessageExtensions');
             this.tencentCloudChatSDK.getMessageExtensions(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     deleteMessageExtensions:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('deleteMessageExtensions',param);
+        const param = arguments[0];
+        const finalParam = compareParam('deleteMessageExtensions',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('deleteMessageExtensions');
+            const result = addResponseType('deleteMessageExtensions');
             this.tencentCloudChatSDK.deleteMessageExtensions(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     downloadMessage:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('downloadMessage',param);
+        const param = arguments[0];
+        const finalParam = compareParam('downloadMessage',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('downloadMessage');
+            const result = addResponseType('downloadMessage');
             this.tencentCloudChatSDK.downloadMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getMessageOnlineUrl:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getMessageOnlineUrl',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getMessageOnlineUrl',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getMessageOnlineUrl');
+            const result = addResponseType('getMessageOnlineUrl');
             this.tencentCloudChatSDK.getMessageOnlineUrl(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getJoinedGroupList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getJoinedGroupList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getJoinedGroupList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getJoinedGroupList');
+            const result = addResponseType('getJoinedGroupList');
             this.tencentCloudChatSDK.getJoinedGroupList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getGroupsInfo:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getGroupsInfo',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getGroupsInfo',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getGroupsInfo');
+            const result = addResponseType('getGroupsInfo');
             this.tencentCloudChatSDK.getGroupsInfo(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     searchGroups:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('searchGroups',param);
+        const param = arguments[0];
+        const finalParam = compareParam('searchGroups',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('searchGroups');
+            const result = addResponseType('searchGroups');
             this.tencentCloudChatSDK.searchGroups(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setGroupInfo:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setGroupInfo',param);
+        const param = arguments[0];
+        const finalParam = compareParam('setGroupInfo',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setGroupInfo');
+            const result = addResponseType('setGroupInfo');
             this.tencentCloudChatSDK.setGroupInfo(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     initGroupAttributes:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('initGroupAttributes',param);
+        const param = arguments[0];
+        const finalParam = compareParam('initGroupAttributes',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('initGroupAttributes');
+            const result = addResponseType('initGroupAttributes');
             this.tencentCloudChatSDK.initGroupAttributes(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setGroupAttributes:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setGroupAttributes',param);
+        const param = arguments[0];
+        const finalParam = compareParam('setGroupAttributes',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setGroupAttributes');
+            const result = addResponseType('setGroupAttributes');
             this.tencentCloudChatSDK.setGroupAttributes(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     deleteGroupAttributes:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('deleteGroupAttributes',param);
+        const param = arguments[0];
+        const finalParam = compareParam('deleteGroupAttributes',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('deleteGroupAttributes');
+            const result = addResponseType('deleteGroupAttributes');
             this.tencentCloudChatSDK.deleteGroupAttributes(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getGroupAttributes:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getGroupAttributes',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getGroupAttributes',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getGroupAttributes');
+            const result = addResponseType('getGroupAttributes');
             this.tencentCloudChatSDK.getGroupAttributes(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getGroupOnlineMemberCount:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getGroupOnlineMemberCount',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getGroupOnlineMemberCount',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getGroupOnlineMemberCount');
+            const result = addResponseType('getGroupOnlineMemberCount');
             this.tencentCloudChatSDK.getGroupOnlineMemberCount(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getGroupMemberList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getGroupMemberList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getGroupMemberList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getGroupMemberList');
+            const result = addResponseType('getGroupMemberList');
             this.tencentCloudChatSDK.getGroupMemberList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getGroupMembersInfo:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getGroupMembersInfo',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getGroupMembersInfo',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getGroupMembersInfo');
+            const result = addResponseType('getGroupMembersInfo');
             this.tencentCloudChatSDK.getGroupMembersInfo(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     searchGroupMembers:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('searchGroupMembers',param);
+        const param = arguments[0];
+        const finalParam = compareParam('searchGroupMembers',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('searchGroupMembers');
+            const result = addResponseType('searchGroupMembers');
             this.tencentCloudChatSDK.searchGroupMembers(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setGroupMemberInfo:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setGroupMemberInfo',param);
+        const param = arguments[0];
+        const finalParam = compareParam('setGroupMemberInfo',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setGroupMemberInfo');
+            const result = addResponseType('setGroupMemberInfo');
             this.tencentCloudChatSDK.setGroupMemberInfo(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     muteGroupMember:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('muteGroupMember',param);
+        const param = arguments[0];
+        const finalParam = compareParam('muteGroupMember',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('muteGroupMember');
+            const result = addResponseType('muteGroupMember');
             this.tencentCloudChatSDK.muteGroupMember(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     inviteUserToGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('inviteUserToGroup',param);
+        const param = arguments[0];
+        const finalParam = compareParam('inviteUserToGroup',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('inviteUserToGroup');
+            const result = addResponseType('inviteUserToGroup');
             this.tencentCloudChatSDK.inviteUserToGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     kickGroupMember:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('kickGroupMember',param);
+        const param = arguments[0];
+        const finalParam = compareParam('kickGroupMember',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('kickGroupMember');
+            const result = addResponseType('kickGroupMember');
             this.tencentCloudChatSDK.kickGroupMember(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setGroupMemberRole:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setGroupMemberRole',param);
+        const param = arguments[0];
+        const finalParam = compareParam('setGroupMemberRole',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setGroupMemberRole');
+            const result = addResponseType('setGroupMemberRole');
             this.tencentCloudChatSDK.setGroupMemberRole(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     markGroupMemberList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('markGroupMemberList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('markGroupMemberList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('markGroupMemberList');
+            const result = addResponseType('markGroupMemberList');
             this.tencentCloudChatSDK.markGroupMemberList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     transferGroupOwner:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('transferGroupOwner',param);
+        const param = arguments[0];
+        const finalParam = compareParam('transferGroupOwner',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('transferGroupOwner');
+            const result = addResponseType('transferGroupOwner');
             this.tencentCloudChatSDK.transferGroupOwner(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getGroupApplicationList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getGroupApplicationList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getGroupApplicationList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getGroupApplicationList');
+            const result = addResponseType('getGroupApplicationList');
             this.tencentCloudChatSDK.getGroupApplicationList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     acceptGroupApplication:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('acceptGroupApplication',param);
+        const param = arguments[0];
+        const finalParam = compareParam('acceptGroupApplication',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('acceptGroupApplication');
+            const result = addResponseType('acceptGroupApplication');
             this.tencentCloudChatSDK.acceptGroupApplication(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     refuseGroupApplication:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('refuseGroupApplication',param);
+        const param = arguments[0];
+        const finalParam = compareParam('refuseGroupApplication',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('refuseGroupApplication');
+            const result = addResponseType('refuseGroupApplication');
             this.tencentCloudChatSDK.refuseGroupApplication(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setGroupApplicationRead:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setGroupApplicationRead',param);
+        const param = arguments[0];
+        const finalParam = compareParam('setGroupApplicationRead',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setGroupApplicationRead');
+            const result = addResponseType('setGroupApplicationRead');
             this.tencentCloudChatSDK.setGroupApplicationRead(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getJoinedCommunityList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getJoinedCommunityList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getJoinedCommunityList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getJoinedCommunityList');
+            const result = addResponseType('getJoinedCommunityList');
             this.tencentCloudChatSDK.getJoinedCommunityList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createTopicInCommunity:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createTopicInCommunity',param);
+        const param = arguments[0];
+        const finalParam = compareParam('createTopicInCommunity',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createTopicInCommunity');
+            const result = addResponseType('createTopicInCommunity');
             this.tencentCloudChatSDK.createTopicInCommunity(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     deleteTopicFromCommunity:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('deleteTopicFromCommunity',param);
+        const param = arguments[0];
+        const finalParam = compareParam('deleteTopicFromCommunity',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('deleteTopicFromCommunity');
+            const result = addResponseType('deleteTopicFromCommunity');
             this.tencentCloudChatSDK.deleteTopicFromCommunity(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setTopicInfo:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setTopicInfo',param);
+        const param = arguments[0];
+        const finalParam = compareParam('setTopicInfo',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setTopicInfo');
+            const result = addResponseType('setTopicInfo');
             this.tencentCloudChatSDK.setTopicInfo(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getTopicInfoList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getTopicInfoList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getTopicInfoList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getTopicInfoList');
+            const result = addResponseType('getTopicInfoList');
             this.tencentCloudChatSDK.getTopicInfoList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     invite:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('invite',param);
+        const param = arguments[0];
+        const finalParam = compareParam('invite',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('invite');
+            const result = addResponseType('invite');
             this.tencentCloudChatSDK.invite(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     inviteInGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('inviteInGroup',param);
+        const param = arguments[0];
+        const finalParam = compareParam('inviteInGroup',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('inviteInGroup');
+            const result = addResponseType('inviteInGroup');
             this.tencentCloudChatSDK.inviteInGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     cancel:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('cancel',param);
+        const param = arguments[0];
+        const finalParam = compareParam('cancel',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('cancel');
+            const result = addResponseType('cancel');
             this.tencentCloudChatSDK.cancel(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     accept:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('accept',param);
+        const param = arguments[0];
+        const finalParam = compareParam('accept',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('accept');
+            const result = addResponseType('accept');
             this.tencentCloudChatSDK.accept(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     reject:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('reject',param);
+        const param = arguments[0];
+        const finalParam = compareParam('reject',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('reject');
+            const result = addResponseType('reject');
             this.tencentCloudChatSDK.reject(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getSignalingInfo:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getSignalingInfo',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getSignalingInfo',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getSignalingInfo');
+            const result = addResponseType('getSignalingInfo');
             this.tencentCloudChatSDK.getSignalingInfo(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     addInvitedSignaling:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('addInvitedSignaling',param);
+        const param = arguments[0];
+        const finalParam = compareParam('addInvitedSignaling',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('addInvitedSignaling');
+            const result = addResponseType('addInvitedSignaling');
             this.tencentCloudChatSDK.addInvitedSignaling(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getConversationList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getConversationList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getConversationList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getConversationList');
+            const result = addResponseType('getConversationList');
             this.tencentCloudChatSDK.getConversationList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getConversationListByConversaionIds:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getConversationListByConversaionIds',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getConversationListByConversaionIds',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getConversationListByConversaionIds');
+            const result = addResponseType('getConversationListByConversaionIds');
             this.tencentCloudChatSDK.getConversationListByConversaionIds(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getConversation:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getConversation',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getConversation',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getConversation');
+            const result = addResponseType('getConversation');
             this.tencentCloudChatSDK.getConversation(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getConversationListByFilter:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getConversationListByFilter',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getConversationListByFilter',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getConversationListByFilter');
+            const result = addResponseType('getConversationListByFilter');
             this.tencentCloudChatSDK.getConversationListByFilter (finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     deleteConversation:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('deleteConversation',param);
+        const param = arguments[0];
+        const finalParam = compareParam('deleteConversation',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('deleteConversation');
+            const result = addResponseType('deleteConversation');
             this.tencentCloudChatSDK.deleteConversation (finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setConversationDraft:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setConversationDraft',param);
+        const param = arguments[0];
+        const finalParam = compareParam('setConversationDraft',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setConversationDraft');
+            const result = addResponseType('setConversationDraft');
             this.tencentCloudChatSDK.setConversationDraft(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setConversationCustomData:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setConversationCustomData',param);
+        const param = arguments[0];
+        const finalParam = compareParam('setConversationCustomData',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setConversationCustomData');
+            const result = addResponseType('setConversationCustomData');
             this.tencentCloudChatSDK.setConversationCustomData(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     pinConversation:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('pinConversation',param);
+        const param = arguments[0];
+        const finalParam = compareParam('pinConversation',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('pinConversation');
+            const result = addResponseType('pinConversation');
             this.tencentCloudChatSDK.pinConversation(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     markConversation:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('markConversation',param);
+        const param = arguments[0];
+        const finalParam = compareParam('markConversation',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('markConversation');
+            const result = addResponseType('markConversation');
             this.tencentCloudChatSDK.markConversation(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getTotalUnreadMessageCount:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getTotalUnreadMessageCount',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getTotalUnreadMessageCount',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getTotalUnreadMessageCount');
+            const result = addResponseType('getTotalUnreadMessageCount');
             this.tencentCloudChatSDK.getTotalUnreadMessageCount(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createConversationGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createConversationGroup',param);
+        const param = arguments[0];
+        const finalParam = compareParam('createConversationGroup',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createConversationGroup');
+            const result = addResponseType('createConversationGroup');
             this.tencentCloudChatSDK.createConversationGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getConversationGroupList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getConversationGroupList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getConversationGroupList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getConversationGroupList');
+            const result = addResponseType('getConversationGroupList');
             this.tencentCloudChatSDK.getConversationGroupList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     deleteConversationGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('deleteConversationGroup',param);
+        const param = arguments[0];
+        const finalParam = compareParam('deleteConversationGroup',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('deleteConversationGroup');
+            const result = addResponseType('deleteConversationGroup');
             this.tencentCloudChatSDK.deleteConversationGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     renameConversationGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('renameConversationGroup',param);
+        const param = arguments[0];
+        const finalParam = compareParam('renameConversationGroup',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('renameConversationGroup');
+            const result = addResponseType('renameConversationGroup');
             this.tencentCloudChatSDK.renameConversationGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     addConversationsToGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('addConversationsToGroup',param);
+        const param = arguments[0];
+        const finalParam = compareParam('addConversationsToGroup',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('addConversationsToGroup');
+            const result = addResponseType('addConversationsToGroup');
             this.tencentCloudChatSDK.addConversationsToGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     deleteConversationsFromGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('deleteConversationsFromGroup',param);
+        const param = arguments[0];
+        const finalParam = compareParam('deleteConversationsFromGroup',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('deleteConversationsFromGroup');
+            const result = addResponseType('deleteConversationsFromGroup');
             this.tencentCloudChatSDK.deleteConversationsFromGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getFriendList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getFriendList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getFriendList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getFriendList');
+            const result = addResponseType('getFriendList');
             this.tencentCloudChatSDK.getFriendList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getFriendsInfo:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getFriendsInfo',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getFriendsInfo',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getFriendsInfo');
+            const result = addResponseType('getFriendsInfo');
             this.tencentCloudChatSDK.getFriendsInfo(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setFriendInfo:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setFriendInfo',param);
+        const param = arguments[0];
+        const finalParam = compareParam('setFriendInfo',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setFriendInfo');
+            const result = addResponseType('setFriendInfo');
             this.tencentCloudChatSDK.setFriendInfo(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     searchFriends:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('searchFriends',param);
+        const param = arguments[0];
+        const finalParam = compareParam('searchFriends',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('searchFriends');
+            const result = addResponseType('searchFriends');
             this.tencentCloudChatSDK.searchFriends(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     addFriend:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('addFriend',param);
+        const param = arguments[0];
+        const finalParam = compareParam('addFriend',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('addFriend');
+            const result = addResponseType('addFriend');
             this.tencentCloudChatSDK.addFriend(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     deleteFromFriendList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('deleteFromFriendList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('deleteFromFriendList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('deleteFromFriendList');
+            const result = addResponseType('deleteFromFriendList');
             this.tencentCloudChatSDK.deleteFromFriendList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     checkFriend:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('checkFriend',param);
+        const param = arguments[0];
+        const finalParam = compareParam('checkFriend',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('checkFriend');
+            const result = addResponseType('checkFriend');
             this.tencentCloudChatSDK.checkFriend(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getFriendApplicationList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getFriendApplicationList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getFriendApplicationList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getFriendApplicationList');
+            const result = addResponseType('getFriendApplicationList');
             this.tencentCloudChatSDK.getFriendApplicationList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     acceptFriendApplication:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('acceptFriendApplication',param);
+        const param = arguments[0];
+        const finalParam = compareParam('acceptFriendApplication',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('acceptFriendApplication');
+            const result = addResponseType('acceptFriendApplication');
             this.tencentCloudChatSDK.acceptFriendApplication(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     refuseFriendApplication:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('refuseFriendApplication',param);
+        const param = arguments[0];
+        const finalParam = compareParam('refuseFriendApplication',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('refuseFriendApplication');
+            const result = addResponseType('refuseFriendApplication');
             this.tencentCloudChatSDK.refuseFriendApplication(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     deleteFriendApplication:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('deleteFriendApplication',param);
+        const param = arguments[0];
+        const finalParam = compareParam('deleteFriendApplication',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('deleteFriendApplication');
+            const result = addResponseType('deleteFriendApplication');
             this.tencentCloudChatSDK.deleteFriendApplication(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setFriendApplicationRead:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setFriendApplicationRead',param);
+        const param = arguments[0];
+        const finalParam = compareParam('setFriendApplicationRead',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setFriendApplicationRead');
+            const result = addResponseType('setFriendApplicationRead');
             this.tencentCloudChatSDK.setFriendApplicationRead(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     addToBlackList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('addToBlackList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('addToBlackList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('addToBlackList');
+            const result = addResponseType('addToBlackList');
             this.tencentCloudChatSDK.addToBlackList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     deleteFromBlackList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('deleteFromBlackList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('deleteFromBlackList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('deleteFromBlackList');
+            const result = addResponseType('deleteFromBlackList');
             this.tencentCloudChatSDK.deleteFromBlackList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getBlackList:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getBlackList',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getBlackList',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getBlackList');
+            const result = addResponseType('getBlackList');
             this.tencentCloudChatSDK.getBlackList(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     createFriendGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('createFriendGroup',param);
+        const param = arguments[0];
+        const finalParam = compareParam('createFriendGroup',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('createFriendGroup');
+            const result = addResponseType('createFriendGroup');
             this.tencentCloudChatSDK.createFriendGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     getFriendGroups:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('getFriendGroups',param);
+        const param = arguments[0];
+        const finalParam = compareParam('getFriendGroups',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('getFriendGroups');
+            const result = addResponseType('getFriendGroups');
             this.tencentCloudChatSDK.getFriendGroups(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     deleteFriendGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('deleteFriendGroup',param);
+        const param = arguments[0];
+        const finalParam = compareParam('deleteFriendGroup',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('deleteFriendGroup');
+            const result = addResponseType('deleteFriendGroup');
             this.tencentCloudChatSDK.deleteFriendGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     renameFriendGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('renameFriendGroup',param);
+        const param = arguments[0];
+        const finalParam = compareParam('renameFriendGroup',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('renameFriendGroup');
+            const result = addResponseType('renameFriendGroup');
             this.tencentCloudChatSDK.renameFriendGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     addFriendsToFriendGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('addFriendsToFriendGroup',param);
+        const param = arguments[0];
+        const finalParam = compareParam('addFriendsToFriendGroup',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('addFriendsToFriendGroup');
+            const result = addResponseType('addFriendsToFriendGroup');
             this.tencentCloudChatSDK.addFriendsToFriendGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     deleteFriendsFromFriendGroup:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('deleteFriendsFromFriendGroup',param);
+        const param = arguments[0];
+        const finalParam = compareParam('deleteFriendsFromFriendGroup',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('deleteFriendsFromFriendGroup');
+            const result = addResponseType('deleteFriendsFromFriendGroup');
             this.tencentCloudChatSDK.deleteFriendsFromFriendGroup(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     setOfflinePushConfig:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('setOfflinePushConfig',param);
+        const param = arguments[0];
+        const finalParam = compareParam('setOfflinePushConfig',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('setOfflinePushConfig');
+            const result = addResponseType('setOfflinePushConfig');
             this.tencentCloudChatSDK.setOfflinePushConfig(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     doBackground:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('doBackground',param);
+        const param = arguments[0];
+        const finalParam = compareParam('doBackground',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('doBackground');
+            const result = addResponseType('doBackground');
             this.tencentCloudChatSDK.doBackground(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
     doForeground:function({...p}){
-        let param = arguments[0];
-        let finalParam = compareParam('doForeground',param);
+        const param = arguments[0];
+        const finalParam = compareParam('doForeground',param);
         if("error" in finalParam){
             return new Promise((resolve,reject)=>{
                 reject(finalParam);
-            })
+            });
         }
         return new Promise((resolve,reject)=>{
-            let result = addResponseType('doForeground');
+            const result = addResponseType('doForeground');
             this.tencentCloudChatSDK.doForeground(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
                 }
-            else{
-                result.data = data ; 
-                resolve(result);
-            }});
-        })
+            });
+        });
     },
 };
-
-
-
-;(function initFunction(){
-    Object.keys(params).forEach((key)=>{
-        if(!(key in tencentCloudChat)){
-
-            let parr = Object.keys(params[key].param);
-            let p = {};
-            parr.forEach((pa)=>{
-                const paramItem = params[key].param[pa];
-                if(paramItem.required){
-                    p[pa] =  paramItem.default;
-                }else{
-                    p[pa] =  null;
-                }
-            })
-            tencentCloudChat[key] = function({...p}){
-                let param = arguments[0];
-                let finalParam = compareParam(key,param);
-                console.log(JSON.stringify(finalParam))
-                if("error" in finalParam){
-                    return new Promise((resolve,reject)=>{
-                        reject(finalParam);
-                    })
-                }
-                return new Promise((resolve,reject)=>{
-                    
-                    let func = "let result = addResponseType(key);this.tencentCloudChatSDK."+key+"(finalParam,function(data,err){if(err){console.log(JSON.stringify(err));reject(err);}else{;result.data = data ; resolve(result);}});"
-                    eval(func)
-                })
-            }
-        }
-        
-    })
-})();
-
