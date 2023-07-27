@@ -407,7 +407,27 @@ const V2TIMOfflinePushInfo = {
     ext:{
         type:"string",
         desc:"离线推送透传的扩展字段。"
-    }
+    },
+    ignoreIOSBadge:{
+        type:"boolean",
+        desc:"离线推送忽略 badge 计数（仅对 iOS 生效）， 如果设置为 true，在 iOS 接收端，这条消息不会使 APP 的应用图标未读计数增加。iOS 应用图标未读计数状态。true：忽略；false：开启"
+    },
+    IOSSound:{
+        type:"string",
+        desc:"离线推送声音设置（仅对 iOS 生效）"
+    },
+    AndroidSound:{
+        type:"string",
+        desc:"离线推送声音设置"
+    },
+    AndroidOPPOChannelID:{
+        type:"string",
+        desc:"离线推送设置 OPPO 手机 8.0 系统及以上的渠道 ID。"
+    },
+    IOSPushType:{
+        type:"number",
+        desc:"iOS 离线推送的类型（仅对 iOS 生效"
+    },
 };
 
  const V2TIMMessage = {
@@ -5147,9 +5167,7 @@ function compareParam(name,param){
             if(typeof param[key] == "object"){
                 // Array
                 if(isArray(param[key]) && compare[key].type == "Array"){
-                    if(param[key].length == 0){
-                        flag.error = `${key} array length is 0`;
-                    }else if(param[key][0] == ""){
+                    if(param[key][0] == ""){
                         flag.error = `${key} array element is required`;
                     }else if(compare[key].arrayType != "object" && typeof compare[key].arrayType != "object" && typeof param[key][0] != compare[key].arrayType){
                         flag.error = `${key} is not array of type ${compare[key].arrayType}`;
