@@ -1954,6 +1954,21 @@ const V2TIMGroupAtInfo = {
             }
         }
     },
+    downloadMergerMessage:{
+        param:{
+            msgID:{
+                type:"string",
+                required:true,
+                desc:"所要获取的合并消息的messageID"
+            }
+        },
+        response:{
+            data:{
+                type:"Array",
+                arrayType:V2TIMMessage
+            }
+        }
+    },
     downloadMessage:{
         param:{
             msgID:{
@@ -6034,7 +6049,7 @@ const tencentCloudChat = {
             });
         });
     },
-    unInitSDK:function({...p}){
+    unInitSDK:function(){
         const param = arguments[0];
         const finalParam = compareParam('unInitSDK',param);
         if("error" in finalParam){
@@ -6055,7 +6070,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getVersion:function({...p}){
+    getVersion:function(){
         const param = arguments[0];
         const finalParam = compareParam('getVersion',param);
         console.log(JSON.stringify(finalParam));
@@ -6077,7 +6092,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getServerTime:function({...p}){
+    getServerTime:function(){
         const param = arguments[0];
         const finalParam = compareParam('getServerTime',param);
         console.log(JSON.stringify(finalParam));
@@ -6099,7 +6114,7 @@ const tencentCloudChat = {
             });
         });
     },
-    login:function({...p}){
+    login:function(){
         const param = arguments[0];
         const finalParam = compareParam('login',param);
         console.log(JSON.stringify(finalParam));
@@ -6121,7 +6136,7 @@ const tencentCloudChat = {
             });
         });
     },
-    logout:function({...p}){
+    logout:function(){
         const param = arguments[0];
         const finalParam = compareParam('logout',param);
         console.log(JSON.stringify(finalParam));
@@ -6143,7 +6158,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getLoginUser:function({...p}){
+    getLoginUser:function(){
         const param = arguments[0];
         const finalParam = compareParam('getLoginUser',param);
         console.log(JSON.stringify(finalParam));
@@ -6165,7 +6180,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getLoginStatus:function({...p}){
+    getLoginStatus:function(){
         const param = arguments[0];
         const finalParam = compareParam('getLoginStatus',param);
         console.log(JSON.stringify(finalParam));
@@ -6187,7 +6202,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createGroup:function({...p}){
+    createGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('createGroup',param);
         console.log(JSON.stringify(finalParam));
@@ -6209,7 +6224,7 @@ const tencentCloudChat = {
             });
         });
     },
-    joinGroup:function({...p}){
+    joinGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('joinGroup',param);
         console.log(JSON.stringify(finalParam));
@@ -6231,7 +6246,7 @@ const tencentCloudChat = {
             });
         });
     },
-    quitGroup:function({...p}){
+    quitGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('quitGroup',param);
         console.log(JSON.stringify(finalParam));
@@ -6253,7 +6268,7 @@ const tencentCloudChat = {
             });
         });
     },
-    dismissGroup:function({...p}){
+    dismissGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('dismissGroup',param);
         console.log(JSON.stringify(finalParam));
@@ -6275,7 +6290,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getUsersInfo:function({...p}){
+    getUsersInfo:function(){
         const param = arguments[0];
         const finalParam = compareParam('getUsersInfo',param);
         console.log(JSON.stringify(finalParam));
@@ -6297,7 +6312,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getUserStatus:function({...p}){
+    getUserStatus:function(){
         const param = arguments[0];
         const finalParam = compareParam('getUserStatus',param);
         console.log(JSON.stringify(finalParam));
@@ -6319,7 +6334,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setSelfInfo:function({...p}){
+    setSelfInfo:function(){
         const param = arguments[0];
         const finalParam = compareParam('setSelfInfo',param);
         console.log(JSON.stringify(finalParam));
@@ -6341,7 +6356,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setSelfStatus:function({...p}){
+    setSelfStatus:function(){
         const param = arguments[0];
         const finalParam = compareParam('setSelfStatus',param);
         console.log(JSON.stringify(finalParam));
@@ -6363,7 +6378,7 @@ const tencentCloudChat = {
             });
         });
     },
-    subscribeUserStatus:function({...p}){
+    subscribeUserStatus:function(){
         const param = arguments[0];
         const finalParam = compareParam('subscribeUserStatus',param);
         console.log(JSON.stringify(finalParam));
@@ -6385,7 +6400,7 @@ const tencentCloudChat = {
             });
         });
     },
-    unsubscribeUserStatus:function({...p}){
+    unsubscribeUserStatus:function(){
         const param = arguments[0];
         const finalParam = compareParam('unsubscribeUserStatus',param);
         console.log(JSON.stringify(finalParam));
@@ -6408,7 +6423,7 @@ const tencentCloudChat = {
         });
     },
     // MessageManager
-    createTextMessage:function({...p}){
+    createTextMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('createTextMessage',param);
         if("error" in finalParam){
@@ -6429,7 +6444,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createTextAtMessage:function({...p}){
+    createTextAtMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('createTextAtMessage',param);
         if("error" in finalParam){
@@ -6450,7 +6465,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createCustomMessage:function({...p}){
+    createCustomMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('createCustomMessage',param);
         if("error" in finalParam){
@@ -6471,7 +6486,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createImageMessage:function({...p}){
+    createImageMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('createImageMessage',param);
         if("error" in finalParam){
@@ -6492,7 +6507,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createSoundMessage:function({...p}){
+    createSoundMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('createSoundMessage',param);
         if("error" in finalParam){
@@ -6513,7 +6528,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createVideoMessage:function({...p}){
+    createVideoMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('createVideoMessage',param);
         if("error" in finalParam){
@@ -6534,7 +6549,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createFileMessage:function({...p}){
+    createFileMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('createFileMessage',param);
         if("error" in finalParam){
@@ -6555,7 +6570,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createLocationMessage:function({...p}){
+    createLocationMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('createLocationMessage',param);
         if("error" in finalParam){
@@ -6576,7 +6591,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createFaceMessage:function({...p}){
+    createFaceMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('createFaceMessage',param);
         if("error" in finalParam){
@@ -6597,7 +6612,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createMergerMessage:function({...p}){
+    createMergerMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('createMergerMessage',param);
         if("error" in finalParam){
@@ -6618,7 +6633,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createForwardMessage:function({...p}){
+    createForwardMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('createForwardMessage',param);
         if("error" in finalParam){
@@ -6639,7 +6654,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createTargetedGroupMessage:function({...p}){
+    createTargetedGroupMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('createTargetedGroupMessage',param);
         if("error" in finalParam){
@@ -6660,7 +6675,7 @@ const tencentCloudChat = {
             });
         });
     },
-    sendMessage:function({...p}){
+    sendMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('sendMessage',param);
         if("error" in finalParam){
@@ -6681,7 +6696,28 @@ const tencentCloudChat = {
             });
         });
     },
-    setC2CReceiveMessageOpt:function({...p}){
+    downloadMergerMessage:function(){
+        const param = arguments[0];
+        const finalParam = compareParam('downloadMergerMessage',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            const result = addResponseType('downloadMergerMessage');
+            this.tencentCloudChatSDK.downloadMergerMessage(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
+    },
+    setC2CReceiveMessageOpt:function(){
         const param = arguments[0];
         const finalParam = compareParam('setC2CReceiveMessageOpt',param);
         if("error" in finalParam){
@@ -6702,7 +6738,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getC2CReceiveMessageOpt:function({...p}){
+    getC2CReceiveMessageOpt:function(){
         const param = arguments[0];
         const finalParam = compareParam('getC2CReceiveMessageOpt',param);
         if("error" in finalParam){
@@ -6723,7 +6759,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setGroupReceiveMessageOpt:function({...p}){
+    setGroupReceiveMessageOpt:function(){
         const param = arguments[0];
         const finalParam = compareParam('setGroupReceiveMessageOpt',param);
         if("error" in finalParam){
@@ -6744,7 +6780,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getC2CHistoryMessageList:function({...p}){
+    getC2CHistoryMessageList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getC2CHistoryMessageList',param);
         if("error" in finalParam){
@@ -6765,7 +6801,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getGroupHistoryMessageList:function({...p}){
+    getGroupHistoryMessageList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getGroupHistoryMessageList',param);
         if("error" in finalParam){
@@ -6786,7 +6822,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getHistoryMessageList:function({...p}){
+    getHistoryMessageList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getHistoryMessageList',param);
         if("error" in finalParam){
@@ -6807,7 +6843,7 @@ const tencentCloudChat = {
             });
         });
     },
-    revokeMessage:function({...p}){
+    revokeMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('revokeMessage',param);
         if("error" in finalParam){
@@ -6828,7 +6864,7 @@ const tencentCloudChat = {
             });
         });
     },
-    modifyMessage:function({...p}){
+    modifyMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('modifyMessage',param);
         if("error" in finalParam){
@@ -6849,7 +6885,7 @@ const tencentCloudChat = {
             });
         });
     },
-    markC2CMessageAsRead:function({...p}){
+    markC2CMessageAsRead:function(){
         const param = arguments[0];
         const finalParam = compareParam('markC2CMessageAsRead',param);
         if("error" in finalParam){
@@ -6870,7 +6906,7 @@ const tencentCloudChat = {
             });
         });
     },
-    markGroupMessageAsRead:function({...p}){
+    markGroupMessageAsRead:function(){
         const param = arguments[0];
         const finalParam = compareParam('markGroupMessageAsRead',param);
         if("error" in finalParam){
@@ -6891,7 +6927,7 @@ const tencentCloudChat = {
             });
         });
     },
-    markAllMessageAsRead:function({...p}){
+    markAllMessageAsRead:function(){
         const param = arguments[0];
         const finalParam = compareParam('markAllMessageAsRead',param);
         if("error" in finalParam){
@@ -6912,7 +6948,7 @@ const tencentCloudChat = {
             });
         });
     },
-    deleteMessageFromLocalStorage:function({...p}){
+    deleteMessageFromLocalStorage:function(){
         const param = arguments[0];
         const finalParam = compareParam('deleteMessageFromLocalStorage',param);
         if("error" in finalParam){
@@ -6933,7 +6969,7 @@ const tencentCloudChat = {
             });
         });
     },
-    deleteMessages:function({...p}){
+    deleteMessages:function(){
         const param = arguments[0];
         const finalParam = compareParam('deleteMessages',param);
         if("error" in finalParam){
@@ -6954,7 +6990,7 @@ const tencentCloudChat = {
             });
         });
     },
-    clearC2CHistoryMessage:function({...p}){
+    clearC2CHistoryMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('clearC2CHistoryMessage',param);
         if("error" in finalParam){
@@ -6975,7 +7011,7 @@ const tencentCloudChat = {
             });
         });
     },
-    clearGroupHistoryMessage:function({...p}){
+    clearGroupHistoryMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('clearGroupHistoryMessage',param);
         if("error" in finalParam){
@@ -6996,7 +7032,7 @@ const tencentCloudChat = {
             });
         });
     },
-    insertGroupMessageToLocalStorage:function({...p}){
+    insertGroupMessageToLocalStorage:function(){
         const param = arguments[0];
         const finalParam = compareParam('insertGroupMessageToLocalStorage',param);
         if("error" in finalParam){
@@ -7017,7 +7053,7 @@ const tencentCloudChat = {
             });
         });
     },
-    insertC2CMessageToLocalStorage:function({...p}){
+    insertC2CMessageToLocalStorage:function(){
         const param = arguments[0];
         const finalParam = compareParam('insertC2CMessageToLocalStorage',param);
         if("error" in finalParam){
@@ -7038,7 +7074,7 @@ const tencentCloudChat = {
             });
         });
     },
-    findMessages:function({...p}){
+    findMessages:function(){
         const param = arguments[0];
         const finalParam = compareParam('findMessages',param);
         if("error" in finalParam){
@@ -7059,7 +7095,7 @@ const tencentCloudChat = {
             });
         });
     },
-    searchLocalMessages:function({...p}){
+    searchLocalMessages:function(){
         const param = arguments[0];
         const finalParam = compareParam('searchLocalMessages',param);
         if("error" in finalParam){
@@ -7080,7 +7116,7 @@ const tencentCloudChat = {
             });
         });
     },
-    sendMessageReadReceipts:function({...p}){
+    sendMessageReadReceipts:function(){
         const param = arguments[0];
         const finalParam = compareParam('sendMessageReadReceipts',param);
         if("error" in finalParam){
@@ -7101,7 +7137,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getMessageReadReceipts:function({...p}){
+    getMessageReadReceipts:function(){
         const param = arguments[0];
         const finalParam = compareParam('getMessageReadReceipts',param);
         if("error" in finalParam){
@@ -7122,7 +7158,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getGroupMessageReadMemberList:function({...p}){
+    getGroupMessageReadMemberList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getGroupMessageReadMemberList',param);
         if("error" in finalParam){
@@ -7143,7 +7179,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setMessageExtensions:function({...p}){
+    setMessageExtensions:function(){
         const param = arguments[0];
         const finalParam = compareParam('setMessageExtensions',param);
         if("error" in finalParam){
@@ -7164,7 +7200,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getMessageExtensions:function({...p}){
+    getMessageExtensions:function(){
         const param = arguments[0];
         const finalParam = compareParam('getMessageExtensions',param);
         if("error" in finalParam){
@@ -7185,7 +7221,7 @@ const tencentCloudChat = {
             });
         });
     },
-    deleteMessageExtensions:function({...p}){
+    deleteMessageExtensions:function(){
         const param = arguments[0];
         const finalParam = compareParam('deleteMessageExtensions',param);
         if("error" in finalParam){
@@ -7206,7 +7242,7 @@ const tencentCloudChat = {
             });
         });
     },
-    downloadMessage:function({...p}){
+    downloadMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('downloadMessage',param);
         if("error" in finalParam){
@@ -7227,7 +7263,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getMessageOnlineUrl:function({...p}){
+    getMessageOnlineUrl:function(){
         const param = arguments[0];
         const finalParam = compareParam('getMessageOnlineUrl',param);
         if("error" in finalParam){
@@ -7248,7 +7284,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getJoinedGroupList:function({...p}){
+    getJoinedGroupList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getJoinedGroupList',param);
         if("error" in finalParam){
@@ -7269,7 +7305,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getGroupsInfo:function({...p}){
+    getGroupsInfo:function(){
         const param = arguments[0];
         const finalParam = compareParam('getGroupsInfo',param);
         if("error" in finalParam){
@@ -7290,7 +7326,7 @@ const tencentCloudChat = {
             });
         });
     },
-    searchGroups:function({...p}){
+    searchGroups:function(){
         const param = arguments[0];
         const finalParam = compareParam('searchGroups',param);
         if("error" in finalParam){
@@ -7311,7 +7347,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setGroupInfo:function({...p}){
+    setGroupInfo:function(){
         const param = arguments[0];
         const finalParam = compareParam('setGroupInfo',param);
         if("error" in finalParam){
@@ -7332,7 +7368,7 @@ const tencentCloudChat = {
             });
         });
     },
-    initGroupAttributes:function({...p}){
+    initGroupAttributes:function(){
         const param = arguments[0];
         const finalParam = compareParam('initGroupAttributes',param);
         if("error" in finalParam){
@@ -7353,7 +7389,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setGroupAttributes:function({...p}){
+    setGroupAttributes:function(){
         const param = arguments[0];
         const finalParam = compareParam('setGroupAttributes',param);
         if("error" in finalParam){
@@ -7374,7 +7410,7 @@ const tencentCloudChat = {
             });
         });
     },
-    deleteGroupAttributes:function({...p}){
+    deleteGroupAttributes:function(){
         const param = arguments[0];
         const finalParam = compareParam('deleteGroupAttributes',param);
         if("error" in finalParam){
@@ -7395,7 +7431,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getGroupAttributes:function({...p}){
+    getGroupAttributes:function(){
         const param = arguments[0];
         const finalParam = compareParam('getGroupAttributes',param);
         if("error" in finalParam){
@@ -7416,7 +7452,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getGroupOnlineMemberCount:function({...p}){
+    getGroupOnlineMemberCount:function(){
         const param = arguments[0];
         const finalParam = compareParam('getGroupOnlineMemberCount',param);
         if("error" in finalParam){
@@ -7437,7 +7473,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getGroupMemberList:function({...p}){
+    getGroupMemberList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getGroupMemberList',param);
         if("error" in finalParam){
@@ -7458,7 +7494,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getGroupMembersInfo:function({...p}){
+    getGroupMembersInfo:function(){
         const param = arguments[0];
         const finalParam = compareParam('getGroupMembersInfo',param);
         if("error" in finalParam){
@@ -7479,7 +7515,7 @@ const tencentCloudChat = {
             });
         });
     },
-    searchGroupMembers:function({...p}){
+    searchGroupMembers:function(){
         const param = arguments[0];
         const finalParam = compareParam('searchGroupMembers',param);
         if("error" in finalParam){
@@ -7500,7 +7536,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setGroupMemberInfo:function({...p}){
+    setGroupMemberInfo:function(){
         const param = arguments[0];
         const finalParam = compareParam('setGroupMemberInfo',param);
         if("error" in finalParam){
@@ -7521,7 +7557,7 @@ const tencentCloudChat = {
             });
         });
     },
-    muteGroupMember:function({...p}){
+    muteGroupMember:function(){
         const param = arguments[0];
         const finalParam = compareParam('muteGroupMember',param);
         if("error" in finalParam){
@@ -7542,7 +7578,7 @@ const tencentCloudChat = {
             });
         });
     },
-    inviteUserToGroup:function({...p}){
+    inviteUserToGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('inviteUserToGroup',param);
         if("error" in finalParam){
@@ -7563,7 +7599,7 @@ const tencentCloudChat = {
             });
         });
     },
-    kickGroupMember:function({...p}){
+    kickGroupMember:function(){
         const param = arguments[0];
         const finalParam = compareParam('kickGroupMember',param);
         if("error" in finalParam){
@@ -7584,7 +7620,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setGroupMemberRole:function({...p}){
+    setGroupMemberRole:function(){
         const param = arguments[0];
         const finalParam = compareParam('setGroupMemberRole',param);
         if("error" in finalParam){
@@ -7605,7 +7641,7 @@ const tencentCloudChat = {
             });
         });
     },
-    markGroupMemberList:function({...p}){
+    markGroupMemberList:function(){
         const param = arguments[0];
         const finalParam = compareParam('markGroupMemberList',param);
         if("error" in finalParam){
@@ -7626,7 +7662,7 @@ const tencentCloudChat = {
             });
         });
     },
-    transferGroupOwner:function({...p}){
+    transferGroupOwner:function(){
         const param = arguments[0];
         const finalParam = compareParam('transferGroupOwner',param);
         if("error" in finalParam){
@@ -7647,7 +7683,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getGroupApplicationList:function({...p}){
+    getGroupApplicationList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getGroupApplicationList',param);
         if("error" in finalParam){
@@ -7668,7 +7704,7 @@ const tencentCloudChat = {
             });
         });
     },
-    acceptGroupApplication:function({...p}){
+    acceptGroupApplication:function(){
         const param = arguments[0];
         const finalParam = compareParam('acceptGroupApplication',param);
         if("error" in finalParam){
@@ -7689,7 +7725,7 @@ const tencentCloudChat = {
             });
         });
     },
-    refuseGroupApplication:function({...p}){
+    refuseGroupApplication:function(){
         const param = arguments[0];
         const finalParam = compareParam('refuseGroupApplication',param);
         if("error" in finalParam){
@@ -7710,7 +7746,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setGroupApplicationRead:function({...p}){
+    setGroupApplicationRead:function(){
         const param = arguments[0];
         const finalParam = compareParam('setGroupApplicationRead',param);
         if("error" in finalParam){
@@ -7731,7 +7767,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getJoinedCommunityList:function({...p}){
+    getJoinedCommunityList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getJoinedCommunityList',param);
         if("error" in finalParam){
@@ -7752,7 +7788,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createTopicInCommunity:function({...p}){
+    createTopicInCommunity:function(){
         const param = arguments[0];
         const finalParam = compareParam('createTopicInCommunity',param);
         if("error" in finalParam){
@@ -7773,7 +7809,7 @@ const tencentCloudChat = {
             });
         });
     },
-    deleteTopicFromCommunity:function({...p}){
+    deleteTopicFromCommunity:function(){
         const param = arguments[0];
         const finalParam = compareParam('deleteTopicFromCommunity',param);
         if("error" in finalParam){
@@ -7794,7 +7830,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setTopicInfo:function({...p}){
+    setTopicInfo:function(){
         const param = arguments[0];
         const finalParam = compareParam('setTopicInfo',param);
         if("error" in finalParam){
@@ -7815,7 +7851,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getTopicInfoList:function({...p}){
+    getTopicInfoList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getTopicInfoList',param);
         if("error" in finalParam){
@@ -7836,7 +7872,7 @@ const tencentCloudChat = {
             });
         });
     },
-    invite:function({...p}){
+    invite:function(){
         const param = arguments[0];
         const finalParam = compareParam('invite',param);
         if("error" in finalParam){
@@ -7857,7 +7893,7 @@ const tencentCloudChat = {
             });
         });
     },
-    inviteInGroup:function({...p}){
+    inviteInGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('inviteInGroup',param);
         if("error" in finalParam){
@@ -7878,7 +7914,7 @@ const tencentCloudChat = {
             });
         });
     },
-    cancel:function({...p}){
+    cancel:function(){
         const param = arguments[0];
         const finalParam = compareParam('cancel',param);
         if("error" in finalParam){
@@ -7899,7 +7935,7 @@ const tencentCloudChat = {
             });
         });
     },
-    accept:function({...p}){
+    accept:function(){
         const param = arguments[0];
         const finalParam = compareParam('accept',param);
         if("error" in finalParam){
@@ -7920,7 +7956,7 @@ const tencentCloudChat = {
             });
         });
     },
-    reject:function({...p}){
+    reject:function(){
         const param = arguments[0];
         const finalParam = compareParam('reject',param);
         if("error" in finalParam){
@@ -7941,7 +7977,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getSignalingInfo:function({...p}){
+    getSignalingInfo:function(){
         const param = arguments[0];
         const finalParam = compareParam('getSignalingInfo',param);
         if("error" in finalParam){
@@ -7962,7 +7998,7 @@ const tencentCloudChat = {
             });
         });
     },
-    addInvitedSignaling:function({...p}){
+    addInvitedSignaling:function(){
         const param = arguments[0];
         const finalParam = compareParam('addInvitedSignaling',param);
         if("error" in finalParam){
@@ -7983,7 +8019,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getConversationList:function({...p}){
+    getConversationList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getConversationList',param);
         if("error" in finalParam){
@@ -8004,7 +8040,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getConversationListByConversaionIds:function({...p}){
+    getConversationListByConversaionIds:function(){
         const param = arguments[0];
         const finalParam = compareParam('getConversationListByConversaionIds',param);
         if("error" in finalParam){
@@ -8025,7 +8061,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getConversation:function({...p}){
+    getConversation:function(){
         const param = arguments[0];
         const finalParam = compareParam('getConversation',param);
         if("error" in finalParam){
@@ -8046,7 +8082,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getConversationListByFilter:function({...p}){
+    getConversationListByFilter:function(){
         const param = arguments[0];
         const finalParam = compareParam('getConversationListByFilter',param);
         if("error" in finalParam){
@@ -8067,7 +8103,7 @@ const tencentCloudChat = {
             });
         });
     },
-    deleteConversation:function({...p}){
+    deleteConversation:function(){
         const param = arguments[0];
         const finalParam = compareParam('deleteConversation',param);
         if("error" in finalParam){
@@ -8088,7 +8124,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setConversationDraft:function({...p}){
+    setConversationDraft:function(){
         const param = arguments[0];
         const finalParam = compareParam('setConversationDraft',param);
         if("error" in finalParam){
@@ -8109,7 +8145,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setConversationCustomData:function({...p}){
+    setConversationCustomData:function(){
         const param = arguments[0];
         const finalParam = compareParam('setConversationCustomData',param);
         if("error" in finalParam){
@@ -8130,7 +8166,7 @@ const tencentCloudChat = {
             });
         });
     },
-    pinConversation:function({...p}){
+    pinConversation:function(){
         const param = arguments[0];
         const finalParam = compareParam('pinConversation',param);
         if("error" in finalParam){
@@ -8151,7 +8187,7 @@ const tencentCloudChat = {
             });
         });
     },
-    markConversation:function({...p}){
+    markConversation:function(){
         const param = arguments[0];
         const finalParam = compareParam('markConversation',param);
         if("error" in finalParam){
@@ -8172,7 +8208,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getTotalUnreadMessageCount:function({...p}){
+    getTotalUnreadMessageCount:function(){
         const param = arguments[0];
         const finalParam = compareParam('getTotalUnreadMessageCount',param);
         if("error" in finalParam){
@@ -8193,7 +8229,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createConversationGroup:function({...p}){
+    createConversationGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('createConversationGroup',param);
         if("error" in finalParam){
@@ -8214,7 +8250,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getConversationGroupList:function({...p}){
+    getConversationGroupList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getConversationGroupList',param);
         if("error" in finalParam){
@@ -8235,7 +8271,7 @@ const tencentCloudChat = {
             });
         });
     },
-    deleteConversationGroup:function({...p}){
+    deleteConversationGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('deleteConversationGroup',param);
         if("error" in finalParam){
@@ -8256,7 +8292,7 @@ const tencentCloudChat = {
             });
         });
     },
-    renameConversationGroup:function({...p}){
+    renameConversationGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('renameConversationGroup',param);
         if("error" in finalParam){
@@ -8277,7 +8313,7 @@ const tencentCloudChat = {
             });
         });
     },
-    addConversationsToGroup:function({...p}){
+    addConversationsToGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('addConversationsToGroup',param);
         if("error" in finalParam){
@@ -8298,7 +8334,7 @@ const tencentCloudChat = {
             });
         });
     },
-    deleteConversationsFromGroup:function({...p}){
+    deleteConversationsFromGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('deleteConversationsFromGroup',param);
         if("error" in finalParam){
@@ -8319,7 +8355,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getFriendList:function({...p}){
+    getFriendList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getFriendList',param);
         if("error" in finalParam){
@@ -8340,7 +8376,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getFriendsInfo:function({...p}){
+    getFriendsInfo:function(){
         const param = arguments[0];
         const finalParam = compareParam('getFriendsInfo',param);
         if("error" in finalParam){
@@ -8361,7 +8397,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setFriendInfo:function({...p}){
+    setFriendInfo:function(){
         const param = arguments[0];
         const finalParam = compareParam('setFriendInfo',param);
         if("error" in finalParam){
@@ -8382,7 +8418,7 @@ const tencentCloudChat = {
             });
         });
     },
-    searchFriends:function({...p}){
+    searchFriends:function(){
         const param = arguments[0];
         const finalParam = compareParam('searchFriends',param);
         if("error" in finalParam){
@@ -8403,7 +8439,7 @@ const tencentCloudChat = {
             });
         });
     },
-    addFriend:function({...p}){
+    addFriend:function(){
         const param = arguments[0];
         const finalParam = compareParam('addFriend',param);
         if("error" in finalParam){
@@ -8424,7 +8460,7 @@ const tencentCloudChat = {
             });
         });
     },
-    deleteFromFriendList:function({...p}){
+    deleteFromFriendList:function(){
         const param = arguments[0];
         const finalParam = compareParam('deleteFromFriendList',param);
         if("error" in finalParam){
@@ -8445,7 +8481,7 @@ const tencentCloudChat = {
             });
         });
     },
-    checkFriend:function({...p}){
+    checkFriend:function(){
         const param = arguments[0];
         const finalParam = compareParam('checkFriend',param);
         if("error" in finalParam){
@@ -8466,7 +8502,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getFriendApplicationList:function({...p}){
+    getFriendApplicationList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getFriendApplicationList',param);
         if("error" in finalParam){
@@ -8487,7 +8523,7 @@ const tencentCloudChat = {
             });
         });
     },
-    acceptFriendApplication:function({...p}){
+    acceptFriendApplication:function(){
         const param = arguments[0];
         const finalParam = compareParam('acceptFriendApplication',param);
         if("error" in finalParam){
@@ -8508,7 +8544,7 @@ const tencentCloudChat = {
             });
         });
     },
-    refuseFriendApplication:function({...p}){
+    refuseFriendApplication:function(){
         const param = arguments[0];
         const finalParam = compareParam('refuseFriendApplication',param);
         if("error" in finalParam){
@@ -8529,7 +8565,7 @@ const tencentCloudChat = {
             });
         });
     },
-    deleteFriendApplication:function({...p}){
+    deleteFriendApplication:function(){
         const param = arguments[0];
         const finalParam = compareParam('deleteFriendApplication',param);
         if("error" in finalParam){
@@ -8550,7 +8586,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setFriendApplicationRead:function({...p}){
+    setFriendApplicationRead:function(){
         const param = arguments[0];
         const finalParam = compareParam('setFriendApplicationRead',param);
         if("error" in finalParam){
@@ -8571,7 +8607,7 @@ const tencentCloudChat = {
             });
         });
     },
-    addToBlackList:function({...p}){
+    addToBlackList:function(){
         const param = arguments[0];
         const finalParam = compareParam('addToBlackList',param);
         if("error" in finalParam){
@@ -8592,7 +8628,7 @@ const tencentCloudChat = {
             });
         });
     },
-    deleteFromBlackList:function({...p}){
+    deleteFromBlackList:function(){
         const param = arguments[0];
         const finalParam = compareParam('deleteFromBlackList',param);
         if("error" in finalParam){
@@ -8613,7 +8649,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getBlackList:function({...p}){
+    getBlackList:function(){
         const param = arguments[0];
         const finalParam = compareParam('getBlackList',param);
         if("error" in finalParam){
@@ -8634,7 +8670,7 @@ const tencentCloudChat = {
             });
         });
     },
-    createFriendGroup:function({...p}){
+    createFriendGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('createFriendGroup',param);
         if("error" in finalParam){
@@ -8655,7 +8691,7 @@ const tencentCloudChat = {
             });
         });
     },
-    getFriendGroups:function({...p}){
+    getFriendGroups:function(){
         const param = arguments[0];
         const finalParam = compareParam('getFriendGroups',param);
         if("error" in finalParam){
@@ -8676,7 +8712,7 @@ const tencentCloudChat = {
             });
         });
     },
-    deleteFriendGroup:function({...p}){
+    deleteFriendGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('deleteFriendGroup',param);
         if("error" in finalParam){
@@ -8697,7 +8733,7 @@ const tencentCloudChat = {
             });
         });
     },
-    renameFriendGroup:function({...p}){
+    renameFriendGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('renameFriendGroup',param);
         if("error" in finalParam){
@@ -8718,7 +8754,7 @@ const tencentCloudChat = {
             });
         });
     },
-    addFriendsToFriendGroup:function({...p}){
+    addFriendsToFriendGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('addFriendsToFriendGroup',param);
         if("error" in finalParam){
@@ -8739,7 +8775,7 @@ const tencentCloudChat = {
             });
         });
     },
-    deleteFriendsFromFriendGroup:function({...p}){
+    deleteFriendsFromFriendGroup:function(){
         const param = arguments[0];
         const finalParam = compareParam('deleteFriendsFromFriendGroup',param);
         if("error" in finalParam){
@@ -8760,7 +8796,7 @@ const tencentCloudChat = {
             });
         });
     },
-    setOfflinePushConfig:function({...p}){
+    setOfflinePushConfig:function(){
         const param = arguments[0];
         const finalParam = compareParam('setOfflinePushConfig',param);
         if("error" in finalParam){
@@ -8781,7 +8817,7 @@ const tencentCloudChat = {
             });
         });
     },
-    doBackground:function({...p}){
+    doBackground:function(){
         const param = arguments[0];
         const finalParam = compareParam('doBackground',param);
         if("error" in finalParam){
@@ -8802,7 +8838,7 @@ const tencentCloudChat = {
             });
         });
     },
-    doForeground:function({...p}){
+    doForeground:function(){
         const param = arguments[0];
         const finalParam = compareParam('doForeground',param);
         if("error" in finalParam){
