@@ -84,6 +84,9 @@ IM Demo包含完整的聊天功能，代码已开源，如果您需要实现聊�
 ## 引入模块
 1. 在您的项目中引入`tencentCloudChatSDK`模块。
    ![](https://qcloudimg.tencent-cloud.cn/raw/8adb7906308852b00ba6cfbf19a99a5c.png)
+>编译报错：/Users/yonbuilder/uzmap/temp/qKD11F22q9b0znx/ios/UZApp.xcodeproj:warning:The ios deployment target'IPHONEOS_DEPLOYMENT_TARGET'issetto9.0,but the range of supported deployment target
+>解决方法：用友控制台 - 进入app - 移动打包 - 高级设置 - 固件要求 iOS改为11.0
+versions is 11.0 to 16.4.99.
 2. 在您的项目中引入`tencentCloudChatH5`模块。
    - 控制台 > 点击您的项目 > 模块 > 模块库 > 搜索tencentCloudChatH5并加入到您的项目中
   > `tencentCloudChatSDK`模块 为纯js模块，为了更方便的使用`tencentCloudChatSDK`模块，推荐您与`tencentCloudChatH5`模块结合使用。
@@ -410,6 +413,8 @@ let listener = new conversationListener({
     onConversationGroupNameChanged:function(data){}, //会话分组名变更
     onConversationsAddedToGroup:function(data){}, //会话分组新增会话
     onConversationsDeletedFromGroup:function(data){}, //会话分组删除会话
+    onConversationDeleted:function(data){},//会话删除
+    onUnreadMessageCountChangedByFilter:function(data){}, // 根据 filter 过滤的未读消息总数变更通知
 })
 ```
 ##### 返回值
@@ -490,16 +495,18 @@ let listener = new signalingListener({
 |接口名|功能|接口名|功能|接口名|功能|
 |---|---|---|---|---|---|
 |<a href = "#addAdvancedMsgListener">addAdvancedMsgListener</a>|添加高级消息的事件监听器|<a href = "#removeAdvancedMsgListener">removeAdvancedMsgListener</a>|移除高级消息的事件监听器|<a href = "#createTextMessage">createTextMessage</a>|创建文本消息|
-|<a href = "#createTextAtMessage">createTextAtMessage</a>|附带 @ 提醒功能|<a href = "#createCustomMessage">createCustomMessage</a>|创建自定义消息|<a href = "#createImageMessage">createImageMessage</a>|创建图片消息|
+|<a href = "#createTextAtMessage">createTextAtMessage</a>|附带 @ 提醒功能(带废弃)|<a href = "#createCustomMessage">createCustomMessage</a>|创建自定义消息|<a href = "#createImageMessage">createImageMessage</a>|创建图片消息|
 |<a href = "#createSoundMessage">createSoundMessage</a>|创建语音消息|<a href = "#createVideoMessage">createVideoMessage</a>|创建视频消息|<a href = "#createFileMessage">createFileMessage</a>|创建文件消息|
 |<a href = "#createLocationMessage">createLocationMessage</a>|创建地理位置消息|<a href = "#createFaceMessage">createFaceMessage</a>|创建表情消息|<a href = "#createMergerMessage">createMergerMessage</a>|创建合并消息|
-|<a href = "#createForwardMessage">createForwardMessage</a>|创建转发消息|<a href = "#createTargetedGroupMessage">createTargetedGroupMessage</a>|创建定向群消息|<a href = "#sendMessage">sendMessage</a>|发送高级消息|
+|<a href = "#createForwardMessage">createForwardMessage</a>|创建转发消息|<a href = "#createTargetedGroupMessage">createTargetedGroupMessage</a>|创建定向群消息|<a href = "#createAtSignedGroupMessage">createAtSignedGroupMessage</a>|创建带 @ 标记的群消息|
+|<a href = "#sendMessage">sendMessage</a>|发送高级消息|<a href = "#sendReplyMessage">sendReplyMessage</a>|发送回复消息（引用消息）|
 |<a href = "#setC2CReceiveMessageOpt">setC2CReceiveMessageOpt</a>|设置针对某个用户的 C2C 消息接收选项|<a href = "#getC2CReceiveMessageOpt">getC2CReceiveMessageOpt</a>|查询针对某个用户的 C2C 消息接收选项|<a href = "#setGroupReceiveMessageOpt">setGroupReceiveMessageOpt</a>|设置群消息的接收选项|
 |<a href = "#getC2CHistoryMessageList">getC2CHistoryMessageList</a>|获取单聊历史消息|<a href = "#getGroupHistoryMessageList">getGroupHistoryMessageList</a>|获取群组历史消息|<a href = "#getHistoryMessageList">getHistoryMessageList</a>|获取历史消息高级接口|
 |<a href = "#revokeMessage">revokeMessage</a>|撤回消息|<a href = "#modifyMessage">modifyMessage</a>|消息变更|<a href = "#markC2CMessageAsRead">markC2CMessageAsRead</a>|标记单聊会话已读|
 |<a href = "#markGroupMessageAsRead">markGroupMessageAsRead</a>|标记群组会话已读|<a href = "#markAllMessageAsRead">markAllMessageAsRead</a>|标记所有会话为已读|<a href = "#deleteMessageFromLocalStorage">deleteMessageFromLocalStorage</a>|删除本地消息|
 |<a href = "#clearC2CHistoryMessage">clearC2CHistoryMessage</a>|清空单聊本地及云端的消息|<a href = "#clearGroupHistoryMessage">clearGroupHistoryMessage</a>|清空群聊本地及云端的消息|<a href = "#insertGroupMessageToLocalStorage">insertGroupMessageToLocalStorage</a>|向群组消息列表中添加一条消息|
 |<a href = "#insertC2CMessageToLocalStorage">insertC2CMessageToLocalStorage</a>|向C2C消息列表中添加一条消息|<a href = "#findMessages">findMessages</a>|查询指定会话中的本地消息|<a href = "#searchLocalMessages">searchLocalMessages</a>|搜索本地消息|
+|<a href = "#searchCloudMessages">searchCloudMessages</a>|搜索云端消息|
 |<a href = "#sendMessageReadReceipts">sendMessageReadReceipts</a>|发送消息已读回执|<a href = "#getMessageReadReceipts">getMessageReadReceipts</a>|获取消息已读回执|<a href = "#getGroupMessageReadMemberList">getGroupMessageReadMemberList</a>|获取群消息已读群成员列表|
 |<a href = "#setMessageExtensions">setMessageExtensions</a>|设置消息扩展|<a href = "#getMessageExtensions">getMessageExtensions</a>|获取消息扩展|<a href = "#deleteMessageExtensions">deleteMessageExtensions</a>|删除消息扩展|
 |<a href = "#downloadMessage">downloadMessage</a>|下载消息|<a href = "#getMessageOnlineUrl">getMessageOnlineUrl</a>|获取消息下载地址|<a href = "#downloadMergerMessage">downloadMergerMessage</a>|下载合并消息|
@@ -516,7 +523,8 @@ let listener = new signalingListener({
 |<a href = "#transferGroupOwner">transferGroupOwner</a>|转让群主|<a href = "#getGroupApplicationList">getGroupApplicationList</a>|获取加群申请列表|<a href = "#acceptGroupApplication">acceptGroupApplication</a>|同意某一条加群申请|
 |<a href = "#refuseGroupApplication">refuseGroupApplication</a>|拒绝某一条加群申请|<a href = "#setGroupApplicationRead">setGroupApplicationRead</a>|标记申请列表为已读|<a href = "#getJoinedCommunityList">getJoinedCommunityList</a>|获取当前用户已经加入的支持话题的社群列表|
 |<a href = "#createTopicInCommunity">createTopicInCommunity</a>|创建话题|<a href = "#deleteTopicFromCommunity">deleteTopicFromCommunity</a>|删除话题|<a href = "#setTopicInfo">setTopicInfo</a>|修改话题信息|
-|<a href = "#getTopicInfoList">getTopicInfoList</a>|获取话题列表|
+|<a href = "#getTopicInfoList">getTopicInfoList</a>|获取话题列表|<a href = "#setGroupCounters">setGroupCounters</a>|设置群计数器|<a href = "#getGroupCounters">getGroupCounters</a>|获取群计数器|
+|<a href = "#increaseGroupCounter">increaseGroupCounter</a>|增加群计数器|<a href = "#decreaseGroupCounter">decreaseGroupCounter</a>|递减群计数器|
 
 ### V2TIMSignalingManager
 |接口名|功能|接口名|功能|接口名|功能|
@@ -534,6 +542,8 @@ let listener = new signalingListener({
 |<a href = "#pinConversation">pinConversation</a>|设置会话置顶|<a href = "#markConversation">markConversation</a>|标记会话|<a href = "#getTotalUnreadMessageCount">getTotalUnreadMessageCount</a>|获取会话未读总数|
 |<a href = "#createConversationGroup">createConversationGroup</a>|创建会话分组|<a href = "#getConversationGroupList">getConversationGroupList</a>|获取会话分组列表|<a href = "#deleteConversationGroup">deleteConversationGroup</a>|删除会话分组|
 |<a href = "#renameConversationGroup">renameConversationGroup</a>|重命名会话分组|<a href = "#addConversationsToGroup">addConversationsToGroup</a>|添加会话到一个会话分组|<a href = "#deleteConversationsFromGroup">deleteConversationsFromGroup</a>|从一个会话分组中删除会话|
+|<a href = "#deleteConversationList">deleteConversationList</a>|删除会话列表|<a href = "#getUnreadMessageCountByFilter">getUnreadMessageCountByFilter</a>|按会话 filter 过滤的未读总数|<a href="#subscribeUnreadMessageCountByFilter">subscribeUnreadMessageCountByFilter</a>|注册监听指定 filter 的会话未读总数变化|
+|<a href="#unsubscribeUnreadMessageCountByFilter">unsubscribeUnreadMessageCountByFilter</a>|取消监听指定 filter 的会话未读总数变化|<a href="#cleanConversationUnreadMessageCount">cleanConversationUnreadMessageCount</a>|清理会话的未读消息计数|
 
 ### V2TIMFriendshipManager
 |接口名|功能|接口名|功能|接口名|功能|
@@ -1064,10 +1074,12 @@ await tencentCloudChat.removeGroupListener(listener)
     isAllMuted: //选填，布尔
     isSupportTopic: //选填，布尔
     memberListMap: //选填，[V2TIMCreateGroupMemberInfo]列表
+    approveOpt: //选填 设置邀请进群时管理员的审批选项，创建群和修改群信息都可以设置。 除工作群（Work）之外的其他群类型默认值都为 V2TIM_GROUP_ADD_FORBID，即默认不允许邀请入群，您可以修改该字段打开邀请入群方式。 直播群、社群和话题默认不允许邀请入群，也不支持修改。 参考[enum] V2TIM_GroupAdd
 }
 ```
 
 > 自定义群组 ID 必须为可打印 ASCII 字符（0x20-0x7e），最长48个字节，且前缀不能为 @TGS（避免与默认分配的群组 ID 混淆）
+> 
 参考：
 <a href = "#V2TIM_GroupType">V2TIM_GroupType</a>
 <a href = "#V2TIMGroupInfo">V2TIMGroupInfo</a>
@@ -1616,7 +1628,7 @@ let data = await tencentCloudChat.createTextMessage({"text":"1"})
 
 #### createTextAtMessage
 
-2.2 创建文本消息，并且可以附带 @ 提醒功能
+创建文本消息，并且可以附带 @ 提醒功能 (待废弃)
 
 ##### params
 
@@ -2111,6 +2123,41 @@ error:
 let data = await tencentCloudChat.createTargetedGroupMessage({"index":0,"data":""})
 ```
 
+<a id = "createAtSignedGroupMessage"></a>
+
+#### createAtSignedGroupMessage
+如果您需要发送的群消息附带 @ 提醒功能，可以创建一条带 @ 标记的群消息。
+
+##### params
+```js
+{
+    msgID: //string
+    atUserList: //string[],如果需要 @ALL，请传入 kImSDK_MesssageAtALL 常量字符串。 举个例子，假设该条消息希望@提醒 denny 和 lucy 两个用户，同时又希望@所有人，atUserList 传 @["denny",@"lucy",kImSDK_MesssageAtALL]
+}
+```
+> atUserList 使用注意事项:
+> 1. 默认情况下，最多支持 @ 30个用户，超过限制后，消息会发送失败。
+> 2. atUserList 的总数不能超过默认最大数，包括 @ALL。
+> 3. 直播群（AVChatRoom）不支持发送 @ 消息。
+
+##### callback
+```js
+succcess:
+{
+    code:
+    data:{
+        id://messageID
+        messageInfo://V2TIMMessage
+    },
+    desc:""
+}
+```
+
+##### 代码示例
+```js
+let data = await tencentCloudChat.createAtSignedGroupMessage({msgID:"",atUserList:[""]})
+```
+
 <a id = "sendMessage"></a>
 
 #### sendMessage
@@ -2169,6 +2216,61 @@ error:
 ```js
 let data = await tencentCloudChat.sendMessage({"id":"","groupID":""})
 ```
+
+<a id="sendReplyMessage"></a>
+
+#### sendReplyMessage
+
+发送回复消息（引用消息）
+> 回复的消息为已发送消息，在新发送的回复消息中的cloudCustomData保存。
+
+##### params
+
+```js
+{
+   id:string,//createMessage函数中返回的ID
+   receiver:string, //选填接收者ID，在发送C2C消息时填写
+   groupID:string, //选填群组ID，在发送群组消息时填写
+   replyMessage: V2TIMMessage //必填，要回复的信息
+   priority:int, //选填，V2TIM_Priority
+   onlineUserOnly:boolean, //选填，是否只有在线用户才能收到，如果设置为 true ，接收方历史消息拉取不到，常被用于实现“对方正在输入”或群组里的非重要提示等弱提示功能，该字段不支持 AVChatRoom。
+   localCustomData:string, //选填，消息自定义数据，可以用来标记语音、视频消息是否已经播放（本地保存，不会发送到对端，程序卸载重装后失效）
+   isExcludedFromUnreadCount:boolean, //选填，消息是否不计入会话未读数：默认为 false，表明需要计入会话未读数，设置为 true，表明不需要计入会话未读数。会议群（Meeting）默认不支持
+   isExcludedFromLastMessage:boolean, //选填，获取消息是否不计入会话 lastMessage
+   isSupportMessageExtension:boolean, //选填，设置支持消息扩展（需要您购买旗舰版套餐）直播群（AVChatRoom）消息不支持该功能。 您需要先到 IM 控制台配置该功能。
+   needReadReceipt:boolean, //选填，消息是否需要已读回执。群聊消息需要您先到 IM 控制台配置支持已读回执的群类型。单聊消息支持该特性。群聊消息和单聊消息都需要购买旗舰版套餐包。
+   offlinePushInfo:V2TIMOfflinePushInfo, // 选填，离线推送时携带的标题和内容。
+}
+```
+
+###### callback
+
+```js
+success:
+// 只列出data里的字段
+{
+    code:0, 
+    data: //V2TIMMessage,
+    desc:"",
+}
+error:
+{
+    code:, //错误码
+    data:"",
+    desc:"",//错误描述
+}
+```
+
+参考：
+<a href = "#V2TIMMessage">V2TIMMessage</a>
+<a href = "#V2TIM_Priority">V2TIM_Priority</a>
+
+##### 代码示例
+
+```js
+let data = await tencentCloudChat.sendReplyMessage({"id":"","groupID":""})
+```
+
 
 <a id = "setC2CReceiveMessageOpt"></a>
 
@@ -2405,6 +2507,7 @@ let data = await tencentCloudChat.getGroupHistoryMessageList({"count":1,"groupID
     count:int, //必填
     lastMsgSeq:long, //// 选填，拉取群消息的起始 sequence。
     messageTypeList:int[] //// 选填，V2TIM_GetType[],拉取的消息类型集合，getType 为 V2TIM_GET_LOCAL_OLDER_MSG 和 V2TIM_GET_LOCAL_NEWER_MSG 有效，传 null 表示拉取全部类型消息
+    messageSeqList:int[] //选填，拉取群组历史消息时，支持按照消息序列号 seq 拉取
 }
 ```
 
@@ -2417,6 +2520,12 @@ let data = await tencentCloudChat.getGroupHistoryMessageList({"count":1,"groupID
 > - 当起始消息和时间范围都存在时，结果集可理解成：「单独按起始消息拉取的结果」与「单独按时间范围拉取的结果」 取交集；
 > - 当起始消息和时间范围都不存在时，结果集可理解成：从当前会话最新的一条消息开始，按照 getType 所指定的方向和拉取方式拉取。
 
+> messageSeqList 仅拉取群组历史消息时有效；
+> - 消息序列号 seq 可以通过 V2TIMMessage 对象的 seq 字段获取；
+> - 当 getType 设置为从云端拉取时，会将本地存储消息列表与云端存储消息列表合并后返回；如果无网络，则直接返回本地消息列表；
+> - 当 getType 设置为从本地拉取时，直接返回本地的消息列表；
+> - 当 getType 设置为拉取更旧的消息时，消息列表按照时间逆序，也即消息按照时间戳从大往小的顺序排序；
+> - 当 getType 设置为拉取更新的消息时，消息列表按照时间顺序，也即消息按照时间戳从小往大的顺序排序。
 ##### callback
 
 ```js
@@ -2893,7 +3002,7 @@ let data = await tencentCloudChat.findMessages({"messageIDList":[""]})
 {
     searchParam:{
         keywordList://字符串列表，关键字列表，最多支持5个。当消息发送者以及消息类型均未指定时，关键字列表必须非空；否则，关键字列表可以为空。
-        conversationID: //选填，搜索“全部会话”还是搜索“指定的会话”：如果设置 conversationID == null，代表搜索全部会话。如果设置 conversationID != null，代表搜索指定会话。
+        conversationID: //选填，搜索“全部会话”还是搜索“指定的会话”：如果设置 conversationID == null，代表搜索全部会话。如果设置 conversationID != null，代表搜索指定会话。需要在会话ID 前加c2c_或group_ 前缀
         messageTypeList: //选填，V2TIM_ElemType[],指定搜索的消息类型集合，传 null 表示搜索支持的全部类型消息（V2TIMFaceElem 和 V2TIMGroupTipsElem 不支持）。
         type: //选填，V2TIM_KeywordListMatchType
         pageSize: //选填，每页结果数量：用于分页展示查找结果，如不希望分页可将其设置成 0，但如果结果太多，可能会带来性能问题。
@@ -2946,11 +3055,81 @@ error:
 let data = await tencentCloudChat.searchLocalMessages({"searchParam":{"keywordList":[""]}})
 ```
 
+<a id = "searchCloudMessages"></a>
+
+#### searchCloudMessages
+搜索云端消息
+
+> 该功能为 IM 增值功能
+##### params
+
+```js
+{
+    searchParam:{
+        keywordList://字符串列表，关键字列表，最多支持5个。当消息发送者以及消息类型均未指定时，关键字列表必须非空；否则，关键字列表可以为空。
+        conversationID: //选填，搜索“全部会话”还是搜索“指定的会话”：如果设置 conversationID == null，代表搜索全部会话。如果设置 conversationID != null，代表搜索指定会话。需要在会话ID 前加c2c_或group_ 前缀
+        messageTypeList: //选填，V2TIM_ElemType[],指定搜索的消息类型集合，传 null 表示搜索支持的全部类型消息（V2TIMFaceElem 和 V2TIMGroupTipsElem 不支持）。
+        type: //选填，V2TIM_KeywordListMatchType
+        pageSize: //选填，每页结果数量：用于分页展示查找结果，如不希望分页可将其设置成 0，但如果结果太多，可能会带来性能问题。
+        searchTimePosition: //选填，搜索的起始时间点。默认为0即代表从现在开始搜索。UTC 时间戳，单位：秒
+        pageIndex: //选填，分页的页号：用于分页展示查找结果，从零开始起步。
+        searchTimePeriod://选填，从起始时间点开始的过去时间范围，单位秒。默认为0即代表不限制时间范围，传24x60x60代表过去一天。
+        userIDList: //选填，指定 userID 发送的消息，最多支持5个。
+    }
+}
+```
+
+参考：
+<a href = "#V2TIM_ElemType">V2TIM_ElemType</a>
+<a href = "#V2TIM_KeywordListMatchType">V2TIM_KeywordListMatchType</a>
+
+> pageIndex:  
+> 分页的页号：用于分页展示查找结果，从零开始起步。 比如：您希望每页展示 10 条结果，请按照如下规则调用：
+> 
+> - 首次调用：通过参数 pageSize = 10, pageIndex = 0 调用 searchLocalMessage，从结果回调中的 totalCount 可以>获知总共有多少条结果。
+> - 计算页数：可以获知总页数：totalPage = (totalCount % pageSize == 0) ? (totalCount / pageSize) : >(totalCount / pageSize + 1) 。
+> - 再次调用：可以通过指定参数 pageIndex （pageIndex < totalPage）返回后续页号的结果。
+
+##### callback
+
+```js
+success:
+// 只列出data里的字段
+{
+    code:0, 
+    data:{
+        totalCount:int
+        messageSearchResultItems: // V2TIMMessageSearchResultItem[]
+    },
+    desc:"",
+}
+error:
+{
+    code:, //错误码
+    data:"",
+    desc:"",//错误描述
+}
+```
+
+参考：
+<a href = "#V2TIMMessageSearchResultItem">V2TIMMessageSearchResultItem</a>
+
+##### 代码示例
+
+```js
+let data = await tencentCloudChat.searchCloudMessages({"searchParam":{"keywordList":[""]}})
+```
+
 <a id = "sendMessageReadReceipts"></a>
 
 #### sendMessageReadReceipts
 
 发送消息已读回执（6.1 及其以上版本支持
+
+> 该功能为旗舰版功能，购买旗舰版套餐包后可使用
+> 向群消息发送已读回执，需要您先到控制台打开对应的开关，详情参考文档 群消息已读回执 。
+> messageList 里的消息必须在同一个会话中。
+> 该接口调用成功后，会话未读数不会变化，消息发送者会收到 onRecvMessageReadReceipts 回调，回调里面会携带消息的最新已读信息。
 
 ##### params
 
@@ -2988,7 +3167,11 @@ let data = await tencentCloudChat.sendMessageReadReceipts({"messageIDList":[""]}
 
 #### getMessageReadReceipts
 
-5.18 获取消息已读回执（6.1 及其以上版本支持）
+获取消息已读回执
+
+> 该功能为旗舰版功能，购买旗舰版套餐包后可使用，详见价格说明。
+> 获取群消息已读回执，需要您先到控制台打开对应的开关，详情参考文档 群消息已读回执 。
+> messageList 里的消息必须在同一个会话中。
 
 ##### params
 
@@ -3029,7 +3212,10 @@ let data = await tencentCloudChat.getMessageReadReceipts({"messageIDList":[""]})
 
 #### getGroupMessageReadMemberList
 
-获取群消息已读群成员列表（6.1 及其以上版本支持
+获取群消息已读群成员列表
+
+> 该功能为旗舰版功能，购买旗舰版套餐包后可使用，详见价格说明。
+> 使用该功能之前，请您先到控制台打开对应的开关
 
 ###### params
 
@@ -3078,6 +3264,10 @@ let data = await tencentCloudChat.getGroupMessageReadMemberList({"messageID":""}
 #### setMessageExtensions
 
 设置消息扩展（6.7 及其以上版本支持，需要您购买旗舰版套餐
+
+> 扩展 key 最大支持 100 字节，扩展 value 最大支持 1KB，单次最大支持设置 20 个扩展，单条消息最多可设置 300 个扩展。
+> 当多个用户同时设置同一个扩展 key 时，只有第一个用户可以执行成功，其它用户会收到 23001 错误码和更新后的拓展信息，在收到错误码和最新扩展信息后，请按需重新发起设置操作。
+> 我们强烈建议不同的用户设置不同的扩展 key，这样大部分场景都不会冲突，比如投票、接龙、问卷调查，都可以把自己的 userID 作为扩展 key。
 
 ##### params
 
@@ -3165,6 +3355,7 @@ let data = await tencentCloudChat.getMessageExtensions({"msgID":""})
 #### deleteMessageExtensions
 
 删除消息扩展（6.7 及其以上版本支持，需要您购买旗舰版套餐）
+> 当多个用户同时设置或删除同一个扩展 key 时，只有第一个用户可以执行成功，其它用户会收到 23001 错误码和最新的扩展信息，在收到错误码和扩展信息后，请按需重新发起删除操作。
 
 ##### params
 
@@ -3509,6 +3700,15 @@ let data = await tencentCloudChat.setGroupInfo({"groupID":"","groupType":"work"}
 
 初始化群属性，会清空原有的群属性列表
 
+> 从 7.0 版本开始，除了话题外，群属性支持所有的群类型；
+> key 最多支持 16 个，长度限制为 32 字节；
+> value 长度限制为 4k；
+> 总的 attributes（包括 key 和 value）限制为 16k；
+> initGroupAttributes、setGroupAttributes、deleteGroupAttributes 接口合并计算， SDK 限制为 5 秒 10 次，超过后回调 8511 错误码；后台限制 1 秒 5 次，超过后返回 10049 错误码；
+> getGroupAttributes 接口 SDK 限制 5 秒 20 次；
+> 从 5.6 版本开始，当每次APP启动后初次修改群属性时，请您先调用 getGroupAttributes 拉取到最新的群属性之后，再发起修改操作；
+> 从 5.6 版本开始，当多个用户同时修改同一个群属性时，只有第一个用户可以执行成功，其它用户会收到 10056 错误码；收到这个错误码之后，请您调用 getGroupAttributes 把本地保存的群属性更新到最新之后，再发起修改操作。
+
 ##### params
 
 ```js
@@ -3668,6 +3868,8 @@ let data = await tencentCloudChat.getGroupAttributes({"groupID":"","keys":["keys
 #### getGroupOnlineMemberCount
 
  获取指定群在线人数
+ >  支持所有群类型。
+
 
 ##### params
 
@@ -3706,6 +3908,15 @@ let data = await tencentCloudChat.getGroupOnlineMemberCount({"groupID":""})
 #### getGroupMemberList
 
 获取群成员列表
+
+> 注意：
+> 普通群（工作群、会议群、公开群、社群）的限制：
+    filter 只能设置为 V2TIMGroupMemberFullInfo 定义的数值，SDK 会返回指定角色的成员。
+直播群（AVChatRoom）的限制：
+    1. 如果设置 filter 为 SDK 定义的数值，SDK 返回全部成员。返回的人数规则为：拉取最近入群群成员最多 1000 人，新进来的成员排在前面。需要升级旗舰版，并且在 控制台 开启“直播群在线成员列表”开关（6.3 及以上版本支持）。
+    2. 如果设置 filter 为群成员自定义标记，旗舰版支持拉取指定标记的成员列表。标记群成员的设置请参考 markGroupMemberList API。
+    3. 程序重启后，请重新加入群组，否则拉取群成员会报 10007 错误码。
+    4. 群成员资料信息仅支持 userID | nickName | faceURL | role 字段。
 
 ##### params
 
@@ -3971,11 +4182,12 @@ let data = await tencentCloudChat.inviteUserToGroup({"groupID":"groupid","userLi
 
 ##### params
 
-```
+```js
 {
     groupID:string,
     memberList:string[],
-    reason:string
+    reason:string,
+    duration :// 设置一个时长参数，用于指定用户从被踢出群组开始算起，禁止重新申请加群的时长
 }
 ```
 
@@ -4006,7 +4218,7 @@ error:
 ##### 代码示例
 
 ```js
-let data = await tencentCloudChat.kickGroupMember({"groupID":"groupid","memberList":["userid"],"reason":"reason"})
+let data = await tencentCloudChat.kickGroupMember({"groupID":"groupid","memberList":["userid"],"reason":"reason",duration:0})
 ```
 
 <a id = "setGroupMemberRole"></a>
@@ -4512,6 +4724,125 @@ error:
 let data = await tencentCloudChat.getTopicInfoList({"groupID":"groupid","topicIDList":["topicid"]})
 ```
 
+<a id="setGroupCounters"></a>
+
+#### setGroupCounters
+设置群计数器
+> 该计数器的 key 如果存在，则直接更新计数器的 value 值；如果不存在，则添加该计数器的 key-value；
+>当群计数器设置成功后，在 succ 回调中会返回最终成功设置的群计数器信息；
+>除了社群和话题，群计数器支持所有的群组类型。
+
+##### params
+```js
+{
+    groupID:
+    counters: //Map<string,number>
+}
+```
+
+##### callback
+```js
+success:
+{
+    data:[{
+        //key:value
+    }]
+}
+```
+
+##### 代码示例
+```js
+let data = await tencentCloudChat.setGroupCounters({groupID:"",counters:{key:0}})
+```
+
+<a id="getGroupCounters"></a>
+
+#### getGroupoCounters
+获取群计数器
+>如果 keys 为空，则表示获取群内的所有计数器；
+> 除了社群和话题，群计数器支持所有的群组类型。
+
+##### params
+```js
+{
+    groupID:
+    keys:[]
+}
+```
+##### callback
+```js
+success:
+{
+    data:[{
+        //key:value
+    }]
+}
+```
+
+##### 代码示例
+```js
+let data = await tencentCloudChat.getGroupCounters({groupID:"",keys:["key"]})
+```
+
+<a id = "increaseGroupCounter"></a>
+
+#### increaseGroupCounter
+递增群计数器
+> 成功后的回调，会返回当前计数器做完递增操作后的 value
+>该计数器的 key 如果存在，则直接在当前值的基础上根据传入的 value 作递增操作；反之，添加 key，并在默认值为 0 的基础上根据传入的 value 作递增操作；
+>除了社群和话题，群计数器支持所有的群组类型。
+
+##### params
+```js
+{
+    groupID:
+    key:
+    value: // 群计数器的递增的变化量，计数器 key 对应的 value 变更方式为： new_value = old_value + value
+}
+```
+##### callback
+```js
+success:
+{
+    data:[{
+        //key:value
+    }]
+}
+```
+
+##### 代码示例
+```js
+let data = await tencentCloudChat.increaseGroupCounter({groupID:"",key:"",value:1})
+```
+
+<a id= "decreaseGroupCounter"></a>
+
+#### decreaseGroupCounter
+递减群计数器
+##### params
+```js
+{
+    groupID:
+    key:
+    value: // 群计数器的递增的变化量，计数器 key 对应的 value 变更方式为： new_value = old_value - value
+}
+```
+##### callback
+```js
+success:
+{
+    data:[{
+        //key:value
+    }]
+}
+```
+
+##### 代码示例
+```js
+let data = await tencentCloudChat.decreaseGroupCounter({groupID:"",key:"",value:1})
+```
+
+
 ### V2TIMSignalingManager
 
 
@@ -4960,6 +5291,8 @@ let listener = new conversationListener({
     onConversationGroupNameChanged:function(data){}, //会话分组名变更
     onConversationsAddedToGroup:function(data){}, //会话分组新增会话
     onConversationsDeletedFromGroup:function(data){}, //会话分组删除会话
+    onConversationDeleted:function(data){},//会话删除
+    onUnreadMessageCountChangedByFilter:function(data){}, // 根据 filter 过滤的未读消息总数变更通知
 })
 ```
 
@@ -5010,6 +5343,8 @@ let listener = new conversationListener({
     onConversationGroupNameChanged:function(data){}, //会话分组名变更
     onConversationsAddedToGroup:function(data){}, //会话分组新增会话
     onConversationsDeletedFromGroup:function(data){}, //会话分组删除会话
+    onConversationDeleted:function(data){},//会话删除
+    onUnreadMessageCountChangedByFilter:function(data){}, // 根据 filter 过滤的未读消息总数变更通知
 })
 ```
 
@@ -5193,6 +5528,8 @@ let data = await tencentCloudChat.getConversation({conversationID:"conversationi
         nextSeq://选填
         count:
         markType: //选填，V2TIM_ConversationMarkType
+        hasUnreadCount: // 设置为 true 时返回包含未读数的会话；设置为 false 时返回所有会话
+        hasGroupAtInfo:// 设置为 true 时返回包含群 @ 消息的会话；设置为 false 时返回所有会话
     }
 }
 ```
@@ -5707,6 +6044,169 @@ error:
 ```js
 let data = await tencentCloudChat.deleteConversationsFromGroup({groupName:"groupname",conversationIDList:["conversationid"]})
 ```
+
+<a id = "deleteConversationList"></a>
+
+#### deleteConversationList
+
+删除会话列表
+> 每次最多支持删除 100 个会话
+
+##### params
+```js
+{
+    conversationIDList:[] // 会话唯一 ID 列表，C2C 单聊组成方式为: String.format("c2c_%s", "userID")；群聊组成方式为: String.format("group_%s", "groupID")
+    clearMessage: // 	是否删除会话中的消息；设置为 false 时，保留会话消息；设置为 true 时，本地和服务器的消息会一起删除，并且不可恢复
+}
+```
+
+##### callback
+```js
+success:
+{
+    data:""
+}
+```
+
+##### 代码示例
+```js
+let data = await tencentCloudChat.deleteConversationList({conversationIDList:[],clearMessage:false})
+```
+
+<a id = "getUnreadMessageCountByFilter"></a>
+
+#### getUnreadMessageCountByFilter
+
+获取按会话 filter 过滤的未读总数
+
+> 未读总数会减去设置为免打扰的会话的未读数，即消息接收选项设置为 V2TIMMessage.V2TIM_NOT_RECEIVE_MESSAGE 或 V2TIMMessage.V2TIM_RECEIVE_NOT_NOTIFY_MESSAGE 的会话。
+
+##### params
+```js
+{
+    filter:{
+        conversationType: //number 设置会话类型(填 0 代表不过滤此项)
+        markType: // number 设置标记类型，取值详见 V2TIMConversation(填 0 代表不过滤此项)
+        groupName: //string 设置会话分组名称(填 null 代表不过滤此项)
+        hasUnreadCount: //boolean 设置为 true 时返回包含未读数的会话；设置为 false 时返回所有会话
+        hasGroupAtInfo: //boolean 设置为 true 时返回包含群 @ 消息的会话；设置为 false 时返回所有会话
+    }
+}
+```
+
+##### callback
+```js
+success:
+{   
+    data: //number
+}
+```
+
+##### 代码示例
+```js
+let data = await tencentCloudChat.getUnreadMessageCountByFilter({filter:{groupName:""}})
+```
+
+<a id="subscribeUnreadMessageCountByFilter"></a>
+
+#### subscribeUnreadMessageCountByFilter
+注册监听指定 filter 的会话未读总数变化
+> 当您调用这个接口以后，该 filter 下的未读数发生变化时，SDK 会给您抛 onUnreadMessageCountChangedByFilter 回调。
+
+##### params
+```js
+{
+    filter:{
+        conversationType: //number 设置会话类型(填 0 代表不过滤此项)
+        markType: // number 设置标记类型，取值详见 V2TIMConversation(填 0 代表不过滤此项)
+        groupName: //string 设置会话分组名称(填 null 代表不过滤此项)
+        hasUnreadCount: //boolean 设置为 true 时返回包含未读数的会话；设置为 false 时返回所有会话
+        hasGroupAtInfo: //boolean 设置为 true 时返回包含群 @ 消息的会话；设置为 false 时返回所有会话
+    }
+}
+```
+##### callback
+```js
+success:
+{   
+    data:""
+}
+```
+
+##### 代码示例
+```js
+let data = await tencentCloudChat.subscribeUnreadMessageCountByFilter({filter:{groupName:""}})
+```
+
+<a id = "unsubscribeUnreadMessageCountByFilter"></a>
+
+#### unsubscribeUnreadMessageCountByFilter
+
+取消监听指定 filter 的会话未读总数变化
+##### params
+```js
+{
+    filter:{
+        conversationType: //number 设置会话类型(填 0 代表不过滤此项)
+        markType: // number 设置标记类型，取值详见 V2TIMConversation(填 0 代表不过滤此项)
+        groupName: //string 设置会话分组名称(填 null 代表不过滤此项)
+        hasUnreadCount: //boolean 设置为 true 时返回包含未读数的会话；设置为 false 时返回所有会话
+        hasGroupAtInfo: //boolean 设置为 true 时返回包含群 @ 消息的会话；设置为 false 时返回所有会话
+    }
+}
+```
+##### callback
+```js
+success:
+{   
+    data:""
+}
+```
+
+##### 代码示例
+```js
+let data = await tencentCloudChat.unsubscribeUnreadMessageCountByFilter({filter:{groupName:""}})
+```
+
+<a id = "cleanConversationUnreadMessageCount"></a>
+
+#### cleanConversationUnreadMessageCount
+
+清理会话的未读消息计数
+
+>当您想清理所有单聊会话的未读消息计数，conversationID 请传入 "c2c"，即不指定具体的 userID；
+>当您想清理所有群聊会话的未读消息计数，conversationID 请传入 "group"，即不指定具体的 groupID；
+>当您想清理所有会话的未读消息计数，conversationID 请传入 "" 或者 null；
+>该接口调用成功后，SDK 会通过 onConversationChanged 回调将对应会话的最新未读数通知给您。
+
+##### params
+```js
+{
+    conversationID: //string, 会话唯一 ID， C2C 单聊组成方式为: String.format("c2c_%s", "userID")；群聊组成方式为: String.format("group_%s", "groupID")
+    cleanTimestamp: //number, 清理时间戳，单位为秒，仅对单聊会话生效，指定清理哪一个 timestamp 之前的未读消息计数；当传入为 0 时，对应会话所有的未读消息将被清理，会话的未读数会清 0
+    cleanSequence: //number, 清理 sequence，仅对群聊会话生效，指定清理哪一个 sequence 之前的未读消息计数；当传入为 0 时，对应会话所有的未读消息将被清理，会话的未读数会清 0
+}
+```
+
+> 当您想清理所有单聊会话的未读消息计数，conversationID 请传入 "c2c"，即不指定具体的 userID；
+> 当您想清理所有群聊会话的未读消息计数，conversationID 请传入 "group"，即不指定具体的 groupID；
+> 当您想清理所有会话的未读消息计数，conversationID 请传入 "" 或者 null；
+> 该接口调用成功后，SDK 会通过 onConversationChanged 回调将对应会话的最新未读数通知给您。
+>
+##### callback
+```js
+success:
+{   
+    data:""
+}
+```
+
+##### 代码示例
+```js
+let data = await tencentCloudChat.cleanConversationUnreadMessageCount({filter:{groupName:""}})
+```
+
+
 ### V2TIMFriendshipManager
 
 <a id = "addFriendListener"></a>
@@ -7040,6 +7540,7 @@ var tencentCloudChatSDK = api.require("tencentCloudChatSDK")
 }
 ```
 
+
 <a id = "V2TIM_GroupMemberRole"></a>
 
 ### V2TIM_GroupMemberRole
@@ -7720,6 +8221,22 @@ SDK 连接腾讯云服务器失败
 参考：
 <a href = "#V2TIMTopicInfo"></a>
 
+
+#### onGroupCounterChanged
+某个已加入的群的计数器被修改了，会返回当前变更的群计数器
+```js
+{
+    method: "groupListener",
+    type:"onTopicInfoChanged",
+    data:{
+        groupID: //字符串，群 ID
+        key:
+        newValue
+    },
+    listenerUuid:"",
+}
+```
+
 <a id = "V2TIMAdvancedMsgListener"></a>
 
 ### V2TIMAdvancedMsgListener
@@ -8123,6 +8640,45 @@ C2C 对端用户会话已读通知（如果对端用户调用 markC2CMessageAsRe
 参考：
 <a href = "#V2TIMConversation">V2TIMConversation</a>
 <a id = "V2TIMFriendshipListener"></a>
+
+#### onConversationDeleted
+
+会话被删除的通知
+
+> conversationIDList 表示被删除会话唯一 ID 列表。C2C 单聊组成方式为: String.format("c2c_%s", "userID")；群聊组成方式为: String.format("group_%s", "groupID")
+```js
+{
+    method: "conversationListener",
+    type:"onConversationsDeleted",
+    data:[] , //conversationIDList
+    listenerUuid:
+}
+```
+
+#### onUnreadMessageCountChangedByFilter
+根据 filter 过滤的未读消息总数变更通知
+> 1. 您可以调用 subscribeUnreadMessageCountByFilter 注册监听指定 filter 下的未读总数变化，SDK 通过这个回调把最新的未读总数通知给您。
+>2. 您可以注册监听多个不同 filter 下的未读总数变化，这个回调的 filter 参数就是注册监听时指定的 filter，该 filter 携带了 conversationType、conversationGroup 和 markType 三个字段，通过判断这三字段是不是都相同，来区分出不同的 filter。
+>3. 未读总数会减去设置为免打扰的会话的未读数，即消息接收选项设置为 V2TIMMessage.V2TIM_NOT_RECEIVE_MESSAGE 或 V2TIMMessage.V2TIM_RECEIVE_NOT_NOTIFY_MESSAGE 的会话。
+
+```js
+{
+    method: "conversationListener",
+    type:"onConversationsDeleted",
+    data:{
+        filter:{
+            conversationType:
+            markType:
+            groupName:
+            hasUnreadCount:
+            hasGroupAtInfo:
+        },
+        totalUnreadCount:
+    },
+    listenerUuid:
+}
+```
+
 
 ### V2TIMFriendshipListener
 关系链监听器
@@ -8604,7 +9160,10 @@ C2C 对端用户会话已读通知（如果对端用户调用 markC2CMessageAsRe
     AndroidSound://字符串，离线推送声音设置（仅对 Android 生效, IMSDK 6.1 及以上版本支持）。 只有华为和谷歌手机支持设置声音提示，小米手机设置声音提示，请您参照：https://dev.mi.com/console/doc/detail?pId=1278%23_3_0 另外，谷歌手机 FCM 推送在 Android 8.0 及以上系统设置声音提示，必须调用 setAndroidFCMChannelID 设置好 channelID，才能生效。	Android 工程里 raw 目录中的铃声文件名，不需要后缀名。
     AndroidOPPOChannelID: //字符串，离线推送设置 OPPO 手机 8.0 系统及以上的渠道 ID。
     IOSPushType: //number, iOS 离线推送的类型（仅对 iOS 生效）0:普通的 APNs 推送; 1：VoIP 推送，默认取值为 IOS_OFFLINE_PUSH_TYPE_APNS
-
+    AndroidFCMChannelID: //string, 离线推送设置 FCM 通道手机 8.0 系统及以上的渠道 ID。
+    AndroidXiaoMiChannelID: //string,离线推送设置小米手机 8.0 系统及以上的渠道 ID。
+    AndroidVIVOCategory://string,离线推送设置 VIVO 推送消息类别，详见：https://dev.vivo.com.cn/documentCenter/doc/359。(VIVO 推送服务于 2023 年 4 月 3 日优化消息分类规则，推荐使用 setAndroidVIVOCategory 设置消息类别，不需要再关注和设置 setAndroidVIVOClassification)
+    AndroidHuaWeiCategory://离线推送设置华为推送消息分类，详见：https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-classification-0000001149358835
 }
 ```
 
@@ -8678,6 +9237,7 @@ C2C 对端用户会话已读通知（如果对端用户调用 markC2CMessageAsRe
     addOpt: // 数字
     isAllMuted: //布尔
     isSupportTopic: //布尔
+    approveOpt://数字
 }
 ```
 
@@ -8860,4 +9420,4 @@ C2C 对端用户会话已读通知（如果对端用户调用 markC2CMessageAsRe
 <a id = "qrcode"></a>
 
 ## 开发群
-<img src="https://qcloudimg.tencent-cloud.cn/raw/f348789d03975dc153a6203b8744f335.jpg" width="50%"></img>
+若在接入、开发过程中有任何问题，可以进入 [腾讯云通信知聊](https://zhiliao.qq.com/) 询问

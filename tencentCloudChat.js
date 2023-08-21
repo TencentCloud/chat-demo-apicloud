@@ -428,6 +428,18 @@ const V2TIMOfflinePushInfo = {
         type:"number",
         desc:"iOS 离线推送的类型（仅对 iOS 生效"
     },
+    AndroidFCMChannelID:{
+        type:"string"
+    },
+    AndroidXiaoMiChannelID:{
+        type:"string"
+    },
+    AndroidVIVOCategory:{
+        type:"string"
+    },
+    AndroidHuaWeiCategory:{
+        type:"string"
+    }
 };
 
  const V2TIMMessage = {
@@ -1304,6 +1316,16 @@ const V2TIMGroupAtInfo = {
                 default:[],
                 desc:"初始的群成员",
             },
+            approveOpt:{
+                type:"number",
+                required:false,
+                default:null,
+                option:{
+                    0:"不允许加群",
+                    1:"任何人都可以加群",
+                    2:"加群需要群主或管理员审批"
+                }
+            }
         },
         response:{
             data:{
@@ -1868,6 +1890,36 @@ const V2TIMGroupAtInfo = {
             }
         }
     },
+    createAtSignedGroupMessage:{
+        param:{
+            msgID:{
+                type:"string",
+                required:true,
+                desc:""
+            },
+            atUserList:{
+                type:"Array",
+                arrayType:"string",
+                required:true,
+                desc:""
+            },
+        },
+        response:{
+            data:{
+                type:"object",
+                component:{
+                  id:{
+                    type:"string",
+                    desc:"message ID"
+                  },
+                  messageInfo:{
+                    type:V2TIMMessage
+                  }  
+                },
+                desc:""
+            }
+        }
+    },
     sendMessage:{
         param:{
             id:{
@@ -1910,6 +1962,92 @@ const V2TIMGroupAtInfo = {
                 required:false,
                 default:"",
                 desc:"云端自定义数据"
+            },
+            localCustomData:{
+                type:"string",
+                required:false,
+                default:"",
+                default:"消息自定义数据"
+            },
+            isExcludedFromUnreadCount:{
+                type:"boolean",
+                required:false,
+                default:false,
+                desc:"消息是否不计入会话未读数"
+            },
+            isExcludedFromLastMessage:{
+                type:"boolean",
+                required:false,
+                default:false,
+                desc:"获取消息是否不计入会话 "
+            },
+            isSupportMessageExtension:{
+                type:"boolean",
+                required:false,
+                default:false,
+                desc:"设置支持消息扩展（需要您购买旗舰版套餐）"
+            },
+            needReadReceipt:{
+                type:"boolean",
+                required:false,
+                default:false,
+                desc:"消息是否需要已读回执"
+            },
+            offlinePushInfo:{
+                type:V2TIMOfflinePushInfo,
+                required:false,
+                default:{}
+            }
+        },
+        response:{
+            data:{
+                type:V2TIMMessage,
+                desc:""
+            }
+        }
+    },
+    sendReplyMessage:{
+        param:{
+            id:{
+                type:"string",
+                required:true,
+                desc:""
+            },
+            receiver:{
+                type:"string",
+                required:false,
+                default:null,
+                desc:""
+            },
+            groupID:{
+                type:"string",
+                required:false,
+                default:null,
+                desc:""
+            },
+            replyMessage:{
+                type:"object",
+                required:true,
+                default:"",
+                desc:"回复的消息"
+            },
+            priority:{
+                type:"number",
+                required:false,
+                default:0,
+                option:{
+                    0:"default",
+                    1:"high",
+                    2:"normal",
+                    3:"low"
+                },
+                desc:""
+            },
+            onlineUserOnly:{
+                type:"boolean",
+                required:false,
+                default:false,
+                desc:""
             },
             localCustomData:{
                 type:"string",
@@ -2184,6 +2322,12 @@ const V2TIMGroupAtInfo = {
                 },
                 desc:"拉取的消息类型集合"
             },
+            messageSeqList:{
+                type:"Array",
+                arrayType:"number",
+                required:false,
+                default:null
+            }
         },
         response:{
             data:{
@@ -2477,6 +2621,106 @@ const V2TIMGroupAtInfo = {
                         arrayType:"string",
                         required:false,
                         default:null,
+                        des:""
+                    },
+                },
+                desc:""
+            },
+        },
+        response:{
+            data:{
+                type:"object",
+                component:{
+                    totalCount:{
+                        type:"number"
+                    },
+                    messageSearchResultItems:{
+                        type:"Array",
+                        arrayType:V2TIMMessageSearchResultItem
+                    }
+                },
+                desc:""
+            }
+        }
+    },
+    searchCloudMessages:{
+        param:{
+            searchParam:{
+                type:"object",
+                required:true,
+                component:{
+                    keywordList:{
+                        type:"Array",
+                        arrayType:"string",
+                        required:false,
+                        default:null,
+                        des:""
+                    },
+                    conversationID:{
+                        type:"string",
+                        required:false,
+                        default:null,
+                        des:""
+                    },
+                    messageTypeList:{
+                        type:"Array",
+                        arrayType:"number",
+                        required:false,
+                        option:{
+                            1:"text",
+                            2:"custom",
+                            3:"image",
+                            4:"sound",
+                            5:"video",
+                            6:"file",
+                            7:"location",
+                            8:"face",
+                            9:"group tips",
+                            10:"merger"
+                        },
+                        default:[],
+                        des:""
+                    },
+                    type:{
+                        type:"number",
+                        required:false,
+                        default:0,
+                        option:{
+                            0:"or",
+                            1:"and"
+                        },
+                        des:""
+                    },
+                    pageSize:{
+                        type:"number",
+                        required:false,
+                        default:0,
+                        des:""
+                    },
+                    searchTimePosition:{
+                        type:"number",
+                        required:false,
+                        default:0,
+                        des:""
+                    },
+                    pageIndex:{
+                        type:"number",
+                        required:false,
+                        default:0,
+                        des:""
+                    },
+                    searchTimePeriod:{
+                        type:"Array",
+                        arrayType:"string",
+                        required:false,
+                        default:0,
+                        des:""
+                    },
+                    userIDList:{
+                        type:"Array",
+                        arrayType:"string",
+                        required:false,
+                        default:[],
                         des:""
                     },
                 },
@@ -2811,6 +3055,87 @@ const V2TIMGroupAtInfo = {
             }
         }
     },
+    setGroupCounters:{
+        param:{
+            groupID:{
+                type:"string",
+                required:true,
+                desc:""
+            },
+            counters:{
+                type:"object",
+                required:true
+            }
+        },
+        response:{
+            data:{
+                type:"object"
+            }
+        }
+    },
+    getGroupCounters:{
+        param:{
+            groupID:{
+                type:"string",
+                required:true,
+                desc:""
+            },
+            keys:{
+                type:"Array",
+                arrayType:"string",
+                required:true
+            }
+        },
+        response:{
+            data:{
+                type:"object"
+            }
+        }
+    },
+    increaseGroupCounter:{
+        param:{
+            groupID:{
+                type:"string",
+                required:true,
+                desc:""
+            },
+            key:{
+                type:"string",
+                required:true
+            },
+            value:{
+                type:"number",
+                required:true
+            }
+        },
+        response:{
+            data:{
+                type:"object"
+            }
+        }
+    },
+    decreaseGroupCounter:{
+        param:{
+            groupID:{
+                type:"string",
+                required:true,
+                desc:""
+            },
+            key:{
+                type:"string",
+                required:true
+            },
+            value:{
+                type:"number",
+                required:true
+            }
+        },
+        response:{
+            data:{
+                type:"object"
+            }
+        }
+    },
     getGroupMemberList:{
         param:{
             groupID:{
@@ -3012,6 +3337,11 @@ const V2TIMGroupAtInfo = {
                 required:true,
                 desc:""
             },
+            duration:{
+                type:"number",
+                required:false,
+                default:0
+            }
         },
         response:{
             data:{
@@ -3530,6 +3860,16 @@ const V2TIMGroupAtInfo = {
                         required:false,
                         default:0
                     },
+                    hasUnreadCount:{
+                        type:"boolean",
+                        required:false,
+                        default:false
+                    },
+                    hasGroupAtInfo:{
+                        type:"boolean",
+                        required:false,
+                        default:false
+                    }
                 }
             }
         },
@@ -3563,6 +3903,25 @@ const V2TIMGroupAtInfo = {
             data:{
                 type:"string",
                 desc:""
+            }
+        }
+    },
+    deleteConversationList:{
+        param:{
+            conversationIDList:{
+                type:"Array",
+                arrayType:"string",
+                required:true
+            },
+            clearMessage:{
+                type:"boolean",
+                required:true
+            }
+        },
+        response:{
+            data:{
+                type:"Array",
+                arrayType:V2TIMConversationResult
             }
         }
     },
@@ -3653,6 +4012,112 @@ const V2TIMGroupAtInfo = {
                 type:"number",
                 desc:""
             }
+        }
+    },
+    getUnreadMessageCountByFilter:{
+        param:{
+            filter:{
+                type:"object",
+                required:true,
+                component:{
+                    conversationType:{
+                        type:"number"
+                    },
+                    markType:{
+                        type:"number"
+                    },
+                    groupName:{
+                        type:"string"
+                    },
+                    hasUnreadCount:{
+                        type:"boolean"
+                    },
+                    hasGroupAtInfo:{
+                        type:"boolean"
+                    }
+                }
+            }
+        },
+        response:{
+            data:{
+                type:"number",
+                desc:""
+            }
+        }
+    },
+    subscribeUnreadMessageCountByFilter:{
+        param:{
+            filter:{
+                type:"object",
+                required:true,
+                component:{
+                    conversationType:{
+                        type:"number"
+                    },
+                    markType:{
+                        type:"number"
+                    },
+                    groupName:{
+                        type:"string"
+                    },
+                    hasUnreadCount:{
+                        type:"boolean"
+                    },
+                    hasGroupAtInfo:{
+                        type:"boolean"
+                    }
+                }
+            }
+        },
+        response:{
+            data:{}
+        }
+    },
+    unsubscribeUnreadMessageCountByFilter:{
+        param:{
+            filter:{
+                type:"object",
+                required:true,
+                component:{
+                    conversationType:{
+                        type:"number"
+                    },
+                    markType:{
+                        type:"number"
+                    },
+                    groupName:{
+                        type:"string"
+                    },
+                    hasUnreadCount:{
+                        type:"boolean"
+                    },
+                    hasGroupAtInfo:{
+                        type:"boolean"
+                    }
+                }
+            }
+        },
+        response:{
+            data:{}
+        }
+    },
+    cleanConversationUnreadMessageCount:{
+        param:{
+            conversationID:{
+                type:"string",
+                required:true
+            },
+            cleanTimeStamp:{
+                type:"number",
+                required:true
+            },
+            cleanSequence:{
+                type:"number",
+                required:true
+            }
+        },
+        response:{
+            data:{}
         }
     },
     createConversationGroup:{
@@ -4618,6 +5083,24 @@ const listeners = {
                     type:"string",
                 }
             },
+            onGroupCounterChanged:{
+                method:"groupListener",
+                type:"onGroupCounterChanged",
+                data:{
+                    type:"object",
+                    component:{
+                        groupID:{
+                            type:"string"
+                        },
+                        key:{
+                            type:"string"
+                        },
+                        newValue:{
+                            type:"number"
+                        }
+                    }
+                }
+            }
         }
     },
     addAdvancedMsgListener:{
@@ -5060,6 +5543,36 @@ const listeners = {
                     type:"string",
                 }
             },
+            onConversationDeleted:{
+                method:"conversationListener",
+                type:"onConversationDeleted",
+                data:{
+                    type:"Array",
+                    component:"string",
+                    desc:"删除的会话ID列表"
+                },
+                listenerUuid:{
+                    type:"string"
+                }
+            },
+            onUnreadMessageCountChangedByFilter:{
+                method:"conversationListener",
+                type:"onUnreadMessageCountChangedByFilter",
+                data:{
+                    type:"object",
+                    component:{
+                        filter:{
+                            type:"V2TIMConversationListFilter"
+                        },
+                        totalUnreadCount:{
+                            type:"number"
+                        }
+                    }
+                },
+                listenerUuid:{
+                    type:"string"
+                }
+            }
         }
     },
     addFriendListener:{
@@ -5567,6 +6080,12 @@ function sortListenerType(data,listener){
             }
             break;
         }
+        case "onGroupCounterChanged":{
+            if(listener.onGroupCounterChanged != null){
+                listener.onGroupCounterChanged(data);
+            }
+            break;
+        }
         case "onFriendApplicationListAdded":{
             if(listener.onFriendApplicationListAdded != null){
                 listener.onFriendApplicationListAdded(data);
@@ -5681,6 +6200,18 @@ function sortListenerType(data,listener){
             }
             break;
         }
+        case "onConversationDeleted":{
+            if(listener.onConversationDeleted != null){
+                listener.onConversationDeleted(data);
+            }
+            break;
+        }
+        case "onUnreadMessageCountChangedByFilter":{
+            if(listener.onUnreadMessageCountChangedByFilter != null){
+                listener.onUnreadMessageCountChangedByFilter(data);
+            }
+            break;
+        }
     }
 }
 
@@ -5725,6 +6256,7 @@ class groupListener{
         onTopicCreated = null,
         onTopicDeleted = null,
         onTopicInfoChanged = null,
+        onGroupCounterChanged = null,
     }){
         this.count = randomString(6);
         this.onMemberEnter = onMemberEnter;
@@ -5746,6 +6278,7 @@ class groupListener{
         this.onTopicCreated = onTopicCreated;
         this.onTopicDeleted = onTopicDeleted;
         this.onTopicInfoChanged = onTopicInfoChanged;
+        this.onGroupCounterChanged = onGroupCounterChanged;
     }
 };
 
@@ -5785,6 +6318,8 @@ class conversationListener{
         onConversationGroupNameChanged = null,
         onConversationsAddedToGroup = null,
         onConversationsDeletedFromGroup = null,
+        onConversationDeleted = null,
+        onUnreadMessageCountChangedByFilter = null,
     }){
         this.count = randomString(6);
         this.onSyncServerStart = onSyncServerStart;
@@ -5798,6 +6333,8 @@ class conversationListener{
         this.onConversationGroupNameChanged = onConversationGroupNameChanged;
         this.onConversationsAddedToGroup = onConversationsAddedToGroup;
         this.onConversationsDeletedFromGroup = onConversationsDeletedFromGroup;
+        this.onConversationDeleted = onConversationDeleted;
+        this.onUnreadMessageCountChangedByFilter = onUnreadMessageCountChangedByFilter;
     }
 };
 
@@ -6675,6 +7212,27 @@ const tencentCloudChat = {
             });
         });
     },
+    createAtSignedGroupMessage:function(){
+        const param = arguments[0];
+        const finalParam = compareParam('createAtSignedGroupMessage',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            const result = addResponseType('createAtSignedGroupMessage');
+            this.tencentCloudChatSDK.createAtSignedGroupMessage(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
+    },
     sendMessage:function(){
         const param = arguments[0];
         const finalParam = compareParam('sendMessage',param);
@@ -6686,6 +7244,27 @@ const tencentCloudChat = {
         return new Promise((resolve,reject)=>{
             const result = addResponseType('sendMessage');
             this.tencentCloudChatSDK.sendMessage(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
+    },
+    sendReplyMessage:function(){
+        const param = arguments[0];
+        const finalParam = compareParam('sendReplyMessage',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            const result = addResponseType('sendReplyMessage');
+            this.tencentCloudChatSDK.sendReplyMessage(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
@@ -7116,6 +7695,27 @@ const tencentCloudChat = {
             });
         });
     },
+    searchCloudMessages:function(){
+        const param = arguments[0];
+        const finalParam = compareParam('searchCloudMessages',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            const result = addResponseType('searchCloudMessages');
+            this.tencentCloudChatSDK.searchCloudMessages(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
+    },
     sendMessageReadReceipts:function(){
         const param = arguments[0];
         const finalParam = compareParam('sendMessageReadReceipts',param);
@@ -7463,6 +8063,90 @@ const tencentCloudChat = {
         return new Promise((resolve,reject)=>{
             const result = addResponseType('getGroupOnlineMemberCount');
             this.tencentCloudChatSDK.getGroupOnlineMemberCount(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
+    },
+    setGroupCounters:function(){
+        const param = arguments[0];
+        const finalParam = compareParam('setGroupCounters',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            const result = addResponseType('setGroupCounters');
+            this.tencentCloudChatSDK.setGroupCounters(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
+    },
+    getGroupCounters:function(){
+        const param = arguments[0];
+        const finalParam = compareParam('getGroupCounters',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            const result = addResponseType('getGroupCounters');
+            this.tencentCloudChatSDK.getGroupCounters(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
+    },
+    increaseGroupCounter:function(){
+        const param = arguments[0];
+        const finalParam = compareParam('increaseGroupCounter',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            const result = addResponseType('increaseGroupCounter');
+            this.tencentCloudChatSDK.increaseGroupCounter(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
+    },
+    decreaseGroupCounter:function(){
+        const param = arguments[0];
+        const finalParam = compareParam('decreaseGroupCounter',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            const result = addResponseType('decreaseGroupCounter');
+            this.tencentCloudChatSDK.decreaseGroupCounter(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
@@ -8124,6 +8808,27 @@ const tencentCloudChat = {
             });
         });
     },
+    deleteConversationList:function(){
+        const param = arguments[0];
+        const finalParam = compareParam('deleteConversationList',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            const result = addResponseType('deleteConversationList');
+            this.tencentCloudChatSDK.deleteConversationList (finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
+    },
     setConversationDraft:function(){
         const param = arguments[0];
         const finalParam = compareParam('setConversationDraft',param);
@@ -8219,6 +8924,90 @@ const tencentCloudChat = {
         return new Promise((resolve,reject)=>{
             const result = addResponseType('getTotalUnreadMessageCount');
             this.tencentCloudChatSDK.getTotalUnreadMessageCount(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
+    },
+    getUnreadMessageCountByFilter:function(){
+        const param = arguments[0];
+        const finalParam = compareParam('getUnreadMessageCountByFilter',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            const result = addResponseType('getUnreadMessageCountByFilter');
+            this.tencentCloudChatSDK.getUnreadMessageCountByFilter(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
+    },
+    subscribeUnreadMessageCountByFilter:function(){
+        const param = arguments[0];
+        const finalParam = compareParam('subscribeUnreadMessageCountByFilter',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            const result = addResponseType('subscribeUnreadMessageCountByFilter');
+            this.tencentCloudChatSDK.subscribeUnreadMessageCountByFilter(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
+    },
+    unsubscribeUnreadMessageCountByFilter:function(){
+        const param = arguments[0];
+        const finalParam = compareParam('unsubscribeUnreadMessageCountByFilter',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            const result = addResponseType('unsubscribeUnreadMessageCountByFilter');
+            this.tencentCloudChatSDK.unsubscribeUnreadMessageCountByFilter(finalParam,function(data,err){
+                if(err){
+                    console.log(JSON.stringify(err));
+                    reject(err);
+                }else{
+                    result.data = data ; 
+                    resolve(result);
+                }
+            });
+        });
+    },
+    cleanConversationUnreadMessageCount:function(){
+        const param = arguments[0];
+        const finalParam = compareParam('cleanConversationUnreadMessageCount',param);
+        if("error" in finalParam){
+            return new Promise((resolve,reject)=>{
+                reject(finalParam);
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            const result = addResponseType('cleanConversationUnreadMessageCount');
+            this.tencentCloudChatSDK.cleanConversationUnreadMessageCount(finalParam,function(data,err){
                 if(err){
                     console.log(JSON.stringify(err));
                     reject(err);
